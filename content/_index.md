@@ -14,7 +14,7 @@
 
 * a sucker for good coffee, snapbacks, and sneakers.
 
-* learning a bit of biology, psychology, economics, mimetic theory, and poker this year!
+* learning a bit of biology, psychology, economics, mimetic theory, and poker this year.
 
 * and an aspiring writer.
 
@@ -22,4 +22,4 @@
 
 Hit me up (I won't bite), if you think making friends as adults is hard :)  
 
-[Email 📧](mailto:hi@jidin.co)         ||          [Twitter 🐦](https://twitter.com/@JidinDinesh)
+[Email](mailto:hi@jidin.co)         ||          [Twitter](https://twitter.com/@JidinDinesh)
