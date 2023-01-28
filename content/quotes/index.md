@@ -128,4 +128,10 @@ date = "2022-09-18"
 "The late Richard Feynman, a superb physicist, said once as we talked about the laser that the way to tell a great idea is that, when people hear it, they say, 'Gee, I could have thought of that.'"
 {{< /blockquote >}}
 
+{{< blockquote author="Ingo Molnar" >}}
+"Don't forget that Linux became only possible because 20 years of OS research was carefully studied, analyzed, discussed and thrown away."
+{{< /blockquote >}}
 
+{{< blockquote author="James Cameron" >}}
+"Pick up a camera. Shoot something. No matter how small, no matter how cheesy, no matter whether your friends and your sister star in it. Put your name on it as director. Now you're a director. Everything after that you're just negotiating your budget and your fee."
+{{< /blockquote >}}
