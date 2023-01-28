@@ -1,4 +1,4 @@
-baseURL = '/'
+baseURL = ''
 languageCode = 'en-us'
 title = 'Jidin Dinesh'
 paginate = 1000
