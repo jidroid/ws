@@ -14,10 +14,6 @@
 
 * a sucker for good coffee, snapbacks, and sneakers.
 
-* learning a bit of biology, psychology, economics, mimetic theory, and poker this year.
-
-* and an aspiring writer.
-
 ### I'm counting on the serendipity of the internet to meet new and interesting folks. 
 
 Hit me up (I won't bite), if you think making friends as adults is hard :)  
