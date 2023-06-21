@@ -2,15 +2,12 @@
 
 👋 Hi, I’m Jidin.
 
-<img class="avatar" src="pic.png">
 
 *I am*
 
 * currently a product manager at [Phyllo](https://jidin.co/phyllo), building data infrastructure for the creator economy. 
 
 * also a backend software engineer passionate about distributed systems. 
-
-* bullish on the emergence of biology as the next great computing platform. 
 
 * a sucker for good coffee, snapbacks, and sneakers.
 
