@@ -7,7 +7,7 @@
 
 * currently a product manager at [Phyllo](https://jidin.co/phyllo), building data infrastructure for the creator economy. 
 
-* also a backend software engineer passionate about distributed systems. 
+* also a backend software engineer interested in databases, distributed systems, and machine learning. 
 
 * a sucker for good coffee, snapbacks, and sneakers.
 
