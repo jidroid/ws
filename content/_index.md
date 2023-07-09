@@ -1,7 +1,4 @@
-> # $whoami 
-
 👋 Hi, I’m Jidin.
-
 
 *I am*
 
