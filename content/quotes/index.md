@@ -8,6 +8,10 @@ date = "2022-09-18"
 "Doomed youth is romantic. Doomed middle age really isn't." 
 {{< /blockquote >}}
 
+{{< blockquote author="Ernest Lawrence to Oppenheimer" >}}
+"You’re not just self-important, you’re actually important." 
+{{< /blockquote >}}
+
 {{< blockquote author="Jan Houtema" >}}
 "Your twenties are always an apprenticeship, but you don't always know what for."
 {{< /blockquote >}}
