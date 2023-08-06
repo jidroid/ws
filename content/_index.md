@@ -10,6 +10,5 @@
 
 ### I'm counting on the serendipity of the internet to meet new and interesting folks. 
 
-Hit me up (I won't bite), if you think making friends as adults is hard :)  
+[Hit me up](mailto:hi@jidin.co) (I won't bite), if you think making friends as adults is hard :)  
 
-[Email](mailto:hi@jidin.co)         ||          [Twitter](https://twitter.com/@JidinDinesh)
