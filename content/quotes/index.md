@@ -16,6 +16,10 @@ date = "2022-09-18"
 "Your twenties are always an apprenticeship, but you don't always know what for."
 {{< /blockquote >}}
 
+{{< blockquote author="Kilgore Trout" >}}
+“Life is no way to treat an animal.”
+{{< /blockquote >}}
+
 {{< blockquote author="Seth Llyod" >}}
 "Nothing in life is certain except death, taxes and the second law of thermodynamics."
 {{< /blockquote >}}
