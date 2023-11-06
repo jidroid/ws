@@ -44,6 +44,10 @@ date = "2022-09-18"
 "There is no such thing as a new idea. It is impossible. We simply take a lot of old ideas and put them into a sort of mental kaleidoscope. We give them a turn and they make new and curious combinations. We keep on turning and making new combinations indefinitely; but they are the same old pieces of colored glass that have been in use through all the ages."
 {{< /blockquote >}}
 
+{{< blockquote author="Grace Murray Hopper" >}}
+"Life was simple before World War II. After that, we had systems."
+{{< /blockquote >}}
+
 {{< blockquote author="Albert Einstein" >}}
 "No amount of experimentation can ever prove me right; a single experiment can prove me wrong."
 {{< /blockquote >}}
