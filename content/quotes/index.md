@@ -8,6 +8,10 @@ date = "2022-09-18"
 "Doomed youth is romantic. Doomed middle age really isn't." 
 {{< /blockquote >}}
 
+{{< blockquote author="Pablo Picasso" >}}
+"Learn the rules like a pro, so you can break them like an artist." 
+{{< /blockquote >}}
+
 {{< blockquote author="Ernest Lawrence to Oppenheimer" >}}
 "You’re not just self-important, you’re actually important." 
 {{< /blockquote >}}
