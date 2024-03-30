@@ -8,6 +8,10 @@ date = "2022-09-18"
 "Doomed youth is romantic. Doomed middle age really isn't." 
 {{< /blockquote >}}
 
+{{< blockquote author="Thorsten Ball" >}}
+"Turns out, when you walk through life constantly wondering whether something would make for a good story, you’ll end up finding good stories." 
+{{< /blockquote >}}
+
 {{< blockquote author="Pablo Picasso" >}}
 "Learn the rules like a pro, so you can break them like an artist." 
 {{< /blockquote >}}
