@@ -12,6 +12,10 @@ date = "2022-09-18"
 "Turns out, when you walk through life constantly wondering whether something would make for a good story, you’ll end up finding good stories." 
 {{< /blockquote >}}
 
+{{< blockquote author="Kurt Vonnegut" >}}
+"What I had to say to you, moreover, would not take long, to wit: Practice any art, music, singing, dancing, acting, drawing, painting, sculpting, poetry, fiction, essays, reportage, no matter how well or badly, not to get money and fame, but to experience becoming, to find out what’s inside you, to make your soul grow." 
+{{< /blockquote >}}
+
 {{< blockquote author="Pablo Picasso" >}}
 "Learn the rules like a pro, so you can break them like an artist." 
 {{< /blockquote >}}
