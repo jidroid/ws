@@ -8,10 +8,12 @@
       {{ partial "header.html" . }}
       {{ .Content }}
       {{ if gt (len ( where .Site.RegularPages "Section" "blog" )) 0 }}
-      <h1>Latest Blog Posts</h1>
+      <h1>Latest Posts</h1>
       <section>
+        <!-- Loop through all blog posts, sorted by date in reverse order -->
         {{ range (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
           <p>
+            <!-- Display only the title with a link, no date -->
             <a href="{{ .Permalink }}">{{ .Title }}</a>
           </p>
         {{ end }}

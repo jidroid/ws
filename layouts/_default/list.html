@@ -4,19 +4,20 @@
 <body>
   <a class="skip-link" href="#main">Skip to main</a>
   <main id="main">
-  <div class="content">
-    {{ partial "header.html" . }}
-    <section>
-      <ul reversed class="list">
-        {{ range .Pages }}
-          <li>
-            <a class="link" href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}
-            </a>
-          </li>
-          {{ end }}
-      </ul>
-    </section>
-  </div>
-</main>
+    <div class="content">
+      {{ partial "header.html" . }}
+      {{ .Content }}
+      {{ if gt (len ( where .Site.RegularPages "Section" "blog" )) 0 }}
+      <section>
+        {{ range .Pages.ByDate.Reverse }}
+          <p class="post-title">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </p>
+          <!-- No date is displayed here -->
+        {{ end }}
+      </section>
+      {{ end }}
+    </div>
+  </main>
 </body>
 </html>

@@ -3,6 +3,7 @@ author : "Jidin Dinesh"
 title : "On joining Phyllo"
 url : "/phyllo"
 summary : "Building for the creator economy"
+date: "2022-05-17"
 ---
 
 {{< figure src="header.png" width="100%">}}
