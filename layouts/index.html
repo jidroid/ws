@@ -7,7 +7,15 @@
     <div class="content">
       {{ partial "header.html" . }}
       {{ .Content }}
-      {{ if gt (len ( where .Site.RegularPages "Section" "posts" )) 0 }}
+      {{ if gt (len ( where .Site.RegularPages "Section" "blog" )) 0 }}
+      <h1>Latest Blog Posts</h1>
+      <section>
+        {{ range (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
+          <p>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </p>
+        {{ end }}
+      </section>
       {{ end }}
     </div>
   </main>
