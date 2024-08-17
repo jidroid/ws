@@ -1,5 +1,5 @@
-# Hey, I’m Jidin 👋
+# hey, i’m jidin 👋
 
-I'm into databases, distributed systems, machine learning, startups, and writing. 
+i'm into databases, distributed systems, machine learning, startups, and writing. 
 
-Counting on the serendipity of internet to meet interesting folks, [hit me up](mailto:jd@jidin.co). 
+counting on the serendipity of internet to meet interesting folks, [hit me up](mailto:jd@jidin.co). 

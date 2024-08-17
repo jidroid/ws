@@ -1,6 +1,6 @@
 baseURL = ''
 languageCode = 'en-us'
-title = 'Jidin Dinesh'
+title = 'jidin.co'
 paginate = 1000
 theme = 'maverick'
 
@@ -16,7 +16,7 @@ theme = 'maverick'
 [menu]
   [[menu.main]]
     identifier = "quotes"
-    name = "Quotes"
+    name = "quotes"
     url = "/quotes/"
     weight = 1
 
