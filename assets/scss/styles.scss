@@ -4,88 +4,83 @@
 }
 
 body {
-    font: normal 20px/1.8 Proxima Nova,SF Pro Display,Helvetica Neue,Helvetica,serif;
-    padding: 2rem;
-    background:#fff;
-    color: #000;
+    font: normal 20px/1.8 "Proxima Nova", "SF Pro Display", "Helvetica Neue", Helvetica, serif;
+    padding: 3rem;
+    background:#121212; /* Dark gray background */
+    color: #E0E0E0; /* Light gray text color */
     font-size: 20px;
 }
 
 .skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  //margin: 1.5rem 0;
-  background: #eee;
-  //color: white;
-  //padding: 1.5rem;
-  z-index: 100;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #2b2b2b; /* Same background color */
+    color: #cccccc; /* Same text color */
+    z-index: 100;
 }
 
 .skip-link:focus {
-  top: 0;
+    top: 0;
 }
 
 h1, h2, h3, h4, h5, strong, b {
     font-size: inherit;
     font-weight: 700;
     font-size: 20px;
-    //text-transform: uppercase;
+    color: #ffffff; /* White for headers */
 }
 
 header {
-    //display: flex;
-    //justify-content: space-between;
-    //padding-bottom: 0.5rem;
     line-height: 2;
     padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .link {
-	//white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     text-decoration: none;
-    
+    color: #BB86FC; /* Same text color */
 }
 
 .time {
-	font-variant-numeric: tabular-nums;
-	white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
 }
 
 blockquote {
-    border-left: 5px solid #eee;
+    border-left: 5px solid #444444; /* Darker gray for blockquotes */
     padding-left: 1rem;
     margin: 0;
+    color: #cccccc; /* Same text color */
 }
 
-a
-a:visited {
-    color: inherit;
-    
+a, a:visited {
+    color: #00CED1 /* Same text color */
 }
 
 a:hover,
 a.heading-link {
-    text-decoration: none
+    text-decoration: none;
+    color: #ffffff; /* White on hover */
 }
 
 pre {
     padding: .5rem;
     overflow: auto;
     overflow-x: scroll;
-    overflow-wrap: normal;
+    background: #444444; /* Darker gray for code blocks */
+    color: #cccccc; /* Same text color */
 }
 
 code, pre {
-    font-family: San Francisco Mono, Monaco, "Consolas", "Lucida Console","DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
-    font-size: normal;
+    font-family: "San Francisco Mono", Monaco, "Consolas", "Lucida Console","DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
     font-size: small;
-    background: #eee
+    background: #444444; /* Darker gray for inline code */
+    color: #cccccc; /* Same text color */
 }
 
 code {
@@ -108,45 +103,29 @@ ul, ol {
 }
 
 .list li {
-    padding-bottom: .1rem
+    padding-bottom: .1rem;
 }
 
 .meta {
-    color: #777
+    color: #777777; /* Slightly lighter gray */
 }
 
 .content {
     max-width: 70ch;
     margin: 0 auto;
-    // text-align: justify;
-}
-
-header {
-    line-height: 2;
-    //padding-bottom: 1.5rem;
-    //flex-basis: 10rem;
-    //flex-grow: 1;
-    //position: relative;
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 1rem;
 }
 
 header a {
     text-decoration: none;
+    color: #cccccc; /* Same text color */
 }
 
 header ul {
     list-style-type: none;
     padding: 0;
-    //border-right: 1px solid #edf2f7;
-
 }
 
 header li, header a {
-    //margin-bottom: .2rem;
-    //text-align: right;
-    //margin-right: 2rem;
     display: inline;
 }
 
@@ -160,8 +139,7 @@ header ul a:first-child {
 
 .nav {
     height: 1px;
-    background: #000;
-    content: '';
+    background: #cccccc; /* Light gray for nav bar */
     max-width: 10%;
 }
 
@@ -175,21 +153,18 @@ header ul a:first-child {
 }
 
 .hr-list {
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-right: .5rem;
-    margin-left: .5rem;
+    margin: 0 .5rem;
     height: 1px;
     border: 0;
-    border-bottom: 1px dotted #ccc;
+    border-bottom: 1px dotted #777777; /* Dotted gray line */
     flex: 1 0 1rem;
-    //opacity: .25;
 }
 
 .m,
 hr {
     border: 0;
-    margin: 3rem 0
+    margin: 3rem 0;
+    background: #444444; /* Darker gray for horizontal rules */
 }
 
 img {
@@ -197,19 +172,17 @@ img {
     height: auto;
 }
 
-
 .post-date {
-    margin: 5% 0 5%;
+    margin: 5% 0;
 }
 
 .index-date {
-    color: #9a9a9a;
+    color: #9a9a9a; /* Light gray for date */
 }
 
 .animate-blink {
     animation: opacity 1s infinite;
     opacity: 1;
-    // margin-left: -1%;
 }
 
 @keyframes opacity {
@@ -247,4 +220,5 @@ img {
     margin: -10px 0 0 15px;
     float: right;
     border-radius: 50%;
+    border: 2px solid #cccccc; /* Light gray border for avatar */
 }
