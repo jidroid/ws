@@ -1,4 +1,4 @@
-baseURL = '/blog'
+baseURL = '/'
 languageCode = 'en-us'
 title = 'Jidin Dinesh'
 paginate = 1000
@@ -19,11 +19,6 @@ theme = 'maverick'
     name = "Writing"
     url = "/blog/"
     weight = 1
- # [[menu.main]]
- #   identifier = "books"
- #   name = "Reading"
-  #  url = "/books/"
- #   weight = 2
   [[menu.main]]
     identifier = "quotes"
     name = "Quotes"
