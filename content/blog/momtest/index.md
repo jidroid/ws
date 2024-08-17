@@ -6,7 +6,7 @@ summary : "Don't talk about your idea/product/feature too soon."
 date: "2023-10-17"
 ---
 
-{{< figure src="meme.png" width="75%">}}
+{{< figure src="meme.png" class="responsive-img">}}
 
 ## Introduction
 
@@ -29,7 +29,7 @@ Who should you be talking to and how many of these conversations should you have
 Talk to as many and as frequently as you want but be selective and avoid convenience sampling (coworkers, friends, and family).
 Each person that you choose to talk to, should ideally be at the intersection between the sets of people who've the most to gain if you solve this problem well, who face this problem most frequently, and who've the capability to buy a solution for this problem.
 
-{{< figure src="venn.png" width="75%">}}
+{{< figure src="venn.png" class="responsive-img">}}
 
 Before walking in for a conversation, think hard about the 3 questions you want to get answers for and jot them down. It will be a lot easier to steer the conversation in the right direction if you've a plan (goals and structure of the conversation) beforehand. But remember to have a conversation and not an interview or worse, an interrogation.
 

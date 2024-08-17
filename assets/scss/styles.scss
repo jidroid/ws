@@ -222,3 +222,11 @@ img {
     border-radius: 50%;
     border: 2px solid #cccccc; /* Light gray border for avatar */
 }
+
+.responsive-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
