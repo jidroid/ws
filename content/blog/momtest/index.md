@@ -83,4 +83,4 @@ after having a handful of these conversations, start looking for patterns and sy
 [^5]: in a b2b setting, it's important to know who the decision maker for a deal going through/falling apart is
 [^6]: “nothing in life is as important as you think it is, while you are thinking about it” -- daniel kahneman, thinking, fast and slow 
 [^7]: [read the mom test](https://www.momtestbook.com/)
-[^8]: [people skills](https://www.youtube.com/watch?v=vayeljmd-lc&ab_channel=jason grohoske)
+[^8]: [people skills](https://www.youtube.com/watch?v=VayElJMD-lc)
