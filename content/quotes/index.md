@@ -28,6 +28,10 @@ date = "2022-09-18"
 "your twenties are always an apprenticeship, but you don't always know what for."
 {{< /blockquote >}}
 
+{{< blockquote author="muhammad ali" >}}
+"the man who views the world at 50 the same as he did at 20 has wasted 30 years of his life."
+{{< /blockquote >}}
+
 {{< blockquote author="kilgore trout" >}}
 “life is no way to treat an animal.”
 {{< /blockquote >}}
