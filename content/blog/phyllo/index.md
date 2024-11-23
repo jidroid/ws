@@ -4,6 +4,7 @@ title: "on joining phyllo"
 url: "/phyllo"
 summary: "building for the creator economy"
 date: "2022-05-17"
+draft: true
 ---
 
 {{< figure src="header.png" class="responsive-img">}}
