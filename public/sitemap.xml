@@ -14,9 +14,6 @@
     <loc>//localhost:1313/quotes/</loc>
     <lastmod>2022-09-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/phyllo/</loc>
-    <lastmod>2022-05-17T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>//localhost:1313/tags/</loc>
   </url>
 </urlset>

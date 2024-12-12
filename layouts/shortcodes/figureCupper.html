@@ -18,9 +18,18 @@
   {{ errorf "Invalid image processing command: Must be one of Fit, Fill, Resize, Original." }}
 {{ end }}
 
+{{ $small := $original.Fit "480x" }}
+{{ $medium := $original.Fit "1024x" }}
+{{ $large := $original.Fit "1920x" }}
+
 <figure role="group" aria-describedby="caption-{{ $caption | md5 }}">
   <a href="{{ $original.RelPermalink }}" class="img-link">
-    <img src="{{ $new.RelPermalink }}">
+    <img 
+      src="{{ $new.RelPermalink }}" 
+      srcset="{{ $small.RelPermalink }} 480w, {{ $medium.RelPermalink }} 1024w, {{ $large.RelPermalink }} 1920w" 
+      sizes="(max-width: 768px) 100vw, 50vw" 
+      loading="lazy" 
+      class="responsive-img">
   </a>
   <figcaption id="caption-{{ $caption | md5 }}">
     {{ $caption | markdownify }}
