@@ -19,6 +19,11 @@ theme = 'maverick'
     name = "quotes"
     url = "/quotes/"
     weight = 1
+  [[menu.main]]
+    identifier = "email"
+    name = "email"
+    url = "mailto:jd@jidin.co"
+    weight = 2
 
 [markup]
   [markup.goldmark.renderer]
