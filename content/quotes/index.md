@@ -20,6 +20,10 @@ date = "2022-09-18"
 "learn the rules like a pro, so you can break them like an artist." 
 {{< /blockquote >}}
 
+{{< blockquote author="brené brown" >}}
+"talk to yourself like you would to someone you love." 
+{{< /blockquote >}}
+
 {{< blockquote author="ernest lawrence to oppenheimer" >}}
 "you’re not just self-important, you’re actually important." 
 {{< /blockquote >}}
