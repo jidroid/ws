@@ -1,4 +1,8 @@
-baseURL = ''
+
+baseURL = 'https://jidin.co/'
+
+canonifyURLs = true
+
 languageCode = 'en-us'
 title = 'jidin.co'
 paginate = 1000
@@ -11,7 +15,6 @@ theme = 'maverick'
   logo = 'assets/favicon.ico'
   description = "Jidin Dinesh's corner of the interweb."
   author = 'jidin'
-
 
 [menu]
   [[menu.main]]
