@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Liste - http://localhost:1313/">
+    <title>list of production bugs i added | jidin.co</title>
+    <meta name="description" content="Jidin Dinesh&#39;s corner of the interweb.">
+    <meta property="og:url" content="http://localhost:1313/bugs/">
+  <meta property="og:site_name" content="jidin.co">
+  <meta property="og:title" content="list of production bugs i added">
+  <meta property="og:description" content="race condition from non-atomic &#39;check-then-insert/update&#39; pattern in application logic 🔥 problem: concurrent requests caused a database integrity violation. 🧠 root cause: the check and insert logic in the application code wasn&#39;t atomic, allowing concurrent requests to break the uniqueness integrity expected by the application code. solution: use atomic upsert in the application code instead. 🔍 notes: correlation ids from production alerts pointed to failing requests, but those weren’t the ones that caused the integrity issue. searching logs for the successful concurrent requests that put the database into the inconsistent state cut the time to identify the issue. severity low  |  time taken to debug &lt;1h  |  date 2025-04-18">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2025-04-18T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-04-18T00:00:00+00:00">
+
+    
+  <meta itemprop="name" content="list of production bugs i added">
+  <meta itemprop="description" content="race condition from non-atomic &#39;check-then-insert/update&#39; pattern in application logic 🔥 problem: concurrent requests caused a database integrity violation. 🧠 root cause: the check and insert logic in the application code wasn&#39;t atomic, allowing concurrent requests to break the uniqueness integrity expected by the application code. solution: use atomic upsert in the application code instead. 🔍 notes: correlation ids from production alerts pointed to failing requests, but those weren’t the ones that caused the integrity issue. searching logs for the successful concurrent requests that put the database into the inconsistent state cut the time to identify the issue. severity low  |  time taken to debug &lt;1h  |  date 2025-04-18">
+  <meta itemprop="datePublished" content="2025-04-18T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-04-18T00:00:00+00:00">
+  <meta itemprop="wordCount" content="108">
+    
+    <link rel="canonical" href="http://localhost:1313/bugs/">
+    <link rel="icon" href="http://localhost:1313//assets/favicon.ico">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link href="https://www.google-analytics.com" rel="preconnect" crossorigin>
+    <link rel="alternate" type="application/atom+xml" title="jidin.co" href="http://localhost:1313//atom.xml" />
+    <link rel="alternate" type="application/json" title="jidin.co" href="http://localhost:1313//feed.json" />
+    <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
+    
+    
+    <style>*,:after,:before{box-sizing:border-box;padding:0}body{font:20px/1.8 helvetica neue,Arial,sans-serif;padding:3rem;background:#000;color:#cddddd;font-size:20px;line-height:2;position:relative;margin:0;min-height:100vh}body::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;border:4px solid;border-image:linear-gradient(45deg,#0fc,cyan,#0cf,#09f)1;border-radius:15px;padding:10px;background:rgba(255,255,255,.1);box-shadow:0 0 30px rgba(0,255,255,.5);pointer-events:none;z-index:-1}.container{position:relative;z-index:1;padding:2rem;background:rgba(0,0,0,.5);border-radius:10px}.skip-link{position:absolute;top:-40px;left:0;background:#2c2c2c;color:#b0b0b0;z-index:100}.skip-link:focus{top:0}h1,h2,h3,h4,h5,strong,b{font-size:inherit;font-weight:600;font-size:22px;color:#fff}header{line-height:2;padding-bottom:1.5rem;display:flex;justify-content:space-between}.link{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none;color:#cbbb45}.time{font-variant-numeric:tabular-nums;white-space:nowrap}blockquote{border-left:5px solid #cbbb45;padding-left:1rem;margin:0;background:#252525;color:#b3b3b3}a,a:visited{color:#cbbb45}a:hover,a.heading-link{text-decoration:none;color:#26c6da}pre{padding:.5rem;overflow:auto;overflow-x:scroll;background:#252525;color:#d4d4d4}code,pre{font-family:san francisco mono,Monaco,consolas,lucida console,dejavu sans mono,bitstream vera sans mono,monospace;font-size:small;background:#252525;color:#d4d4d4}code{margin:.1rem;border:none}ul{list-style-type:square;color:#b3b3b3}ul,ol{padding-left:1.5rem}.list{line-height:2;list-style-type:none;padding-left:0}.list li{padding-bottom:.1rem}.meta{color:#888}.content{max-width:70ch;margin:0 auto}header a{text-decoration:none;color:#cbbb45}header ul{list-style-type:none;padding:0}header li,header a{display:inline}h2.post{padding-top:.5rem}header ul a:first-child{padding-left:1rem}.nav{height:1px;background:#cbbb45;max-width:10%}.list li{display:flex;align-items:baseline}.list li time{flex:initial}.hr-list{margin:0 .5rem;height:1px;border:0;border-bottom:1px dotted #888;flex:1 0 1rem}.m,hr{border:0;margin:3rem 0;background:#333}img{max-width:100%;height:auto}.post-date{margin:5% 0}.index-date{color:#9a9a9a}.animate-blink{animation:opacity 1s infinite;opacity:1}@keyframes opacity{0%{opacity:1}50%{opacity:.5}100%{opacity:0}}.tags{display:flex;justify-content:space-between}.tags ul{padding:0;margin:0}.tags li{display:inline}.avatar{height:220px;width:220px;position:relative;margin:-10px 0 0 15px;float:right;border-radius:50%;border:2px solid #cbbb45} </style>
+  
+    
+  
+  
+  <script type="application/ld+json">
+  {
+      "@context": "http://schema.org",
+      "@type": "BlogPosting",
+      "articleSection": "",
+      "name": "list of production bugs i added",
+      "headline": "list of production bugs i added",
+      "alternativeHeadline": "",
+      "description": "\u003cstyle\u003e\n  .rca-grid {\n    display: flex;\n    flex-direction: column;\n    gap: 1.75rem;\n    margin-top: 2rem;\n  }\n\n  .rca-card {\n    background-color: #1e1e1e;\n    padding: 1.5rem;\n    border-left: 4px solid #facc15;\n    border-radius: 0.75rem;\n    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.04);\n    transition: transform 0.2s ease, box-shadow 0.2s ease;\n  }\n\n  .rca-card:hover {\n    transform: translateY(-4px);\n    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);\n    background-color: #333;\n  }\n\n  .rca-title {\n    font-size: 1rem;\n    font-weight: 600;\n    color: #facc15;\n    margin-bottom: 0.4rem;\n    cursor: pointer;\n  }\n\n  .rca-meta,\n  .rca-section {\n    display: none;\n  }\n\n  .rca-section {\n    font-size: 0.95rem;\n    margin-bottom: 0.8rem;\n    line-height: 1.6;\n  }\n\n  .rca-meta {\n    font-size: 0.75rem;\n    margin-top: 1rem;\n    padding-top: 1rem;\n    border-top: 1px solid rgba(255, 255, 255, 0.1);\n  }\n\n  .rca-meta strong {\n    display: inline-block;\n    font-weight: 500;\n    color: #a1a1aa;\n    font-size: 0.75em;\n  }\n\n   \n  .rca-meta strong::after {\n    content: \u0022:\u0022;\n  }\n\n  .rca-meta span {\n    color: #e4e4e7;\n    font-size: 0.75 em;\n    margin-left: 2px;  \n  }\n\n  .rca-card.expanded .rca-meta,\n  .rca-card.expanded .rca-section {\n    display: block;\n  }\n\n  .rca-card.expanded .rca-title {\n    font-size: 1.3rem;\n  }\n\n  .rca-card.expanded .rca-meta {\n    font-size: 1rem;\n  }\n\n  @media (prefers-color-scheme: light) {\n    .rca-card {\n      background-color: #f9f9f9;\n      border-left-color: #d97706;\n      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);\n    }\n\n    .rca-title {\n      color: #d97706;\n    }\n\n    .rca-meta {\n      border-top-color: rgba(0, 0, 0, 0.1);\n    }\n\n    .rca-meta strong {\n      color: #71717a;\n    }\n\n    .rca-meta span {\n      color: #3f3f46;\n    }\n\n    .rca-section strong {\n      color: #111;\n    }\n\n    .rca-section span {\n      color: #444;\n    }\n  }\n\n   \n  .rca-section strong,\n  .rca-meta strong {\n    font-size: inherit;\n  }\n\u003c\/style\u003e\n\n\u003cscript\u003e\n  document.addEventListener(\u0027DOMContentLoaded\u0027, function () {\n    const cards = document.querySelectorAll(\u0027.rca-card\u0027);\n\n    cards.forEach(card =\u003e {\n      const title = card.querySelector(\u0027.rca-title\u0027);\n      \n      title.addEventListener(\u0027click\u0027, function () {\n        card.classList.toggle(\u0027expanded\u0027);\n      });\n    });\n  });\n\u003c\/script\u003e\n\n\u003cdiv class=\u0022rca-card\u0022\u003e\n  \u003cdiv class=\u0022rca-title\u0022\u003erace condition from non-atomic \u0026#39;check-then-insert\/update\u0026#39; pattern in application logic\u003c\/div\u003e\n  \n  \u003cdiv class=\u0022rca-section\u0022\u003e🔥 \u003cstrong\u003eproblem:\u003c\/strong\u003e \u003cspan\u003econcurrent requests caused a database integrity violation.\u003c\/span\u003e\u003c\/div\u003e\n  \u003cdiv class=\u0022rca-section\u0022\u003e🧠 \u003cstrong\u003eroot cause:\u003c\/strong\u003e \u003cspan\u003ethe check and insert logic in the application code wasn\u0026#39;t atomic, allowing concurrent requests to break the uniqueness integrity expected by the application code. solution: use atomic upsert in the application code instead.\u003c\/span\u003e\u003c\/div\u003e\n  \u003cdiv class=\u0022rca-section\u0022\u003e🔍 \u003cstrong\u003enotes:\u003c\/strong\u003e \u003cspan\u003ecorrelation ids from production alerts pointed to failing requests, but those weren’t the ones that caused the integrity issue. searching logs for the successful concurrent requests that put the database into the inconsistent state cut the time to identify the issue.\u003c\/span\u003e\u003c\/div\u003e\n\n  \u003cdiv class=\u0022rca-meta\u0022\u003e\n    \u003cstrong\u003eseverity\u003c\/strong\u003e \u003cspan\u003elow\u003c\/span\u003e \u0026nbsp;|\u0026nbsp;\n    \u003cstrong\u003etime taken to debug\u003c\/strong\u003e \u003cspan\u003e\u0026lt;1h\u003c\/span\u003e \u0026nbsp;|\u0026nbsp;\n    \u003cstrong\u003edate\u003c\/strong\u003e \u003cspan\u003e2025-04-18\u003c\/span\u003e\n  \u003c\/div\u003e\n\u003c\/div\u003e",
+      "inLanguage": "en-us",
+      "isFamilyFriendly": "true",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "http:\/\/localhost:1313\/bugs\/"
+      },
+      "author" : {
+          "@type": "Person",
+          "name": ""
+      },
+      "creator" : {
+          "@type": "Person",
+          "name": ""
+      },
+      "accountablePerson" : {
+          "@type": "Person",
+          "name": ""
+      },
+      "copyrightHolder" : "jidin.co",
+      "copyrightYear" : "2025",
+      "dateCreated": "2025-04-18T00:00:00.00Z",
+      "datePublished": "2025-04-18T00:00:00.00Z",
+      "dateModified": "2025-04-18T00:00:00.00Z",
+      "publisher":{
+          "@type":"Organization",
+          "name": "jidin.co",
+          "url": "http://localhost:1313/",
+          "logo": {
+              "@type": "ImageObject",
+              "url": "http:\/\/localhost:1313\/assets\/favicon.ico",
+              "width":"32",
+              "height":"32"
+          }
+      },
+      "image": "http://localhost:1313/assets/favicon.ico",
+      "url" : "http:\/\/localhost:1313\/bugs\/",
+      "wordCount" : "108",
+      "genre" : [ ],
+      "keywords" : [ ]
+  }
+  </script>
+  
+  
+  </head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main</a>
+  <main id="main">
+  <div class="content">
+    <header>
+<p style="padding: 0;margin: 0;">
+  <a href="http://localhost:1313/">
+    <b>jidin.co</b>
+    <span class="text-stone-500 animate-blink">▮</span>
+  </a>
+</p>
+<ul style="padding: 0;margin: 0;">
+  
+  
+  <li class="">
+    <a href="http://localhost:1313/bugs/"><span>bugs</span></a>
+    
+  <li class="">
+    <a href="http://localhost:1313/quotes/"><span>quotes</span></a>
+    
+  <li class="">
+    <a href="mailto:jd@jidin.co"><span>email</span></a>
+    
+  </li>
+</ul>
+</header>
+<hr class="hr-list" style="padding: 0;margin: 0;">
+    <section>
+      <h2 class="post">list of production bugs i added</h2>
+      
+<style>
+  .rca-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-top: 2rem;
+  }
+
+  .rca-card {
+    background-color: #1e1e1e;
+    padding: 1.5rem;
+    border-left: 4px solid #facc15;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .rca-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+    background-color: #333;
+  }
+
+  .rca-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #facc15;
+    margin-bottom: 0.4rem;
+    cursor: pointer;
+  }
+
+  .rca-meta,
+  .rca-section {
+    display: none;
+  }
+
+  .rca-section {
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .rca-meta {
+    font-size: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .rca-meta strong {
+    display: inline-block;
+    font-weight: 500;
+    color: #a1a1aa;
+    font-size: 0.75em;
+  }
+
+   
+  .rca-meta strong::after {
+    content: ":";
+  }
+
+  .rca-meta span {
+    color: #e4e4e7;
+    font-size: 0.75 em;
+    margin-left: 2px;  
+  }
+
+  .rca-card.expanded .rca-meta,
+  .rca-card.expanded .rca-section {
+    display: block;
+  }
+
+  .rca-card.expanded .rca-title {
+    font-size: 1.3rem;
+  }
+
+  .rca-card.expanded .rca-meta {
+    font-size: 1rem;
+  }
+
+  @media (prefers-color-scheme: light) {
+    .rca-card {
+      background-color: #f9f9f9;
+      border-left-color: #d97706;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .rca-title {
+      color: #d97706;
+    }
+
+    .rca-meta {
+      border-top-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .rca-meta strong {
+      color: #71717a;
+    }
+
+    .rca-meta span {
+      color: #3f3f46;
+    }
+
+    .rca-section strong {
+      color: #111;
+    }
+
+    .rca-section span {
+      color: #444;
+    }
+  }
+
+   
+  .rca-section strong,
+  .rca-meta strong {
+    font-size: inherit;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.rca-card');
+
+    cards.forEach(card => {
+      const title = card.querySelector('.rca-title');
+      
+      title.addEventListener('click', function () {
+        card.classList.toggle('expanded');
+      });
+    });
+  });
+</script>
+
+<div class="rca-card">
+  <div class="rca-title">race condition from non-atomic &#39;check-then-insert/update&#39; pattern in application logic</div>
+  
+  <div class="rca-section">🔥 <strong>problem:</strong> <span>concurrent requests caused a database integrity violation.</span></div>
+  <div class="rca-section">🧠 <strong>root cause:</strong> <span>the check and insert logic in the application code wasn&#39;t atomic, allowing concurrent requests to break the uniqueness integrity expected by the application code. solution: use atomic upsert in the application code instead.</span></div>
+  <div class="rca-section">🔍 <strong>notes:</strong> <span>correlation ids from production alerts pointed to failing requests, but those weren’t the ones that caused the integrity issue. searching logs for the successful concurrent requests that put the database into the inconsistent state cut the time to identify the issue.</span></div>
+
+  <div class="rca-meta">
+    <strong>severity</strong> <span>low</span> &nbsp;|&nbsp;
+    <strong>time taken to debug</strong> <span>&lt;1h</span> &nbsp;|&nbsp;
+    <strong>date</strong> <span>2025-04-18</span>
+  </div>
+</div>
+
+
+      
+    </section>
+    
+  </div>
+</main>
+</body>
+</html>

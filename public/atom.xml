@@ -3,14 +3,14 @@
     
     <title>jidin.co</title>
     <description>Jidin Dinesh&#39;s corner of the interweb.</description>
-    <link>//localhost:1313/</link>
+    <link>http://localhost:1313/</link>
     
     <language>en</language>
-    <copyright>Copyright 2024, Calvin Tran</copyright>
-    <lastBuildDate>Tue, 17 Oct 2023 00:00:00 +0000</lastBuildDate>
+    <copyright>Copyright 2025, Calvin Tran</copyright>
+    <lastBuildDate>Fri, 18 Apr 2025 00:00:00 +0000</lastBuildDate>
     <generator>Hugo - gohugo.io</generator>
     <docs>http://cyber.harvard.edu/rss/rss.html</docs>
-    <atom:link href="//localhost:1313//atom.xml" rel="self" type="application/atom+xml"/>
+    <atom:link href="http://localhost:1313//atom.xml" rel="self" type="application/atom+xml"/>
     
     
   </channel>

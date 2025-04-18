@@ -1,0 +1,147 @@
+<!-- layouts/partials/rca-styles.html -->
+<style>
+  .rca-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-top: 2rem;
+  }
+
+  .rca-card {
+    background-color: #1e1e1e;
+    padding: 1.5rem;
+    border-left: 4px solid #facc15;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .rca-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+    background-color: #333;
+  }
+
+  .rca-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #facc15;
+    margin-bottom: 0.4rem;
+    cursor: pointer;
+  }
+
+  .rca-meta,
+  .rca-section {
+    display: none;
+  }
+
+  .rca-section {
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .rca-meta {
+    font-size: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .rca-meta strong {
+    display: inline-block;
+    font-weight: 500;
+    color: #a1a1aa;
+    font-size: 0.75em;
+  }
+
+  /* Balanced spacing between label and value */
+  .rca-meta strong::after {
+    content: ":";
+  }
+
+  .rca-meta span {
+    color: #e4e4e7;
+    font-size: 0.75 em;
+    margin-left: 2px; /* Small but noticeable space after colon */
+  }
+
+  .rca-card.expanded .rca-meta,
+  .rca-card.expanded .rca-section {
+    display: block;
+  }
+
+  .rca-card.expanded .rca-title {
+    font-size: 1.3rem;
+  }
+
+  .rca-card.expanded .rca-meta {
+    font-size: 1rem;
+  }
+
+  @media (prefers-color-scheme: light) {
+    .rca-card {
+      background-color: #f9f9f9;
+      border-left-color: #d97706;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .rca-title {
+      color: #d97706;
+    }
+
+    .rca-meta {
+      border-top-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .rca-meta strong {
+      color: #71717a;
+    }
+
+    .rca-meta span {
+      color: #3f3f46;
+    }
+
+    .rca-section strong {
+      color: #111;
+    }
+
+    .rca-section span {
+      color: #444;
+    }
+  }
+
+  /* make all keys (strong) the same size as their values */
+  .rca-section strong,
+  .rca-meta strong {
+    font-size: inherit;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.rca-card');
+
+    cards.forEach(card => {
+      const title = card.querySelector('.rca-title');
+      
+      title.addEventListener('click', function () {
+        card.classList.toggle('expanded');
+      });
+    });
+  });
+</script>
+
+<div class="rca-card">
+  <div class="rca-title">{{ .Get "title" }}</div>
+  
+  <div class="rca-section">🔥 <strong>problem:</strong> <span>{{ .Get "problem" }}</span></div>
+  <div class="rca-section">🧠 <strong>root cause:</strong> <span>{{ .Get "cause" }}</span></div>
+  <div class="rca-section">🔍 <strong>notes:</strong> <span>{{ .Get "notes" }}</span></div>
+
+  <div class="rca-meta">
+    <strong>severity</strong> <span>{{ .Get "severity" }}</span> &nbsp;|&nbsp;
+    <strong>time taken to debug</strong> <span>{{ .Get "time" }}</span> &nbsp;|&nbsp;
+    <strong>date</strong> <span>{{ .Get "date" }}</span>
+  </div>
+</div>

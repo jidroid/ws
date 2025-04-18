@@ -5,7 +5,8 @@ canonifyURLs = true
 
 languageCode = 'en-us'
 title = 'jidin.co'
-paginate = 1000
+[pagination]
+  pagerSize = 1000
 theme = 'maverick'
 
 [permalinks]
@@ -18,15 +19,20 @@ theme = 'maverick'
 
 [menu]
   [[menu.main]]
+    identifier = "bugs"
+    name = "bugs"
+    url = "/bugs/"
+    weight = 1
+  [[menu.main]]
     identifier = "quotes"
     name = "quotes"
     url = "/quotes/"
-    weight = 1
+    weight = 2
   [[menu.main]]
     identifier = "email"
     name = "email"
     url = "mailto:jd@jidin.co"
-    weight = 2
+    weight = 3
 
 [markup]
   [markup.goldmark.renderer]
