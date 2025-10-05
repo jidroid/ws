@@ -20,6 +20,38 @@ date = "2022-09-18"
 "learn the rules like a pro, so you can break them like an artist." 
 {{< /blockquote >}}
 
+{{< blockquote author="paul dirac" >}}
+"i was taught at school never to start a sentence without knowing the end of it." 
+{{< /blockquote >}}
+
+{{< blockquote author="george carlin" >}}
+"inside every cynical person, there is a disappointed idealist." 
+{{< /blockquote >}}
+
+{{< blockquote author="benjamin franklin" >}}
+"either write something worth reading or do something worth writing." 
+{{< /blockquote >}}
+
+{{< blockquote author="benjamin franklin" >}}
+"either write something worth reading or do something worth writing." 
+{{< /blockquote >}}
+
+{{< blockquote author="chuck palahniuk" >}}
+"this is your life and its ending one moment at a time." 
+{{< /blockquote >}}
+
+{{< blockquote author="leonardo da vinci" >}}
+"it's never finished only abandoned." 
+{{< /blockquote >}}
+
+{{< blockquote author="mark twain" >}}
+"travel is fatal to prejudice." 
+{{< /blockquote >}}
+
+{{< blockquote author="matt caig" >}}
+"a human life is on average eighty earth years or around thirty thousand earth days. which means they are born, they make some friends, eat a few meals, they get married [or don't], have a child or two, or not, drink a few thousand glasses of wine, have [sex] a few times, discover a lump somewhere, feel a bit of regret, wonder where all the time went, know they should have done it differently, realize they would have done it the same, and then they die." 
+{{< /blockquote >}}
+
 {{< blockquote author="brené brown" >}}
 "talk to yourself like you would to someone you love." 
 {{< /blockquote >}}
@@ -171,3 +203,4 @@ date = "2022-09-18"
 {{< blockquote author="james cameron" >}}
 "pick up a camera. shoot something. no matter how small, no matter how cheesy, no matter whether your friends and your sister star in it. put your name on it as director. now you're a director. everything after that you're just negotiating your budget and your fee."
 {{< /blockquote >}}
+
