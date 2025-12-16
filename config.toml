@@ -26,7 +26,7 @@ theme = 'maverick'
   [[menu.main]]
     identifier = "email"
     name = "email"
-    url = "mailto:jd@jidin.co"
+    url = "mailto:jd@jidin.org"
     weight = 2
 
 [markup]
