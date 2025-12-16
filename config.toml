@@ -1,10 +1,10 @@
 
-baseURL = 'https://jidin.co/'
+baseURL = 'https://jidin.org/'
 
 canonifyURLs = true
 
 languageCode = 'en-us'
-title = 'jidin.co'
+title = 'jidin.org'
 [pagination]
   pagerSize = 1000
 theme = 'maverick'
