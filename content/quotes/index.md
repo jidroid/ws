@@ -20,6 +20,10 @@ date = "2022-09-18"
 "learn the rules like a pro, so you can break them like an artist." 
 {{< /blockquote >}}
 
+{{< blockquote author="ignacy jan paderewski" >}}
+"if i miss one day’s practice, i notice it. if i miss two days, the critics notice it. if i miss three days, the audience notices it." 
+{{< /blockquote >}}
+
 {{< blockquote author="paul dirac" >}}
 "i was taught at school never to start a sentence without knowing the end of it." 
 {{< /blockquote >}}
@@ -203,4 +207,5 @@ date = "2022-09-18"
 {{< blockquote author="james cameron" >}}
 "pick up a camera. shoot something. no matter how small, no matter how cheesy, no matter whether your friends and your sister star in it. put your name on it as director. now you're a director. everything after that you're just negotiating your budget and your fee."
 {{< /blockquote >}}
+
 
