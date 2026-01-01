@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Liste - http://localhost:1313/">
-    <title>list of production bugs i added | jidin.co</title>
+    <title>list of production bugs i added | jidin.org</title>
     <meta name="description" content="Jidin Dinesh&#39;s corner of the interweb.">
     <meta property="og:url" content="http://localhost:1313/bugs/">
-  <meta property="og:site_name" content="jidin.co">
+  <meta property="og:site_name" content="jidin.org">
   <meta property="og:title" content="list of production bugs i added">
   <meta property="og:description" content="race condition from non-atomic &#39;check-then-insert/update&#39; pattern in application logic 🔥 problem: concurrent requests caused a database integrity violation. 🧠 root cause: the check and insert logic in the application code wasn&#39;t atomic, allowing concurrent requests to break the uniqueness integrity expected by the application code. solution: use atomic upsert in the application code instead. 🔍 notes: correlation ids from production alerts pointed to failing requests, but those weren’t the ones that caused the integrity issue. searching logs for the successful concurrent requests that put the database into the inconsistent state cut the time to identify the issue. severity low  |  time taken to debug &lt;1h  |  date 2025-04-18">
   <meta property="og:locale" content="en_us">
@@ -27,8 +27,8 @@
     <link rel="icon" href="http://localhost:1313//assets/favicon.ico">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link href="https://www.google-analytics.com" rel="preconnect" crossorigin>
-    <link rel="alternate" type="application/atom+xml" title="jidin.co" href="http://localhost:1313//atom.xml" />
-    <link rel="alternate" type="application/json" title="jidin.co" href="http://localhost:1313//feed.json" />
+    <link rel="alternate" type="application/atom+xml" title="jidin.org" href="http://localhost:1313//atom.xml" />
+    <link rel="alternate" type="application/json" title="jidin.org" href="http://localhost:1313//feed.json" />
     <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
     
     
@@ -64,14 +64,14 @@
           "@type": "Person",
           "name": ""
       },
-      "copyrightHolder" : "jidin.co",
+      "copyrightHolder" : "jidin.org",
       "copyrightYear" : "2025",
       "dateCreated": "2025-04-18T00:00:00.00Z",
       "datePublished": "2025-04-18T00:00:00.00Z",
       "dateModified": "2025-04-18T00:00:00.00Z",
       "publisher":{
           "@type":"Organization",
-          "name": "jidin.co",
+          "name": "jidin.org",
           "url": "http://localhost:1313/",
           "logo": {
               "@type": "ImageObject",
@@ -98,7 +98,7 @@
     <header>
 <p style="padding: 0;margin: 0;">
   <a href="http://localhost:1313/">
-    <b>jidin.co</b>
+    <b>jidin.org</b>
     <span class="text-stone-500 animate-blink">▮</span>
   </a>
 </p>
@@ -106,13 +106,10 @@
   
   
   <li class="">
-    <a href="http://localhost:1313/bugs/"><span>bugs</span></a>
+    <a href="http://localhost:1313/quotes/"><span>Quotes</span></a>
     
   <li class="">
-    <a href="http://localhost:1313/quotes/"><span>quotes</span></a>
-    
-  <li class="">
-    <a href="mailto:jd@jidin.co"><span>email</span></a>
+    <a href="mailto:jd@jidin.org"><span>Email</span></a>
     
   </li>
 </ul>

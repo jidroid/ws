@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Liste - http://localhost:1313/">
+    <title>log structured merge tree | jidin.org</title>
+    <meta name="description" content="Jidin Dinesh&#39;s corner of the interweb.">
+    <meta property="og:url" content="http://localhost:1313/lsm/">
+  <meta property="og:site_name" content="jidin.org">
+  <meta property="og:title" content="log structured merge tree">
+  <meta property="og:description" content="deep dive into lsm">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-12-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-12-29T00:00:00+00:00">
+
+    
+  <meta itemprop="name" content="log structured merge tree">
+  <meta itemprop="description" content="deep dive into lsm">
+  <meta itemprop="datePublished" content="2025-12-29T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-12-29T00:00:00+00:00">
+  <meta itemprop="wordCount" content="6882">
+    
+    <link rel="canonical" href="http://localhost:1313/lsm/">
+    <link rel="icon" href="http://localhost:1313//assets/favicon.ico">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link href="https://www.google-analytics.com" rel="preconnect" crossorigin>
+    <link rel="alternate" type="application/atom+xml" title="jidin.org" href="http://localhost:1313//atom.xml" />
+    <link rel="alternate" type="application/json" title="jidin.org" href="http://localhost:1313//feed.json" />
+    <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
+    
+    
+    <style>*,:after,:before{box-sizing:border-box;padding:0}body{font:20px/1.8 helvetica neue,Arial,sans-serif;padding:3rem;background:#000;color:#cddddd;font-size:20px;line-height:2;position:relative;margin:0;min-height:100vh}body::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;border:4px solid;border-image:linear-gradient(45deg,#0fc,cyan,#0cf,#09f)1;border-radius:15px;padding:10px;background:rgba(255,255,255,.1);box-shadow:0 0 30px rgba(0,255,255,.5);pointer-events:none;z-index:-1}.container{position:relative;z-index:1;padding:2rem;background:rgba(0,0,0,.5);border-radius:10px}.skip-link{position:absolute;top:-40px;left:0;background:#2c2c2c;color:#b0b0b0;z-index:100}.skip-link:focus{top:0}h1,h2,h3,h4,h5,strong,b{font-size:inherit;font-weight:600;font-size:22px;color:#fff}header{line-height:2;padding-bottom:1.5rem;display:flex;justify-content:space-between}.link{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none;color:#cbbb45}.time{font-variant-numeric:tabular-nums;white-space:nowrap}blockquote{border-left:5px solid #cbbb45;padding-left:1rem;margin:0;background:#252525;color:#b3b3b3}a,a:visited{color:#cbbb45}a:hover,a.heading-link{text-decoration:none;color:#26c6da}pre{padding:.5rem;overflow:auto;overflow-x:scroll;background:#252525;color:#d4d4d4}code,pre{font-family:san francisco mono,Monaco,consolas,lucida console,dejavu sans mono,bitstream vera sans mono,monospace;font-size:small;background:#252525;color:#d4d4d4}code{margin:.1rem;border:none}ul{list-style-type:square;color:#b3b3b3}ul,ol{padding-left:1.5rem}.list{line-height:2;list-style-type:none;padding-left:0}.list li{padding-bottom:.1rem}.meta{color:#888}.content{max-width:70ch;margin:0 auto}header a{text-decoration:none;color:#cbbb45}header ul{list-style-type:none;padding:0}header li,header a{display:inline}h2.post{padding-top:.5rem}header ul a:first-child{padding-left:1rem}.nav{height:1px;background:#cbbb45;max-width:10%}.list li{display:flex;align-items:baseline}.list li time{flex:initial}.hr-list{margin:0 .5rem;height:1px;border:0;border-bottom:1px dotted #888;flex:1 0 1rem}.m,hr{border:0;margin:3rem 0;background:#333}img{max-width:100%;height:auto}.post-date{margin:5% 0}.index-date{color:#9a9a9a}.animate-blink{animation:opacity 1s infinite;opacity:1}@keyframes opacity{0%{opacity:1}50%{opacity:.5}100%{opacity:0}}.tags{display:flex;justify-content:space-between}.tags ul{padding:0;margin:0}.tags li{display:inline}.avatar{height:220px;width:220px;position:relative;margin:-10px 0 0 15px;float:right;border-radius:50%;border:2px solid #cbbb45} </style>
+  
+    
+  
+  
+  <script type="application/ld+json">
+  {
+      "@context": "http://schema.org",
+      "@type": "BlogPosting",
+      "articleSection": "blog",
+      "name": "log structured merge tree",
+      "headline": "log structured merge tree",
+      "alternativeHeadline": "",
+      "description": "deep dive into lsm",
+      "inLanguage": "en-us",
+      "isFamilyFriendly": "true",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "http:\/\/localhost:1313\/lsm\/"
+      },
+      "author" : {
+          "@type": "Person",
+          "name": "jidin dinesh"
+      },
+      "creator" : {
+          "@type": "Person",
+          "name": "jidin dinesh"
+      },
+      "accountablePerson" : {
+          "@type": "Person",
+          "name": "jidin dinesh"
+      },
+      "copyrightHolder" : "jidin.org",
+      "copyrightYear" : "2025",
+      "dateCreated": "2025-12-29T00:00:00.00Z",
+      "datePublished": "2025-12-29T00:00:00.00Z",
+      "dateModified": "2025-12-29T00:00:00.00Z",
+      "publisher":{
+          "@type":"Organization",
+          "name": "jidin.org",
+          "url": "http://localhost:1313/",
+          "logo": {
+              "@type": "ImageObject",
+              "url": "http:\/\/localhost:1313\/assets\/favicon.ico",
+              "width":"32",
+              "height":"32"
+          }
+      },
+      "image": "http://localhost:1313/assets/favicon.ico",
+      "url" : "http:\/\/localhost:1313\/lsm\/",
+      "wordCount" : "6882",
+      "genre" : [ ],
+      "keywords" : [ ]
+  }
+  </script>
+  
+  
+  </head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main</a>
+  <main id="main">
+  <div class="content">
+    <header>
+<p style="padding: 0;margin: 0;">
+  <a href="http://localhost:1313/">
+    <b>jidin.org</b>
+    <span class="text-stone-500 animate-blink">▮</span>
+  </a>
+</p>
+<ul style="padding: 0;margin: 0;">
+  
+  
+  <li class="">
+    <a href="http://localhost:1313/quotes/"><span>Quotes</span></a>
+    
+  <li class="">
+    <a href="mailto:jd@jidin.org"><span>Email</span></a>
+    
+  </li>
+</ul>
+</header>
+<hr class="hr-list" style="padding: 0;margin: 0;">
+    <section>
+      <h2 class="post">log structured merge tree</h2>
+      <h2 id="intro">intro</h2>
+
+
+<blockquote class="blockquote">
+  <p>
+    &ldquo;if there was an absolutely optimal storage engine for every conceivable use case, everyone would just use it. but since it does not exist, we need to choose wisely.&rdquo;
+    
+      <br>
+      <span class="author">&mdash; alex petrov, database internals</span>
+    
+  </p>
+</blockquote>
+<p>database design is all about tradeoffs. these tradeoffs are made depending on the type of workload (read heavy vs write heavy, analytical vs transaction processing, so on and so forth) for which the database must be specially performant in.</p>
+<p>b-trees are the storage engine for many of the widely used databases&ndash;especially those optimised for oltp, point lookups, and range scans (postgresql, mysql, mariadb, oracle, sql server). b-trees bound the cost of both reads and writes by doing all the required work synchronously&ndash;favouring, predictable per-operation latency over peak write throughput. since b-trees are balanced, high-fanout order indexes;point lookups require O(log<sub>b</sub>n) page accesses while range scans required O(log<sub>b</sub>n + k) where b is the branching factor (fanout) and k is the number of tree entries scanned.</p>
+<p>maintaining an ordered index has severe implications for write performance. in an ordered index, writes become random i/o instead of sequential i/0 since data must be written to specific pages to comply with the enforced order. in b-tree, updates are done in-place&ndash;the existing record (or page) is modified directly at its current physical location on disk. the cost of performing two i/o per write (one i/o to read the target page in + one i/o to modify and write it back) and the overhead of maintaining the ordered index adds up as the number of writes to the database increases, bogging down the overall write throughput. in b-tree model, the updates are done immediately, at random places (dictated by the index) on the disk in an in-place manner<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<p>log structured merge (lsm) trees, at their core convert this random i/o problem into a sequential i/o problem. instead of performing updates in-place, writes are batched, updates (to pages) are deferred and made out-of-place (updates are written as new versions of the data at a different physical localtion; older data is left untouched). in lsm model, the updates are deferred, sequential, and done out-of-place.</p>
+<p>lsm tree has an in-memory component along with an on-disk representation of it.</p>
+<ol>
+<li>memtable is the in-memory datastructure capable of maintaining key ordering. its purpose is to serve fast reads and writes for recent data. all writes are appended sequentially to a write-ahead log(wal) before being applied to the memtable, since the memtable on its own it&rsquo;s durable.</li>
+<li>sorted string tables (sstables) are the immutable, sorted, on-disk files.</li>
+</ol>
+<p>differential indexes are auxiliary index structures that track recent changes separately from a large, stable base index, allowing the storage engine to avoid expensive updates to the base index on every write. a differential index keeps all the recent inserts, updates, and deletes in a small, fast-to-update datastructure while the base index remains read-optimised and relatively static. lsm tree is a multi-level differential index where changes cascade from memory to disk over time and disk data is never overwritten. the memtable (differential index) contains all the recent updates that haven&rsquo;t been yet merged into the consolidate base index. sstables constitute the base index representing the stable merged state of the data<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>newest
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── memtable                ← differential
+</span></span><span style="display:flex;"><span>├── L0 sstables             ← differential
+</span></span><span style="display:flex;"><span>├── L1 sstables             ← differential (usually)
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── L2 / L3 / ... / ln      ← base
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>oldest
+</span></span></code></pre></div><h2 id="memtable">memtable</h2>
+<p>the memtable is the in-memory representation of the most recent writes applied to the lsm tree, before those writes are flushed to disk as sst files. conceptually, the memtable serves as the first-class write target and the freshest source of truth for reads. all reads must consult the memtable before accessing the on-disk sst files, since the memtable can contain newer versions of the data.</p>
+<p>when a memtable reaches its configured size limit, it transitions from mutable to immutable. to avoid write stalls, the storage system immediately switches to a new writable memtable when the current one becomes full, while the full memtable gets flushed asynchronously in the background. once the flush completes, the immutable memtable is destroyed. at any time, only one memtable accepts writes. one or more immutable memtables may coexist to serve reads. in practice, most lsm engines implement something that is effectively a memtable pool in order to minimise flush-induced stalls.</p>
+<pre tabindex="0"><code>memtablepool
+ ├─ one active mutable memtable (accepts writes)
+ ├─ immutable memtable #1 (being flushed)
+ ├─ other immutable memtables  (queued to be flushed)
+ └─ ...
+</code></pre><p>at its core, memtable is implemented using a data structure that can store records sorted in total order by key, like red-black tree, avl tree, skiplist, or similar. since sstables are immutable sorted structures, the memtable must be able to emit its contents in sorted order during a flush. for example, if the memtable is implemented as a balanced binary search tree, an in-order traversal yields sorted keys in O(n) time.</p>
+<h3 id="functional-requirements-of-memtable">functional requirements of memtable</h3>
+<ol>
+<li>atomic writes</li>
+</ol>
+<p>every individual &ldquo;put&rdquo; or &ldquo;delete&rdquo; operation must be atomic. when multiple threads update the value of the same key, the memtable shouldn&rsquo;t end up in an inconsistent/incorrect state.</p>
+<ol start="2">
+<li>linearizability (read your writes)</li>
+</ol>
+<p>writes must be globally ordered and atomic. once a write is acknowledged, any subsequent reads (from any thread) must reflect that write or a later one if it happened. thread-local buffers that are merged shouldn&rsquo;t be used as a memtable data structure because of this; if thread a writes a value, thread b must be able to see it immediately upon completion, regardless of which core or thread-local buffer it originated from.</p>
+<ol start="3">
+<li>snapshot isolation/consistent reads</li>
+</ol>
+<p>during a range scan or a large read, the memtable must provide a consistent view of the data at a specific point in time, even if other threads are writing to it during the reads.</p>
+<ol start="4">
+<li>bidirectional operation</li>
+</ol>
+<p>beyond point reads, memtable must support efficient forward and reverse range scans. this is necessary because user queries often involve ordering data. even if the user never requests a range scan, the storage system requires one to be done to create a sstable. the memtable must be able to produce an ordered stream of its contents to ensure that the resulting on-disk file is sorted; this makes use of hash table as memtable tricky.</p>
+<ol start="5">
+<li>support for versioning (mvcc)</li>
+</ol>
+<p>to handle updates, the memtable must store multiple versions of the same key (typically using timestamps).</p>
+<h3 id="non-functional-requirements-of-memtable">non-functional requirements of memtable</h3>
+<ol>
+<li>high write throughput (low contention)</li>
+</ol>
+<p>the memtable must minimise the use of global &ldquo;stop-the-world&rdquo; locks. modern implementations often use lock-free skip lists or wait-free datastructures to allow concurrent writes.</p>
+<ol start="2">
+<li>low read latency</li>
+</ol>
+<p>reads should not be blocked by writes.</p>
+<ol start="3">
+<li>bounded memory usage</li>
+</ol>
+<p>the memtable must accurately track its memory footprint to trigger a flush at the configured size limit, before the system runs out of allocated ram.</p>
+<ol start="4">
+<li>predictable p99 latency</li>
+</ol>
+<p>the switch to the new mutable memtable after one memtable gets full shouldn&rsquo;t cause latency spikes in the database.</p>
+<ol start="5">
+<li>non-blocking long-lived iterators</li>
+</ol>
+<p>in a real world lsm backed storage engine, the background flush or a large use scan can take seconds to complete. these iterators must not hold a lock that prevents new writes; this implies coarse-grained locking shouldn&rsquo;t be done (eg. a single mutex over the whole memtable)</p>
+<h3 id="skip-lists-as-memtable">skip lists as memtable</h3>
+<p>few reasons why skip lists have become a popular and widely used choice for the memtable datastructure in modern lsm based storage engines; rocksdb, cassandra, hbase, scylladb, cockroachdb&rsquo;s pebble, tidesdb to name a few.</p>
+<ol>
+<li>lock-free concurrency</li>
+</ol>
+<p>balancing a tree requires rotations. a rotation is a structural change that can affect the entire path from a leaf to the root. in a multi-threaded environment, performing a rotation requires locking large sections of the tree to maintain pointer integrity. this creates massive contention and kills p99 latency. in contrast, a skip list is updated by simply swapping pointers at a different levels. skip list can be implemented using atomic compare-and-swap (cas) operations.</p>
+<ol start="2">
+<li>simplified snapshot isolation (mvcc)</li>
+</ol>
+<p>skip lists are inherently more &ldquo;iterator-friendly&rdquo; for mvcc. since nodes are never moved (unlike tree rotations), a reader can capture a pointer to a node and be guaranteed that the next pointers will always lead to a valid sorted sequence, even if other threads are inserting new nodes behind or ahead of it. to support mvcc, skip lists typically store keys as (keyname, sequencenumber).</p>
+<ol start="3">
+<li>allocation efficiency and cache friendliness</li>
+</ol>
+<p>modern lsm engines often use arena allocation for memtables. the frequent node rebalancing and deletions lead to memory fragmentation in trees. since nodes are never rebalanced or moved in skip lists, we can allocate memory linearly in an arena. this improves cache locality as the nodes created around the same time are often physically close in memory<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
+<ol start="4">
+<li>efficient bidirectional iteration</li>
+</ol>
+<p>a skip list node implementation can be easily tweaked to support both prev() and next() operations.</p>
+<ol start="5">
+<li>probabilistic balancing</li>
+</ol>
+<p>strictly balanced trees guarantee a height of exactly log<sub>b</sub>n where b is the fanout but the cost of maintaining that guarantee under intense write pressure is high. skip list use probabilistic balancing and it gives the performance win of O(log<sub>1/p</sub>n) search performance on average without ever needing to perform a &ldquo;global&rdquo; rebalance. while there is a theoretical worst-case of O(n), the statistical probability of a skip list becoming significantly unbalanced is mathematically negligible in production workloads.</p>
+<p>lsm engines solve this problem using arena allocation. instead of allocating memory for each node individually, the engine request a large contiguous block of memory (eg. 8mb) from the operating system. when a new skip list node is created, the system simply returns the current &ldquo;top&rdquo; of the arena and moves the pointer forward by the size of the node. this ensures that nodes created around the same time are physically adjacent in memory, improving the cache locality by reducing pointer-chasing delays. arena allocation also simplifies memory deallocation of already flushed memtables, since essentially it is an O(1) operation.</p>
+<h3 id="write-ahead-log-wal">write-ahead log (wal)</h3>
+<p>every write operation performs two steps:</p>
+<p>step 1: append the write operation (eg., set &ldquo;user:123&rdquo; = &ldquo;laura&rdquo;) to the end of the wal.
+step 2: once the log entry is safely on disk (often after a fsync call), apply the write operation on the memtable.</p>
+<p>these steps are conceptually sequential but they are not always done synchronously. the &ldquo;synchronicity&rdquo; depends entirely on your durability-vs-performance configuration. the strict synchronous path with maximum safety is when fsync() is evoked after every append to the wal, forcing the hardware to move data from the os cache to the physical disk. the write operation is applied to the memtable only after the disk &ldquo;confirms&rdquo; the data has been persisted on disk. the asynchronous path with maximum throughput is when the writes to the wal are buffered&ndash;the storage engine instead of forcing a disk sync, keeps the data in the os&rsquo; page cache, immediately applies the write operation on the memtable and returns &ldquo;success&rdquo; acknowledgement back to the client application. modern engines like rocksdb and pebble use a &ldquo;pipelined write&rdquo; approach. instead of one thread doing step 1 then step 2, the engine pipelines these steps. one thread (the wal lead) can be busy flushing a large batch of accumulated writes to the log log, while another thread (the memtable lead) simultaneously inserts the previous batch of already-wal-written updates to the memtable. while the logical order of execution remains &ldquo;wal first&rdquo;, the hardware does both steps at once for difference data sets.</p>
+<p>the wal exists solely to reconstruct the memtable after a crash. each wal record includes:</p>
+<ol>
+<li>a crc-32 checksum for data integrity verification</li>
+<li>a record type indicator (eg: is it a full wal record or a fragment)</li>
+<li>operation data (operation identifier, key-value pairs, tombstones etc)</li>
+</ol>
+<p>upon restart after a crash, the storage system will:</p>
+<ol>
+<li>scan all wal files in chronological order</li>
+<li>validate each record using checksum</li>
+<li>reconstruct the exact memtable state</li>
+<li>resume operation without any data loss</li>
+</ol>
+<h2 id="sstable">sstable</h2>
+<p>flushing the in-memory memtable to a persistent, immutable on-disk structure (sstable) is typically triggered by one of the following conditions:</p>
+<ol>
+<li>
+<p>individual buffer saturation: once an active memtable reaches it pre-defined memory limit, it is marked as immutable and a background process begins flushing its contents to disk in a single pass while avoiding random i/o and expensive in-place updates.</p>
+</li>
+<li>
+<p>global memory pressure: to prevent the database from consuming all available system ram, storage engines often track the aggregate size of all memtables across the entire database and if the combined memory usage exceeds a global limit, the engine will preemptively flush the largest memtable to disk, even if that specific bugger hasn&rsquo;t reached its individual capacity yet.</p>
+</li>
+<li>
+<p>to prevent the wal from growing indefinitely&ndash;leading to extremely long recovery times&ndash;the engine will trigger a flush of the oldest memtable. once that data is safely persisted as a sstable, the corresponding segments of the wal are purged<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.</p>
+</li>
+</ol>
+<p>having the on-disk files as immutable, significantly simplifies the concurrency control. immutable files can be read concurrently without requiring locks or on the data. readers never block writers and readers never block each other. in contrast, mutable data datastructures (eg. b-tree) rely on hierarchical locks to preserve on-disk data integrity&ndash;these systems allow multiple concurrent readers but writers require exclusive locks over portions of the tree, leading to complex concurrency control and contention management.</p>
+<p>sstable is a file on disk containing key-value pairs sorted by key. it:</p>
+<ol>
+<li>is immutable once written</li>
+<li>is capable of storing duplicated keys</li>
+<li>is agnostic to key and value types, with both treated as arbitrary byte resulting and has no padding requirements for keys or values</li>
+<li>never modifies on-disk data in case of updates or deletes. updates writes a new version of the key inot the memtable which is later flushed to a new sstable. deletes are represented by appending a tombstone<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> record that marks the key as deleted. during reads, the system always searches from the newest-to-oldest, ensuring that the most recent value or associated tombstone is found before any older version, preserving correctness without modifying historical data.</li>
+</ol>
+<p>sstable file structure is designed for sequential disk writes, efficient point lookups, range scans, and compaction. physically, it is laid out as a data section followed by index, filter, metadata, and footer section&ndash;each serving a distinct role in minimizing i/o and read amplification.</p>
+<pre tabindex="0"><code>sstable file
+├── data section (data blocks)
+├── index section
+├── filter section (bloom filter)
+├── metadata / summary
+└── footer
+</code></pre><p>the data section is divided into fixed-size data blocks. each data block stores a sorted sequence of key-value entries and is the smallest independently readable unit of the sstable. as the keys and values are variable length, blocks include length metadata so that a reader knows how far to advance when scanning. data blocks are commonly prefix-compressed and checksummed. compression is applied at the block level using techniques like snappy, lz4, zstd, zlib, or bz2. restart arrays make binary search possible inside a compressed data block. at each restart point, the key is stored in full without any prefix compression. the restart array is simply a list of offsets within the block that point to these full-key entries.</p>
+<pre tabindex="0"><code>data block
+├── entry 1: (key₁, value₁)
+├── entry 2: (key₂, value₂)
+├── ...
+├── entry n
+├── entry metadata (lengths / offsets)
+├── restart points (optional)
+└── checksum
+</code></pre><p>sstables include a sparse index section that maps key&ndash;often the last key in each data block&ndash;to their byte offset within the block. this index typically contains one entry per block or per every nth key, allowing the storage engine to locate the correct disk block with minimal i/o. each sstable can also contain a bloom filter that quickly determines whether a key definitely doesn&rsquo;t exist in that sst file&ndash;allowing the storage engine to skip both the index and data blocks entirely for negative lookups. metadata section has information such as the minimum, maximum keys, key range coverage, and other statistics used by query planning and compaction logic&ndash;enabling entire files to be skipped from being read if they cannot satisfy the read predicates. the footer is a small, fixed-size section whose job is to make the file self-describing and safely readable. as the footer section has a fixed-size and known byte layout, the storage engine can read the last few bytes of the sst file and immediately know where all its important sections are without having to scan the entire file or rely on external state. it typically contains:</p>
+<ol>
+<li>a pointer (byte offset) to the index block</li>
+<li>a pointer (byte offset) to the bloom filter block</li>
+<li>version or format identifier</li>
+<li>a magic number that uniquely identifies the file as a valid sstable</li>
+</ol>
+<p>segment is a higher level logical organizational idea&ndash;contiguous group of data blocks, often corresponding to a streaming write from a memtable flush or to a logical key range within a large sstable. segments are not the units of reads&ndash;data blocks are&ndash;but they help with efficient range scans and compaction. it is helpful to thnk of a sstable not as a single, never-changing file but as a collection of immutable segments created and merged over time. each time the storage engine flushes its memtable, a new segment is created. segments are immutable snapshots of the database state at a point in time. during reads, segments are examined from newest-to-oldest to locate the latest version of a given key.</p>
+<pre tabindex="0"><code>segment
+├── data block
+├── data block
+├── data block
+├── local metadata
+└── optional local index
+</code></pre><p>if all the sstable created over time were all organized as a flat collection, then:</p>
+<ol>
+<li>reads would need to check many (worst-case, all) sst files</li>
+<li>disk usage would grow due to dulpicates and obsolete value entries</li>
+<li>compaction would become expensive and unpredictable</li>
+</ol>
+<p>instead, organizing the sstables into multiple levels bounds read cost, controls disk usage, and makes compaction predictable and efficient. this design decision balances write throughput against read latency and space efficiency. the core invariants of leveled organixzation are:</p>
+<ol>
+<li>newer data lives in higher levels; order data moves downwards by compaction</li>
+<li>each level is larger than the previous one by a constant factor</li>
+<li>except for level 0, sstables in a level have non-overlapping key ranges</li>
+</ol>
+<p>leveL0 (L0) contains sstables created directly from memtable flushes. these sstables are individually sorted but may have overlapping key rangs. allowing overlap at this level avoids need for coordination during flushes, yielding higher write throughput. however, reads may need to check all L0 sstable because of the overlap&ndash;the total size of L0 is bounded to prevent excessive read amplification. lower levels (L1 to ln) contain data that has been compacted and merged from higher levels. sstables within a level have non-overlapping key ranges, which ensures that for any given key, at most only one sstable needs to be checked per level during a read.</p>
+<pre tabindex="0"><code>+-------------------------------------------------------------+
+|                          on disk                            |
++-------------------------------------------------------------+
+
++-------------------------------------------------------------+
+| level 0 (L0) – mutable flush level                           |
++-------------------------------------------------------------+
+| +-------------------+  +-------------------+  +-----------+ |
+| | sstable L0-1      |  | sstable L0-2      |  | sstable n | |
+| |                   |  |                   |  |           | |
+| | - overlapping     |  | - overlapping     |  | - overlap | |
+| | - recently flushed|  | - unordered ranges|  |           | |
+| | - smallest size   |  |                   |  |           | |
+| +-------------------+  +-------------------+  +-----------+ |
+|                                                             |
++-------------------------------------------------------------+
+
++-------------------------------------------------------------+
+| level 1 (L1) – sorted, non-overlapping                      |
++-------------------------------------------------------------+
+| +---------------------------------------------------------+ |
+| | sstable L1-1                                            | |
+| | - sorted key range                                      | |
+| | - no overlap within level                               | |
+| | - larger than L0 files                                  | |
+| +---------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+
++-------------------------------------------------------------+
+| level 2 (L2)                                                |
++-------------------------------------------------------------+
+| +---------------------------------------------------------+ |
+| | sstable L2-1                                            | |
+| | - wider key range                                       | |
+| | - lower update frequency                                | |
+| | - higher read amplification                             | |
+| +---------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+
++-------------------------------------------------------------+
+| level n (ln) – cold data                                   |
++-------------------------------------------------------------+
+| +---------------------------------------------------------+ |
+| | sstable ln-1                                            | |
+| | - largest files                                        | |
+| | - rarely compacted                                     | |
+| | - highest data density                                  | |
+| +---------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+</code></pre><p>immutability inevitably leads to many sstables accumulating on disk over time. compaction addresses this by:</p>
+<ol>
+<li>merging multiple segments into a single, larger segment</li>
+<li>deduplicating keys by keeping only the newest version</li>
+<li>discarding tombstones once it is safe to do so</li>
+<li>deleting old segments from higher levels once the new compacted segment has been written to the lower level(s).
+compaction restores space efficiency and preserves the invariant of non-overlapping key ranges in lower levels.</li>
+</ol>
+<h2 id="read-write-paths">read, write paths</h2>
+<figure class="responsive-img"><img src="http://localhost:1313/lsm/read-path.webp">
+</figure>
+
+<figure class="responsive-img"><img src="http://localhost:1313/lsm/write-path.webp">
+</figure>
+
+<h2 id="compaction">compaction</h2>
+<p>amplification quantifies how much extra work the system has to perform relative to the logical operation requested.
+read amplification is defined as the ratio of bytes read from storage to retrieve a value, relative to the actual size of the value. read amplification often manifests as the number of files, blocks, or disk i/o operations required to service a single logical read. write amplification is defined as the ratio of bytes written to storage to persist a value, relative to the actual size of the value. write amplification arises when a logical write causes multiple physical writes, due to reorganization or compaction. space amplification is defined as the ration of the size of data on dick to the size of the logical data stored.</p>
+<p><a href="https://openproceedings.org/2016/conf/edbt/paper-12.pdf">RUM conjecture</a> states, any storage engine can optimize at most two of:</p>
+<ol>
+<li>read amplification</li>
+<li>write (update) amplification</li>
+<li>space (memory) amplification</li>
+</ol>
+<p>optimizing two necessarily worsens the third.</p>
+<h3 id="amplification-in-b-tree-vs-lsm-based-storage-engines">amplification in b-tree vs lsm based storage engines</h3>
+<p>in b-tree storage engines, a single logical write may:</p>
+<ol>
+<li>update a leaf page</li>
+<li>trigger a page split if the page is full</li>
+<li>require parent node updates with new separator key(s)</li>
+</ol>
+<p>these operations can cascade up the tree, potentially reaching the root, as a result:</p>
+<ol>
+<li>one logical write can multiple page writes</li>
+<li>writes are random i/o due to scattered page locations</li>
+<li>write amplification comes from structural maintenance</li>
+</ol>
+<p>write amplification is usually moderate but unpredictable, depending on page occupancy and split frequency.</p>
+<p>in lsm engines, the same key-value pair maybe rewritten many times before reaching its final level. consequently, write amplification is dominated by compaction, is tunable but often higher than in b-tree.</p>
+<p>reads in b-trees follow a single, well-defined path&ndash;one page per level from root to leaf and the tree height is small due to high fanout. this results in low, predictable read amplification, efficient point and range scans. read amplification is bounded by the tree height, largely independent of the data size, can be further reduced by caching the upper-level pages. whereas reads in lsm engines must account for multiple data locations:</p>
+<ol>
+<li>mutable and immutable memtables</li>
+<li>multiple sstables across levels</li>
+</ol>
+<p>even with the optimisations like use of bloom filters, sparse indexes&ndash;the read amplification is still high. lsm engines trade higher read amplification for greater write throughput.</p>
+<p>space amplification in b-tree mainly comes from partially filled fixed-size pages and internal fragmentation. space amplification is lsm engines is caused by multiple version of the same key existing across sstables, tombstones and out-of-date duplicate entries being retained until compaction. in lsm engines, space amplification depends on:</p>
+<ol>
+<li>compaction strategy</li>
+<li>level size ratio</li>
+<li>workload characteristics</li>
+</ol>
+<p>without compaction, several pathological behaviors will emerge in lsm backed storage engines:</p>
+<ol>
+<li>unbounded disk growth</li>
+<li>increased read amplification</li>
+<li>high space amplification</li>
+</ol>
+<p>compaction is done to address these issues by:</p>
+<ol>
+<li>reclaim disk space by purging older versions of keys and tombstones</li>
+<li>reducing the total number of sstables</li>
+<li>enforcing non-overlapping key ranges</li>
+</ol>
+<p>at its core, compaction is a merge sort operation over sstables. compaction selects  a subset of sstables as input, merging them into one or more new sstables. during the merge, the records are processed in key order, typically using a merge heap (eg., a priority queue). when multiple records with the same key are encountered, the system selects the record with the highest sequence number or timestamp, representing the most recent write. older versions are discarded and tombstones suppress older versions of the keys and may themselves be dropped once it is safe to do so. the output of compaction is smaller number of new sstables, containing only the latest versions of keys with non-overlapping key-range organisation between the sstables. once the new sstables are fully written, the original input sstables are deleted and their disk space is reclaimed. compaction is performed by dedicated compaction thread pool that runs asynchronously in the background while foreground application reads and writes continue concurrently. compaction is triggered based on heuristics such as:</p>
+<ol>
+<li>sstable counts at each level</li>
+<li>sstable size thresholds</li>
+</ol>
+<p>lsm compaction closely resembles <em>generational garbage collection</em>, guided by the <em>weak generational hypothesis</em>&ndash;most objects die young.
+recently flushed sstables contain many short-lived versions of the keys that will undergo frequent compaction. the &ldquo;young&rdquo; sstables have inherently higher churn and rewrite rate. older sstables contain mostly stable, long-lived data and are compacted infrequently. this is similar to the garbage collection design where the &ldquo;young&rdquo; objects are frequently garbage collected and have a high death rate as opposed to the &ldquo;older&rdquo; objects that are rarely garbage collected and will live for long. this analogy is useful to see why lsm trees can sustain higher write throughput as most write amplification is concentrated just on the young data, while older data remains relatively untouched.</p>
+<h3 id="tiered-compaction">tiered compaction</h3>
+<p>tiered/size-based compaction groups sstables by size rather than key-range. when a fixed number of sstables of similar size accumulate, they are merged into a single larger sstable. this hierarchical process repeats as increasingly larger files accumulate over time. each level has its size limit, and for each level there is a limitation of how many sstables it can have&ndash;when a level&rsquo;s capacity is reached, all sstables in that level are merged and moved downwards to the lower level. sstables within the same level may have overlapping key ranges. the key difference between tiered compaction and leveled compaction is that tiered compaction merges from only within a level (L<sub>i</sub> -&gt; L<sub>i+1</sub>) whereas in leveled compaction, sstables merge across consecutive levels (L<sub>i</sub> + L<sub>i+1</sub> -&gt; L<sub>i+1</sub>).</p>
+<p>tiered compaction offers lower write amplification compared to leveled compaction, as the data is rewritten fewer times. tiered compaction is particularly well-suited for write-heavy workloads because it minimises write amplification by ensuring that new data is only ever merged with similarly sized data, preventing small writes from forcing large overall rewrites, and amortizing the compaction cost into infrequent, sequential bulk merges rather than continuous cross-level reorganization. the main trade-off of this strategy is high read amplification due to the overlapping sstables and higher space amplification. in tiered compaction, sstables within the same level may overlap arbitrarily and compaction only occurs within a level, never across levels. a sstable is not merged into a lower level until the entire level has similarly sized sstables. this creates a structural delay, letting obsolete data persist for longer time&ndash;if a key is updated repeatedly, each version can land in a different sstable; these sstables may reside in different tiers, obsolete versions cannot be safely dropped until all sstables containing overlapping key ranges are merged together.</p>
+<pre tabindex="0"><code>                               writes
+                                 │
+                                 ▼
+┌──────────────────────────────────────────────────────────────┐
+│                             Tier 0                           │
+│  small SSTables of similar size                               │
+│  overlapping key ranges allowed                               │
+│                                                              │
+│  ┌──────────┐                                                │
+│  │ SST 1    │ [  0 – 300 ]                                   │
+│  └──────────┘                                                │
+│  ┌──────────┐                                                │
+│  │ SST 2    │ [200 – 500 ]                                   │
+│  └──────────┘                                                │
+│  ┌──────────┐                                                │
+│  │ SST 3    │ [100 – 400 ]                                   │
+│  └──────────┘                                                │
+│  ┌──────────┐                                                │
+│  │ SST 4    │ [250 – 600 ]                                   │
+│  └──────────┘                                                │
+│  ┌──────────┐                                                │
+│  │ SST 5    │ [ 50 – 350 ]                                   │
+│  └──────────┘                                                │
+│                                                              │
+│  (stack grows; key ranges may heavily overlap)                │
+└───────────────┬──────────────────────────────────────────────┘
+                │ compaction triggered when stack is full
+                ▼
+┌──────────────────────────────────────────────────────────────┐
+│                             Tier 1                           │
+│  larger SSTables (merged output)                              │
+│  still overlapping with other Tier 1 files                   │
+│                                                              │
+│  ┌──────────────────────────────┐                            │
+│  │ SSTable A                    │                            │
+│  │ ~5× larger than Tier 0 files │                            │
+│  │ [  0 – 600 ]                 │                            │
+│  └──────────────────────────────┘                            │
+└───────────────┬──────────────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────────────────────────────┐
+│                             Tier 2                           │
+│  even larger SSTables                                        │
+│  fewer files, but overlap still allowed                      │
+└──────────────────────────────────────────────────────────────┘
+</code></pre><h3 id="leveled-compaction">leveled compaction</h3>
+<p>leveled compaction organizes data into a sequence of levels (L0, L1, L2&hellip;), each with strict size and key-range invariants. as data moves down the levels, it becomes progressively denser&ndash;covering greater fraction of all possible keys in their range. each level typically grows exponentially across level (fanout) and has a maximum total size. L0 files may overlap arbitrarily but levels L1 and above are guaranteed to have non-overlapping key ranges, ensuring that within these levels, at most one sstable needs to be checked for any given key. when a level l<sub>i</sub> exceeds its size or sstable count threshold, one or more sstables from l<sub>i</sub>, any overlapping sstable from l<sub>i+1</sub> are selected and merged. if the merge output exceed the maximum sstable size of l<sub>i+1</sub>, then it is split into multiple fixed-size sstables which are non-overlapping and the original input sstables are deleted.</p>
+<p>read amplification is much lower than tiered compaction and is bounded by (number of L0 files + (number of levels-1)). space amplification is also lower because obsolete entries and tombstones are cleaned up aggressively. leveled compaction is suited for read-heavy workloads as it aggressively maintains non-overlapping, dense sstables across levels, ensuring that each key lookup touches at most one sstable per level and delivering predictable, low-latency reads ath the cost of higher write amplication.</p>
+<pre tabindex="0"><code>                               writes
+                                 │
+                                 ▼
+┌──────────────────────────────────────────────────────────────┐
+│                              L0                              │
+│  many small SSTables                                          │
+│  arbitrary overlap allowed                                   │
+│                                                              │
+│  ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐                     │
+│  │ S0a   │ │ S0b   │ │ S0c   │ │ S0d   │                     │
+│  │[50–90]│ │[0–40] │ │[30–70]│ │[10–80]│                     │
+│  └───────┘ └───────┘ └───────┘ └───────┘                     │
+└───────────────┬──────────────────────────────────────────────┘
+                │ flush / compaction
+                ▼
+┌──────────────────────────────────────────────────────────────┐
+│                              L1                              │
+│  fixed total size (e.g., 100 MB)                              │
+│  non-overlapping key ranges                                  │
+│                                                              │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
+│  │ SSTable A    │  │ SSTable B    │  │ SSTable C    │       │
+│  │ [  0 – 100 ] │  │ [101 – 200 ] │  │ [201 – 300 ] │       │
+│  └──────────────┘  └──────────────┘  └──────────────┘       │
+│         ▲                   ▲                   ▲           │
+│         │                   │                   │           │
+│   one SSTable per level consulted per key         │           │
+└───────────────┬──────────────────────────────────────────────┘
+                │ compaction triggered when L1 exceeds limit
+                ▼
+┌──────────────────────────────────────────────────────────────┐
+│                              L2                              │
+│  larger total size (fanout ≈ 8×)                              │
+│  larger, denser SSTables                                      │
+│                                                              │
+│  ┌──────────────────────┐  ┌──────────────────────┐         │
+│  │ SSTable D            │  │ SSTable E            │         │
+│  │ [  0 – 150 ]         │  │ [151 – 300 ]         │         │
+│  │ dense key coverage   │  │ dense key coverage   │         │
+│  └──────────────────────┘  └──────────────────────┘         │
+└──────────────────────────────────────────────────────────────┘
+</code></pre><p>rockdb uses a hybrid compaction strategy: L0 is tiered, allowing fast memtable flushes and levels &gt;= L1 are leveled, preserving bounding read amplification.</p>
+<pre tabindex="0"><code>| dimension           | leveled compaction | tiered compaction  |
+| ------------------- | ------------------ | ------------------ |
+| write amplification | high               | low                |
+| read amplification  | low                | high               |
+| space amplification | low                | high               |
+| key-range overlap   | none (≥ L1)        | allowed everywhere |
+| compaction input    | `Li + Li+1`        | `Li only`          |
+| compaction output   | written to `Li+1`  | written to `Li+1`  |
+| workload fit        | read-heavy         | write-heavy        |
+</code></pre><h2 id="optimisations">optimisations</h2>
+<p>modern lsm implementations employ a layered set of optimizations to reduce read amplification. these optimisations progressively narrow down the search space while reducing disk i/o and bounding cpu overhead.</p>
+<ol>
+<li>compaction is the primary mechanism for controlling read amplification</li>
+<li>in-memory indexes: each sstable maintains a sparse index that is loaded into memory. this index maps key ranges to their disk offsets.</li>
+<li>bloom filters to avoid reading sstables that definitely cannot contain the target key. most lsm engines have a bloom filter for each sstable. bloom filers are especially effective in the early levels as these levels contain relatively fewer keys and very low false-positive rate can be achieved with minimal memory. since these levels are consulted first, eliminating i/o here yields disproportionate latency gains&ndash; as shown by <a href="https://nivdayan.github.io/monkeykeyvaluestore.pdf">dayan et. al, 2017</a>. allocating more bits to early-level bloom filters instead of allocating uniform number of bits for each level minimizes the overall read cost. while bloom filters reduce disk i/o, they introduce cpu overhead. each bloom filter check requires hasing the lookup key and as the number of sstables grow, repeated hashing becomes expensive. a key insight to reduce the cpu overhead involved is by sharing the computed hash digest across bloom filters at the different levels. this requires coordinating the bloom filter implementations across levels but significantly reduces the cpu overhead as described in <a href="https://cs-people.bu.edu/zczhu/files/SHaMBa-VLDB-PhD-Workshop.pdf">zhu et al., 2023</a>.</li>
+<li>block-level caching further reduces read amplification by avoiding repeated disk reads for hot data.</li>
+<li>lsm engines such as leveldb and rocksdb maintain a manifest file that records the set of all sstables across level, their key range, and lifecycle related metadata. this is loaded into memory and cached, enabling the engine to quickly determine which sstables could possibly contain a given key. the manifest is updated only on metadata changes, never on the normal read or write path.</li>
+</ol>
+<h2 id="outro">outro</h2>
+<p>&ldquo;how a two component lsm-tree grows</p>
+<p>to trace the metamorphosis of an lsm-tree from the beginning of its growth, let us begin with a first insertion to the c<sub>0</sub> tree component in memory&rdquo;</p>
+<p>o&rsquo;neil et al. in their 1996 lsm paper asked the question of &ldquo;what if we stopped paying cost of random i/o for every update and instead amortized over time&rdquo;. they proposed two designs: the two-component lsm tree, with a memory-resident c<sub>0</sub> optimised for cpu efficiency and a disk-resident c<sub>1</sub> optimised for sequential i/o; and the multi-component generalization where data flows through increasingly larger disk components. updates first accumulate in memory and then migrate to disk via the rolling merge cursor, which slowly circulates through disk blocks. the rolling merge cursor is a conceptual mechanism that manages the continuous, asynchronous migration of data between different components of the lsm-tree. rather than performing a single massive update, the system uses this cursor to move data in small, manageable steps to the memory usage in check. the efficiency of this process is captured by the batch-merge parameter (M), representing the average number of entries merged from c<sub>0</sub> into each page of c<sub>1</sub>. a higher M reduces disk arm movement and lowers the per-insert i/o cost. in multi-component trees (c<sub>0</sub>, c<sub>1</sub>, c<sub>2</sub>,&hellip;,c<sub>k</sub>) , there are asynchronous rolling merge processes occurring between every adjacent pair of components. the paper motivates the use of more than two components by showing that when c<sub>1</sub> is extremely large, the memory required for c<sub>0</sub> to maintain batching efficiency becomes too expensive and that increasing the number of components allows the memory-resident c<sub>0</sub> to be significantly smaller while maintaining high i/o efficiency.</p>
+<p>there are several stark differences between the design proposed by o&rsquo;neil et al. (1996) and modern implementations found in engines like rocksdb, pebble, and wiredtiger. the most significant differences lie in the merge mechanism, the disk component structure, and the concurrency control.</p>
+<ol>
+<li>
+<p>rolling merge vs. discrete compaction
+the paper proposes a conceptual cursor that moves data from c<sub>0</sub> to c<sub>1</sub> by reading &ldquo;emptying blocks&rdquo; and writing &ldquo;filling blocks&rdquo; in a constant, circulating stream. modern engines like rocksdb and pebble do not use a circulating cursor. instead, they use compaction, a discrete event triggered when a level or &ldquo;sstable&rdquo; reaches a size threshold. they merge entire files (sorted string tables) at once rather than using a continuous rolling cursor.</p>
+</li>
+<li>
+<p>b-tree-like directory vs. immutable sstables
+the c<sub>1</sub> component is described as having a &ldquo;directory structure comparable to a b-tree,&rdquo; but &ldquo;optimized for sequential disk access&rdquo;. it uses &ldquo;multi-page blocks&rdquo; and &ldquo;single-page nodes&rdquo; to allow for both point lookups and range scans. real-world implementations typically use sorted string tables (sstables). these are immutable, sorted files. unlike the paper&rsquo;s c<sub>1</sub> component, which is a single, large, growing tree structure, modern lsm engines manage thousands of small, immutable files organized into levels.</p>
+</li>
+<li>
+<p>concurrency and locking
+the paper proposes node-level locking to handle concurrency. when the rolling merge cursor modifies a node, it is locked in &ldquo;write mode,&rdquo; and finds are blocked or redirected. because modern engines use immutable files (sstables), they don&rsquo;t need to lock nodes during merges. instead, they use mvcc (multi-version concurrency control). a background compaction process creates a new version of the data, and the system simply switches a pointer to the new file once it is ready, allowing &ldquo;finds&rdquo; to continue without interruption or locking.</p>
+</li>
+</ol>
+<p>google’s work in the early 2000s provided the first convincing proof that log-structured merge trees could operate efficiently in a distributed environment at massive scale. the lsm-tree paper (o’neil et al., 1996) provided the theory and asymptotic guarantees for write efficiency by converting random updates into sequential i/o and deferring maintenance through batch merges. what it did not provide was a concrete, fault-tolerant, distributed implementation capable of surviving real-world workloads, machine failures, and operational complexity. google supplied the required machinery for this. the sstable format (≈2003) established immutable, ordered files as the fundamental on-disk unit. bigtable (chang et al., 2006)[https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf] layered these files behind the tablet abstraction, combining in-memory buffering, on-disk sstables, and background compactions into a system that scaled across thousands of machines.</p>
+<h2 id="other-log-structured-storage-systems">other log-structured storage systems</h2>
+<p>bitcask, wisckey, and jungle illustrate how log-structured storage can be specialized by relaxing ordering, separating data, or changing on-disk indexes. all retain the core log-structured principle—sequential writes and deferred reorganization—while exploring different points in the read/write/space trade-off space.</p>
+<h3 id="bitcask-unordered-log-structured-storage"><a href="https://riak.com/assets/bitcask-intro.pdf">bitcask: unordered log-structured storage</a></h3>
+<p>bitcask is a purely append-only, unordered key–value store originally developed for riak. it can be viewed as an extreme point in the log-structured design space: an lsm-like system with no memtables, no sstables, and no sorted structure on disk. all updates are appended sequentially to log files. when a log file reaches a size threshold, it is sealed and a new log is created. the system maintains an in-memory hash map from key -&gt; (file, offset), pointing to the latest version of each key. reads are therefore a single random seek, and writes are sequential appends only. space is reclaimed through periodic log compaction, which rewrites only live key–value pairs into new log files. bitcask is well-suited for workloads that require a persistent unordered map with high write throughput and point reads.</p>
+<h3 id="wisckey-keyvalue-separation"><a href="https://www.usenix.org/system/files/conference/fast16/fast16-papers-lu.pdf">wisckey: key–value separation</a></h3>
+<p>wisckey addresses the high write amplification of lsm-trees by separating keys from values. keys (and value pointers) are stored in a sorted lsm-tree, while values are written to an unsorted, append-only value log (vlog). during compaction, only the small key–pointer entries are rewritten; large values remain in the vlog and are garbage-collected independently. this design significantly reduces write amplification, especially when values are large, while preserving efficient point lookups and range queries over keys. wisckey is particularly effective for write-heavy workloads with large values.</p>
+<h3 id="jungle-lsm-tree-with-copy-on-write-b-tree"><a href="https://www.usenix.org/system/files/hotstorage19-paper-ahn.pdf">jungle: lsm-tree with copy-on-write b+-tree</a></h3>
+<p>jungle targets the classic tiered lsm-tree trade-off: low write amplification but high read amplification due to multiple overlapping sstables per level. instead of maintaining each level as a set of sstables, jungle uses an append-only (copy-on-write) b+-tree per level. like tiered compaction, jungle avoids compacting a level into itself, preserving low write amplification between levels. however, the b+-tree structure allows efficient key lookups within a level, eliminating the need to search multiple sstables at read time.
+as a result, jungle achieves, write amplification comparable to tiered lsm-trees and read amplification closer to leveled lsm-trees</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>note on CoW, partitioned tree&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>the exact boundary between the differential and the base index depend on factors like the fanout, compaction strategy used in the lsm tree implementation. fanout (size ratios) control how much data accumulates on a level before compaction is triggered. when the size ratio is relatively small, compaction will occur frequently, moving data downward quickly&ndash;keeping the differential index small while the base index begins higher up in the tree. in contrast, a larger size ration results in infrequent compactions, causing data to linger longer in the upper level, creating a larger differential region while the base index begins deeper down in the tree. the compaction strategy determines how aggressively newer data is merged downwards, which directly determines how long the data remains &ldquo;differential&rdquo;.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>skip lists are often overlooked in favour of b-trees due to poor cache locality. the main issue is pointer chasing. a skiplist is essentially a multi-level linked list and in a standard implementation, each new node is allocated on the general system heap (using malloc), resulting in spatial fragmentation as the nodes are scattered across ram, and when the cpu follows a pointer to the next node, that memory address is rarely in the L1/L2 cache. the cpu then has to stall to fetch data from dram, these cache misses accumulate in to a significant performance penalty given that a skip list has multiple levels in it.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>as seen in scenarios 2 and 3, a memtable can be flushed before it is full. this is one reason the generated sst file can be smaller than the corresponding memtable. another reason for sst files being smaller than the flushed memtable that created it, is use of block based compression.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>counterintutively, delete operations initially consume disk space. the actual data is physically removed only after compaction when obsolete updates and tombstones are merged away.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      
+    </section>
+    
+  </div>
+</main>
+</body>
+</html>

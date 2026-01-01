@@ -1,1 +1,0 @@
-# hey, i’m jidin 👋

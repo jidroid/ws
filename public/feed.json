@@ -1,6 +1,6 @@
 {
   "version": "https://jsonfeed.org/version/1",
-  "title": "jidin.co",
+  "title": "jidin.org",
   "home_page_url": "http://localhost:1313/",
   "feed_url": "http://localhost:1313/feed.json",
   "description": "Jidin Dinesh's corner of the interweb.",

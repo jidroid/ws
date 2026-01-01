@@ -8,7 +8,7 @@
       {{ partial "header.html" . }}
       {{ .Content }}
       {{ if gt (len ( where .Site.RegularPages "Section" "blog" )) 0 }}
-      <h1>latest posts :</h1>
+      <h1>Latest Posts :</h1>
       <section>
         <!-- Loop through all blog posts, sorted by date in reverse order -->
         {{ range (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
