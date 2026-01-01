@@ -22,7 +22,7 @@
   <meta itemprop="description" content="Deep Dive Into LSM">
   <meta itemprop="datePublished" content="2025-12-29T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-12-29T00:00:00+00:00">
-  <meta itemprop="wordCount" content="6160">
+  <meta itemprop="wordCount" content="6216">
     
     <link rel="canonical" href="http://localhost:1313/lsm/">
     <link rel="icon" href="http://localhost:1313//assets/favicon.ico">
@@ -83,7 +83,7 @@
       },
       "image": "http://localhost:1313/assets/favicon.ico",
       "url" : "http:\/\/localhost:1313\/lsm\/",
-      "wordCount" : "6160",
+      "wordCount" : "6216",
       "genre" : [ ],
       "keywords" : [ ]
   }
@@ -118,7 +118,44 @@
 <hr class="hr-list" style="padding: 0;margin: 0;">
     <section>
       <h2 class="post">Log-Structured Merge Trees</h2>
-      <h2 id="intro">Intro</h2>
+      
+<nav class="table-of-contents" aria-label="Table of Contents">
+  <h3>Table of Contents</h3>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tldr">TLDR</a></li>
+    <li><a href="#memtable">Memtable</a>
+      <ul>
+        <li><a href="#functional-requirements-of-the-memtable">Functional requirements of the memtable</a></li>
+        <li><a href="#non-functional-requirements-of-the-memtable">Non-functional requirements of the memtable</a></li>
+        <li><a href="#skip-lists-as-a-memtable-data-structure">Skip lists as a memtable data structure</a></li>
+        <li><a href="#write-ahead-log-wal">Write-ahead log (WAL)</a></li>
+      </ul>
+    </li>
+    <li><a href="#sstable">SSTable</a></li>
+    <li><a href="#read-write-paths">Read, Write Paths</a></li>
+    <li><a href="#compaction">Compaction</a>
+      <ul>
+        <li><a href="#amplification-in-b-tree-vs-lsm-based-storage-engines">Amplification in B-Tree vs. LSM-Based Storage Engines</a></li>
+        <li><a href="#tiered-compaction">Tiered Compaction</a></li>
+        <li><a href="#leveled-compaction">Leveled Compaction</a></li>
+      </ul>
+    </li>
+    <li><a href="#optimisations">Optimisations</a></li>
+    <li><a href="#outro">Outro</a>
+      <ul>
+        <li><a href="#key-differences-between-oneils-design-and-modern-engines">Key Differences Between O’Neil’s Design and Modern Engines</a></li>
+        <li><a href="#other-log-structured-storage-systems">Other Log-Structured Storage Systems</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+</nav>
+
+
+
+<h2 id="tldr">TLDR</h2>
 
 
 <blockquote class="blockquote">

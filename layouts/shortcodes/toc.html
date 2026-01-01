@@ -1,0 +1,7 @@
+{{ if .Page.TableOfContents }}
+<nav class="table-of-contents" aria-label="Table of Contents">
+  <h3>{{ with .Get "title" }}{{ . }}{{ else }}Table of Contents{{ end }}</h3>
+  {{ .Page.TableOfContents }}
+</nav>
+{{ end }}
+

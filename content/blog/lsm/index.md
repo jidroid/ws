@@ -5,7 +5,10 @@ url: "/lsm"
 summary: "Deep Dive Into LSM"
 date: "2025-12-29"
 ---
-## Intro
+
+{{< toc >}}
+
+## TLDR
 
 {{< blockquote author="Alex Petrov, Database Internals" >}} "If there was an absolutely optimal storage engine for every conceivable use case, everyone would use it. But since no such engine exists, we must choose wisely." {{< /blockquote >}}
 
