@@ -25,7 +25,7 @@ An LSM tree consists of both an in-memory component and a set of on-disk structu
 
 Conceptually, an LSM tree can be understood as a multi-level differential index. Recent inserts, updates, and deletes are accumulated in small, fast-to-update structures—first in memory, then in progressively larger on-disk levels. Over time, these changes are merged and consolidated through compaction, allowing the system to sustain high write throughput without repeatedly rewriting existing data.[^2]. 
 
-```text
+```
 Newest
 │
 ├── Memtable                 ← differential
