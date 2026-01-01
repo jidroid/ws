@@ -22,7 +22,7 @@
   <meta itemprop="description" content="Deep Dive Into LSM">
   <meta itemprop="datePublished" content="2025-12-29T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-12-29T00:00:00+00:00">
-  <meta itemprop="wordCount" content="6085">
+  <meta itemprop="wordCount" content="6160">
     
     <link rel="canonical" href="http://localhost:1313/lsm/">
     <link rel="icon" href="http://localhost:1313//assets/favicon.ico">
@@ -83,7 +83,7 @@
       },
       "image": "http://localhost:1313/assets/favicon.ico",
       "url" : "http:\/\/localhost:1313\/lsm\/",
-      "wordCount" : "6085",
+      "wordCount" : "6160",
       "genre" : [ ],
       "keywords" : [ ]
   }
@@ -557,6 +557,23 @@
 <p>WiscKey reduces write amplification by separating keys from values. Keys and value pointers are stored in a sorted LSM-tree, while values are appended to an unsorted value log (VLog). During compaction, only small key-pointer entries are rewritten; large values remain in the VLog and are compacted independently. This approach drastically reduces write amplification for large values while preserving efficient point lookups and range queries.</p>
 <h4 id="jungle-lsm-tree-with-copy-on-write-b-tree"><a href="https://www.usenix.org/system/files/hotstorage19-paper-ahn.pdf">Jungle: LSM-tree with Copy-on-Write B+-Tree</a></h4>
 <p>Jungle targets the tiered LSM-tree trade-off: low write amplification but high read amplification due to multiple overlapping SSTables per level. Instead of maintaining each level as a set of SSTables, Jungle uses an append-only copy-on-write B+-Tree per level. This preserves low write amplification while allowing efficient key lookups within a level. As a result, Jungle achieves write amplification comparable to tiered LSM-trees and read amplification closer to leveled LSM-trees.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.cs.umb.edu/~poneil/lsmtree.pdf">The Log-Structured Merge-Tree (O’Neil et al.)</a></li>
+<li><a href="https://15445.courses.cs.cmu.edu/fall2025/slides/05-storage2.pdf">CMU 15-445 — Storage II: LSM Trees</a></li>
+<li><a href="https://web.archive.org/web/20181115154910/https://www.ristret.com/s/gnd4yr/brief_history_log_structured_merge_trees">A Brief History of Log-Structured Merge Trees</a></li>
+<li><a href="https://web.archive.org/web/20230207235957/https://ninegene.com/2022/02/21/memtable-wal-sstable-log-structured-mergelsm-trees/">MemTable, WAL, SSTable — LSM Trees Explained</a></li>
+<li><a href="http://www.benstopford.com/2015/02/14/log-structured-merge-trees/">Log-Structured Merge Trees (Ben Stopford)</a></li>
+<li><a href="https://web.archive.org/web/20240113032102/https://yetanotherdevblog.com/lsm/">LSM Trees (Yet Another Dev Blog)</a></li>
+<li><a href="https://darchuletajr.com/index.php/blog/lsm-trees-memtables-sorted-string-tables-introduction">LSM Trees: Memtables &amp; SSTables</a></li>
+<li><a href="https://fjall-rs.github.io/post/bloom-filter-hash-sharing/">Bloom Filter Hash Sharing</a></li>
+<li><a href="https://fjall-rs.github.io/post/lsm-leveling/">Leveling in LSM Trees</a></li>
+<li><a href="https://artem.krylysov.com/blog/2023/04/19/how-rocksdb-works/">How RocksDB Works</a></li>
+<li><a href="https://buttondown.com/jaffray/archive/fine-ill-play-with-skiplists/">Fine, I’ll Play with Skiplists</a></li>
+<li><a href="https://blog.canoozie.net/a-deep-dive-into-lsm-tree-architecture/">A Deep Dive into LSM Tree Architecture</a></li>
+<li><a href="https://www.mydistributed.systems/2024/11/log-structured-storage.html">Log-Structured Storage</a></li>
+<li><a href="https://zoubingwu.com/2025-05-07/understanding-lsm-trees-in-5-minutes/">Understanding LSM Trees in 5 Minutes</a></li>
+</ul>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>

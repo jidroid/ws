@@ -529,3 +529,19 @@ Jungle targets the tiered LSM-tree trade-off: low write amplification but high r
 [^5]: Counterintuitively, delete operations initially consume disk space. The actual data is physically removed only during compaction, when obsolete updates and tombstones are merged away.
 
 
+## References
+
+- [The Log-Structured Merge-Tree (O’Neil et al.)](https://www.cs.umb.edu/~poneil/lsmtree.pdf)
+- [CMU 15-445 — Storage II: LSM Trees](https://15445.courses.cs.cmu.edu/fall2025/slides/05-storage2.pdf)
+- [A Brief History of Log-Structured Merge Trees](https://web.archive.org/web/20181115154910/https://www.ristret.com/s/gnd4yr/brief_history_log_structured_merge_trees)
+- [MemTable, WAL, SSTable — LSM Trees Explained](https://web.archive.org/web/20230207235957/https://ninegene.com/2022/02/21/memtable-wal-sstable-log-structured-mergelsm-trees/)
+- [Log-Structured Merge Trees (Ben Stopford)](http://www.benstopford.com/2015/02/14/log-structured-merge-trees/)
+- [LSM Trees (Yet Another Dev Blog)](https://web.archive.org/web/20240113032102/https://yetanotherdevblog.com/lsm/)
+- [LSM Trees: Memtables & SSTables](https://darchuletajr.com/index.php/blog/lsm-trees-memtables-sorted-string-tables-introduction)
+- [Bloom Filter Hash Sharing](https://fjall-rs.github.io/post/bloom-filter-hash-sharing/)
+- [Leveling in LSM Trees](https://fjall-rs.github.io/post/lsm-leveling/)
+- [How RocksDB Works](https://artem.krylysov.com/blog/2023/04/19/how-rocksdb-works/)
+- [Fine, I’ll Play with Skiplists](https://buttondown.com/jaffray/archive/fine-ill-play-with-skiplists/)
+- [A Deep Dive into LSM Tree Architecture](https://blog.canoozie.net/a-deep-dive-into-lsm-tree-architecture/)
+- [Log-Structured Storage](https://www.mydistributed.systems/2024/11/log-structured-storage.html)
+- [Understanding LSM Trees in 5 Minutes](https://zoubingwu.com/2025-05-07/understanding-lsm-trees-in-5-minutes/)
