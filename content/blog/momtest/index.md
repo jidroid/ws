@@ -1,5 +1,5 @@
 ---
-author: "jidin dinesh"
+author: "Jidin Dinesh"
 title: "How to Not Suck at Talking to Your Customers"
 url: "/momtest"
 summary: "Don't talk about your idea/product/feature too soon."
