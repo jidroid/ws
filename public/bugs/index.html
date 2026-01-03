@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Liste - http://localhost:1313/">
+    <meta name="author" content="Liste - https://jidin.org/">
     <title>list of production bugs i added | jidin.org</title>
     <meta name="description" content="Jidin Dinesh&#39;s corner of the interweb.">
-    <meta property="og:url" content="http://localhost:1313/bugs/">
+    <meta property="og:url" content="https://jidin.org/bugs/">
   <meta property="og:site_name" content="jidin.org">
   <meta property="og:title" content="list of production bugs i added">
   <meta property="og:description" content="race condition from non-atomic &#39;check-then-insert/update&#39; pattern in application logic 🔥 problem: concurrent requests caused a database integrity violation. 🧠 root cause: the check and insert logic in the application code wasn&#39;t atomic, allowing concurrent requests to break the uniqueness integrity expected by the application code. solution: use atomic upsert in the application code instead. 🔍 notes: correlation ids from production alerts pointed to failing requests, but those weren’t the ones that caused the integrity issue. searching logs for the successful concurrent requests that put the database into the inconsistent state cut the time to identify the issue. severity low  |  time taken to debug &lt;1h  |  date 2025-04-18">
@@ -23,12 +23,12 @@
   <meta itemprop="dateModified" content="2025-04-18T00:00:00+00:00">
   <meta itemprop="wordCount" content="108">
     
-    <link rel="canonical" href="http://localhost:1313/bugs/">
-    <link rel="icon" href="http://localhost:1313//assets/favicon.ico">
+    <link rel="canonical" href="https://jidin.org/bugs/">
+    <link rel="icon" href="https://jidin.org//assets/favicon.ico">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link href="https://www.google-analytics.com" rel="preconnect" crossorigin>
-    <link rel="alternate" type="application/atom+xml" title="jidin.org" href="http://localhost:1313//atom.xml" />
-    <link rel="alternate" type="application/json" title="jidin.org" href="http://localhost:1313//feed.json" />
+    <link rel="alternate" type="application/atom+xml" title="jidin.org" href="https://jidin.org//atom.xml" />
+    <link rel="alternate" type="application/json" title="jidin.org" href="https://jidin.org//feed.json" />
     <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
     
     
@@ -50,7 +50,7 @@
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "http:\/\/localhost:1313\/bugs\/"
+          "@id": "https:\/\/jidin.org\/bugs\/"
       },
       "author" : {
           "@type": "Person",
@@ -72,16 +72,16 @@
       "publisher":{
           "@type":"Organization",
           "name": "jidin.org",
-          "url": "http:\/\/localhost:1313\/",
+          "url": "https:\/\/jidin.org\/",
           "logo": {
               "@type": "ImageObject",
-              "url": "http:\/\/localhost:1313\/assets\/favicon.ico",
+              "url": "https:\/\/jidin.org\/assets\/favicon.ico",
               "width":"32",
               "height":"32"
           }
       },
-      "image": "http://localhost:1313/assets/favicon.ico",
-      "url" : "http:\/\/localhost:1313\/bugs\/",
+      "image": "https://jidin.org/assets/favicon.ico",
+      "url" : "https:\/\/jidin.org\/bugs\/",
       "wordCount" : "108",
       "genre" : [ ],
       "keywords" : [ ]
@@ -97,7 +97,7 @@
   <div class="content">
     <header>
 <p style="padding: 0;margin: 0;">
-  <a href="http://localhost:1313/">
+  <a href="https://jidin.org/">
     <b>jidin.org</b>
     <span class="text-stone-500 animate-blink">▮</span>
   </a>
@@ -106,7 +106,7 @@
   
   
   <li class="">
-    <a href="http://localhost:1313/quotes/"><span>Quotes</span></a>
+    <a href="https://jidin.org/quotes/"><span>Quotes</span></a>
     
   <li class="">
     <a href="mailto:jd@jidin.org"><span>Email</span></a>

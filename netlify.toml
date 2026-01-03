@@ -1,0 +1,9 @@
+[build]
+  command = "bash scripts/install-hugo.sh && export PATH=\"$HOME/.local/bin:$PATH\" && hugo --gc --minify"
+  publish = "public"
+
+[build.environment]
+  HUGO_VERSION = "0.154.2"
+  HUGO_ENV = "production"
+  NODE_VERSION = "16"
+
