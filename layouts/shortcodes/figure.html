@@ -1,0 +1,18 @@
+{{ $src := .Get "src" }}
+{{ $class := .Get "class" | default "" }}
+
+{{ $image := .Page.Resources.GetMatch (printf "*%s*" $src) }}
+{{ if $image }}
+<figure>
+  <img 
+    src="{{ $image.RelPermalink }}" 
+    alt="{{ $src }}"
+    {{ if $class }}class="{{ $class }}"{{ end }}
+    loading="lazy" 
+    decoding="async"
+  />
+</figure>
+{{ else }}
+{{ errorf "Image not found: %s" $src }}
+{{ end }}
+

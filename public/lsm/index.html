@@ -173,16 +173,16 @@
 <p>Log-structured merge (LSM) trees address this bottleneck by transforming random writes into sequential ones. Instead of updating data in place, writes are batched and applied out of place. New versions of data are written sequentially to disk, while older versions are left untouched and reconciled later. In the LSM model, updates are deferred, sequential, and append-only, allowing the system to maximize write throughput.</p>
 <p>An LSM tree consists of both an in-memory component and a set of on-disk structures. Incoming writes are first appended sequentially to a write-ahead log (WAL) to ensure durability, then applied to an in-memory data structure called the memtable. The memtable maintains keys in sorted order, enabling fast reads and writes for recently updated data. When the memtable fills, it is flushed to disk as an immutable, sorted file known as a Sorted String Table (SSTable).</p>
 <p>Conceptually, an LSM tree can be understood as a multi-level differential index. Recent inserts, updates, and deletes are accumulated in small, fast-to-update structures—first in memory, then in progressively larger on-disk levels. Over time, these changes are merged and consolidated through compaction, allowing the system to sustain high write throughput without repeatedly rewriting existing data.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Newest
-</span></span><span style="display:flex;"><span>│
-</span></span><span style="display:flex;"><span>├── Memtable                 ← differential
-</span></span><span style="display:flex;"><span>├── L0 SSTables              ← differential
-</span></span><span style="display:flex;"><span>├── L1 SSTables              ← differential (usually)
-</span></span><span style="display:flex;"><span>│
-</span></span><span style="display:flex;"><span>├── L2 / L3 / … / Ln          ← base
-</span></span><span style="display:flex;"><span>│
-</span></span><span style="display:flex;"><span>Oldest
-</span></span></code></pre></div><h2 id="memtable">Memtable</h2>
+<pre tabindex="0"><code>Newest
+│
+├── Memtable                 ← differential
+├── L0 SSTables              ← differential
+├── L1 SSTables              ← differential (usually)
+│
+├── L2 / L3 / … / Ln          ← base
+│
+Oldest
+</code></pre><h2 id="memtable">Memtable</h2>
 <p>The memtable is the in-memory representation of the most recent writes applied to an LSM tree, before those writes are flushed to disk as SSTables. Conceptually, it serves as both the primary write target and the freshest source of truth for reads. Because it may contain newer versions of keys than those stored on disk, every read must consult the memtable before accessing on-disk SSTables.</p>
 <p>When a memtable reaches its configured size limit, it transitions from mutable to immutable. To avoid write stalls, the storage engine immediately switches to a new writable memtable, while the full one is flushed asynchronously in the background. Once the flush completes, the immutable memtable can be safely discarded. At any given time, only one memtable accepts writes, while one or more immutable memtables may coexist to serve reads. In practice, most LSM engines implement an effective memtable pool to minimize flush-induced latency spikes.</p>
 <pre tabindex="0"><code>Memtable pool
@@ -348,11 +348,39 @@
 +-------------------------------------------------------------+
 </code></pre><p>Immutability inevitably leads to many SSTables accumulating on disk. Compaction addresses this by merging segments, retaining only the newest version of each key, discarding obsolete tombstones, and deleting old files once new compacted output has been safely written. In doing so, compaction restores space efficiency while preserving the invariants required for efficient reads.</p>
 <h2 id="read-write-paths">Read, Write Paths</h2>
-<figure class="responsive-img"><img src="http://localhost:1313/lsm/read-path.webp">
+
+
+
+
+
+<figure>
+  <img 
+    src="http://localhost:1313/lsm/read-path.webp" 
+    alt="read-path.webp"
+    class="responsive-img"
+    loading="lazy" 
+    decoding="async"
+  />
 </figure>
 
-<figure class="responsive-img"><img src="http://localhost:1313/lsm/write-path.webp">
+
+
+
+
+
+
+
+<figure>
+  <img 
+    src="http://localhost:1313/lsm/write-path.webp" 
+    alt="write-path.webp"
+    class="responsive-img"
+    loading="lazy" 
+    decoding="async"
+  />
 </figure>
+
+
 
 <h2 id="compaction">Compaction</h2>
 <p>Amplification quantifies how much extra work a storage engine performs relative to the logical operation requested by the client. In practice, this work appears in three forms: read amplification, write amplification, and space amplification.</p>
