@@ -1,7 +1,14 @@
 {{ $src := .Get "src" }}
 {{ $class := .Get "class" | default "" }}
 
-{{ $image := .Page.Resources.GetMatch (printf "*%s*" $src) }}
+{{ $image := .Page.Resources.GetMatch $src }}
+{{ if not $image }}
+  {{ $image = .Page.Resources.GetMatch (printf "*%s*" $src) }}
+{{ end }}
+{{ if not $image }}
+  {{ $image = .Page.Resources.GetMatch (printf "%s*" $src) }}
+{{ end }}
+
 {{ if $image }}
 <figure>
   <img 
@@ -13,6 +20,16 @@
   />
 </figure>
 {{ else }}
-{{ errorf "Image not found: %s" $src }}
+<!-- Image not found: {{ $src }} -->
+<figure>
+  <img 
+    src="{{ $src }}" 
+    alt="{{ $src }}"
+    {{ if $class }}class="{{ $class }}"{{ end }}
+    loading="lazy" 
+    decoding="async"
+  />
+</figure>
 {{ end }}
+
 
