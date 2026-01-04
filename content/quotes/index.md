@@ -36,10 +36,6 @@ date = "2022-09-18"
 "Either write something worth reading or do something worth writing." 
 {{< /blockquote >}}
 
-{{< blockquote author="Benjamin Franklin" >}}
-"Either write something worth reading or do something worth writing." 
-{{< /blockquote >}}
-
 {{< blockquote author="Chuck Palahniuk" >}}
 "This is your life and its ending one moment at a time." 
 {{< /blockquote >}}
