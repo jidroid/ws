@@ -28,6 +28,10 @@ date = "2022-09-18"
 "I was taught at school never to start a sentence without knowing the end of it." 
 {{< /blockquote >}}
 
+{{< blockquote author="Richard Gordon Guindon" >}}
+"Writing is nature's way of letting you know how sloppy your thinking is." 
+{{< /blockquote >}}
+
 {{< blockquote author="George Carlin" >}}
 "Inside every cynical person, there is a disappointed idealist." 
 {{< /blockquote >}}
@@ -202,4 +206,5 @@ date = "2022-09-18"
 
 {{< blockquote author="James Cameron" >}}
 "Pick up a camera. Shoot something. No matter how small, no matter how cheesy, no matter whether your friends and your sister star in it. Put your name on it as director. Now you're a director. Everything after that you're just negotiating your budget and your fee."
+
 {{< /blockquote >}}
