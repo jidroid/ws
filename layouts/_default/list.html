@@ -8,14 +8,13 @@
       {{ partial "header.html" . }}
       {{ .Content }}
       {{ if gt (len ( where .Site.RegularPages "Section" "blog" )) 0 }}
-      <section>
+      <ul class="post-list">
         {{ range .Pages.ByDate.Reverse }}
-          <p class="post-title">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-          </p>
-          <!-- No date is displayed here -->
+        <li>
+          <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </li>
         {{ end }}
-      </section>
+      </ul>
       {{ end }}
     </div>
   </main>
