@@ -1,17 +1,14 @@
 <header>
-<p style="padding: 0;margin: 0;">
-  <a href="/">
-    <b>{{ .Site.Title }}</b>
-    <span class="text-stone-500 animate-blink">▮</span>
+  <a href="/" class="site-title">
+    {{ .Site.Title }}<span class="cursor">▮</span>
   </a>
-</p>
-<ul style="padding: 0;margin: 0;">
-  {{ $currentPage := . }}
-  {{ range .Site.Menus.main }}
-  <li class="{{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}">
-    <a href="{{ .URL }}"><span>{{ .Name }}</span></a>
-    {{ end }}
-  </li>
-</ul>
+  <div style="display:flex;align-items:center;">
+    <nav>
+      {{ $currentPage := . }}
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}"{{ if $currentPage.HasMenuCurrent "main" . }} class="active"{{ end }}>{{ .Name }}</a>
+      {{ end }}
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">☀ light</button>
+  </div>
 </header>
-<hr class="hr-list" style="padding: 0;margin: 0;">
