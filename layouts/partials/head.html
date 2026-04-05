@@ -11,6 +11,8 @@
     <link rel="canonical" href="{{ .Permalink }}">
     <link rel="icon" href="{{ .Site.BaseURL }}/assets/favicon.ico">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://www.google-analytics.com" rel="preconnect" crossorigin>
     <link rel="alternate" type="application/atom+xml" title="{{ .Site.Title }}" href="{{ .Site.BaseURL }}/atom.xml" />
     <link rel="alternate" type="application/json" title="{{ .Site.Title }}" href="{{ .Site.BaseURL }}/feed.json" />
@@ -18,7 +20,36 @@
     {{ $styles := resources.Get "scss/styles.scss" | toCSS (dict "outputStyle" "compressed") | minify }}
     {{ $styles_extra := resources.Get "scss/_extra.scss" | toCSS (dict "outputStyle" "compressed") | minify }}
     <style>{{ $styles.Content | safeCSS }} {{ $styles_extra.Content | safeCSS }}</style>
-  
+    <script>
+      (function() {
+        var h = document.documentElement;
+        var saved = localStorage.getItem('theme');
+        if (saved) {
+          h.setAttribute('data-theme', saved);
+        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          h.setAttribute('data-theme', 'light');
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+          var btn = document.getElementById('theme-toggle');
+          if (!btn) return;
+          var isLight = h.getAttribute('data-theme') === 'light';
+          btn.textContent = isLight ? '● dark' : '☀ light';
+          btn.addEventListener('click', function() {
+            var isLight = h.getAttribute('data-theme') === 'light';
+            if (isLight) {
+              h.removeAttribute('data-theme');
+              localStorage.setItem('theme', '');
+            } else {
+              h.setAttribute('data-theme', 'light');
+              localStorage.setItem('theme', 'light');
+            }
+            var nowLight = h.getAttribute('data-theme') === 'light';
+            btn.textContent = nowLight ? '● dark' : '☀ light';
+          });
+        });
+      })();
+    </script>
+
     {{ if .IsHome -}}
   <script type="application/ld+json">
   {
