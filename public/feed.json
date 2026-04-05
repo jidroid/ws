@@ -1,14 +1,14 @@
 {
   "version": "https://jsonfeed.org/version/1",
   "title": "jidin.org",
-  "home_page_url": "https://jidin.org/",
-  "feed_url": "https://jidin.org/feed.json",
+  "home_page_url": "http://localhost:1313/",
+  "feed_url": "http://localhost:1313/feed.json",
   "description": "Jidin Dinesh's corner of the interweb.",
-  "favicon": "https://jidin.org/assets/favicon.ico",
+  "favicon": "http://localhost:1313/assets/favicon.ico",
   "expired": false,
   "author": {
     "name": "jidin",
-    "url": "https://jidin.org/"
+    "url": "http://localhost:1313/"
   },
   "items": [
     
