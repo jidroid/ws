@@ -64,6 +64,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* --- Page Transition --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+main > .content,
+main > .layout-with-toc {
+  animation: fadeIn 0.4s ease-out both;
+}
+
 /* --- Skip Link --- */
 .skip-link {
   position: absolute;
@@ -203,20 +214,18 @@ header nav a:hover {
 /* --- Theme Toggle --- */
 .theme-toggle {
   background: none;
-  border: 1px solid var(--border);
+  border: none;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 4px;
+  font-size: 13px;
+  padding: 0;
   cursor: pointer;
   margin-left: 1.5rem;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s;
 }
 
 .theme-toggle:hover {
   color: var(--accent);
-  border-color: var(--accent);
 }
 
 /* --- Headings --- */

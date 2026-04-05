@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1314/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2026-02-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1314/blog/</loc>
+    <loc>http://localhost:1313/blog/</loc>
     <lastmod>2026-02-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1314/bff/</loc>
+    <loc>http://localhost:1313/bff/</loc>
     <lastmod>2026-02-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1314/lsm/</loc>
+    <loc>http://localhost:1313/lsm/</loc>
     <lastmod>2025-12-29T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1314/bugs/</loc>
+    <loc>http://localhost:1313/bugs/</loc>
     <lastmod>2025-04-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1314/momtest/</loc>
+    <loc>http://localhost:1313/momtest/</loc>
     <lastmod>2023-10-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1314/quotes/</loc>
+    <loc>http://localhost:1313/quotes/</loc>
     <lastmod>2022-09-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1314/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
   </url>
 </urlset>
