@@ -550,6 +550,17 @@ th {
   color: var(--heading);
 }
 
+/* --- Table wrapper for mobile scroll --- */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+}
+
+.table-wrapper table {
+  margin: 0;
+}
+
 /* --- Mobile --- */
 @media (max-width: 768px) {
   .toc-sidebar {
@@ -568,5 +579,10 @@ th {
   header {
     flex-wrap: wrap;
     gap: 0.5rem;
+  }
+
+  pre {
+    font-size: clamp(9px, 2vw, 12px);
+    padding: 0.75rem;
   }
 }
