@@ -1,5 +1,7 @@
 {{ $src := .Get "src" }}
 {{ $class := .Get "class" | default "" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $caption := .Get "caption" | default "" }}
 
 {{ $image := .Page.Resources.GetMatch $src }}
 {{ if not $image }}
@@ -10,26 +12,31 @@
 {{ end }}
 
 {{ if $image }}
-<figure>
-  <img 
-    src="{{ $image.RelPermalink }}" 
-    alt="{{ $src }}"
-    {{ if $class }}class="{{ $class }}"{{ end }}
-    loading="lazy" 
+  {{ $small := $image.Resize "640x webp" }}
+  {{ $medium := $image.Resize "960x webp" }}
+  {{ $large := $image.Resize "1280x webp" }}
+<figure{{ if $class }} class="{{ $class }}"{{ end }}>
+  <img
+    src="{{ $medium.RelPermalink }}"
+    srcset="{{ $small.RelPermalink }} 640w, {{ $medium.RelPermalink }} 960w, {{ $large.RelPermalink }} 1280w"
+    sizes="(max-width: 768px) 100vw, 65ch"
+    width="{{ $image.Width }}"
+    height="{{ $image.Height }}"
+    alt="{{ with $alt }}{{ . }}{{ else }}{{ $src }}{{ end }}"
+    loading="lazy"
     decoding="async"
   />
+  {{ with $caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
 </figure>
 {{ else }}
 <!-- Image not found: {{ $src }} -->
-<figure>
-  <img 
-    src="{{ $src }}" 
-    alt="{{ $src }}"
-    {{ if $class }}class="{{ $class }}"{{ end }}
-    loading="lazy" 
+<figure{{ if $class }} class="{{ $class }}"{{ end }}>
+  <img
+    src="{{ $src }}"
+    alt="{{ with $alt }}{{ . }}{{ else }}{{ $src }}{{ end }}"
+    loading="lazy"
     decoding="async"
   />
+  {{ with $caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
 </figure>
 {{ end }}
-
-
