@@ -22,7 +22,7 @@
   <meta itemprop="description" content="Deep Dive Into LSM">
   <meta itemprop="datePublished" content="2025-12-29T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-12-29T00:00:00+00:00">
-  <meta itemprop="wordCount" content="6608">
+  <meta itemprop="wordCount" content="6622">
     
     <link rel="canonical" href="http://localhost:1313/lsm/">
     <link rel="icon" href="http://localhost:1313//assets/favicon.ico">
@@ -114,7 +114,7 @@
       },
       "image": "http://localhost:1313/assets/favicon.ico",
       "url" : "http:\/\/localhost:1313\/lsm\/",
-      "wordCount" : "6608",
+      "wordCount" : "6622",
       "genre" : [ ],
       "keywords" : [ ]
   }
@@ -395,29 +395,29 @@ flowchart TB
       G --> M1{Check active memtable}
       M1 -->|Visible value| R1([Return value])
       M1 -->|Visible tombstone| RNF1([Key not found])
-      M1 -->|Not found| M2{Check immutable memtables<br/>newest to oldest}
+      M1 -->|Not found| M2{Check immutable memtables, newest to oldest}
 
       M2 -->|Visible value| R2([Return value])
       M2 -->|Visible tombstone| RNF2([Key not found])
-      M2 -->|Not found| L0F{Check L0 candidate SSTables<br/>Bloom/filter + key range}
+      M2 -->|Not found| L0F{Filter L0 SSTables by key range and bloom filter}
 
-      L0F -->|May exist| L0I[Probe each matching L0 SSTable<br/>newest to oldest]
+      L0F -->|May exist| L0I[Probe each matching L0 SSTable, newest to oldest]
       L0F -->|No match| LN
 
-      L0I --> IDX0[Read index / partition index]
-      IDX0 --> BLK0[Read data block<br/>cache if present else disk]
+      L0I --> IDX0[Lookup key in SSTable index]
+      IDX0 --> BLK0[Read data block cache if present else from disk]
       BLK0 --> HIT0{Key found?}
 
       HIT0 -->|Visible value| R3([Return value])
       HIT0 -->|Visible tombstone| RNF3([Key not found])
       HIT0 -->|Not found| LN{Search Levels 1..N}
 
-      LN --> Li[For each level, choose at most one SSTable<br/>by key range]
-      Li --> BF[Check Bloom/filter block]
+      LN --> Li[For each level, choose at most one SSTable by key range]
+      Li --> BF[Check SSTable Bloom filter]
       BF -->|Definitely not| NEXT[Next level]
-      BF -->|May exist| IDX[Binary search index]
+      BF -->|May exist| IDX[Binary search for key on SSTable index]
 
-      IDX --> BLK[Read data block<br/>cache if present else disk]
+      IDX --> BLK[Read data block cache if present else from disk]
       BLK --> HIT{Key found?}
 
       HIT -->|Visible value| R4([Return value])
@@ -434,7 +434,7 @@ flowchart TB
       S --> I1[Create iterator for active memtable]
       S --> I2[Create iterators for immutable memtables]
       S --> I3[Create iterators for L0 SSTables]
-      S --> I4[Create iterators for Levels 1..N<br/>overlapping the range]
+      S --> I4[Create iterators for Levels 1..N overlapping the range]
 
       I1 --> MERGE[K-way merge iterator]
       I2 --> MERGE
@@ -463,7 +463,7 @@ flowchart TB
 title: Write Path
 ---
 flowchart TB
-    C([Client Application]) --> W[Put / Delete request]
+    C([Client]) --> W[Put / Delete request]
     W --> B[Form write batch / mutation]
     B --> S[Assign sequence number]
 
