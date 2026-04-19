@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1314&amp;path=livereload" data-no-instant defer></script>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Liste - http://localhost:1314/">
+    <meta name="author" content="Liste - http://localhost:1313/">
     <title>Log-Structured Merge Trees | jidin.org</title>
     <meta name="description" content="Jidin Dinesh&#39;s corner of the interweb.">
-    <meta property="og:url" content="http://localhost:1314/lsm/">
+    <meta property="og:url" content="http://localhost:1313/lsm/">
   <meta property="og:site_name" content="jidin.org">
   <meta property="og:title" content="Log-Structured Merge Trees">
   <meta property="og:description" content="Deep Dive Into LSM">
@@ -22,20 +22,20 @@
   <meta itemprop="description" content="Deep Dive Into LSM">
   <meta itemprop="datePublished" content="2025-12-29T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-12-29T00:00:00+00:00">
-  <meta itemprop="wordCount" content="6160">
+  <meta itemprop="wordCount" content="6608">
     
-    <link rel="canonical" href="http://localhost:1314/lsm/">
-    <link rel="icon" href="http://localhost:1314//assets/favicon.ico">
+    <link rel="canonical" href="http://localhost:1313/lsm/">
+    <link rel="icon" href="http://localhost:1313//assets/favicon.ico">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://www.google-analytics.com" rel="preconnect" crossorigin>
-    <link rel="alternate" type="application/atom+xml" title="jidin.org" href="http://localhost:1314//atom.xml" />
-    <link rel="alternate" type="application/json" title="jidin.org" href="http://localhost:1314//feed.json" />
+    <link rel="alternate" type="application/atom+xml" title="jidin.org" href="http://localhost:1313//atom.xml" />
+    <link rel="alternate" type="application/json" title="jidin.org" href="http://localhost:1313//feed.json" />
     <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
     
     
-    <style>@import "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap";:root{--bg:#111111;--bg-surface:#1a1a1a;--text:#c8c8c8;--text-muted:#888888;--heading:#f0f0f0;--accent:#9b8ec4;--accent-hover:#b5a8d8;--border:#222222;--code-bg:#1a1a1a;--font-serif:'Lora', Georgia, serif;--font-sans:'Inter', 'Helvetica Neue', Arial, sans-serif;--font-mono:'JetBrains Mono', 'SF Mono', Consolas, monospace;--linen-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239b8ec4' fill-opacity='0.15' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");--warning-color:#d6a056}[data-theme=light]{--bg:#fafafa;--bg-surface:#f0f0f0;--text:#3a3a3a;--text-muted:#888888;--heading:#1a1a1a;--accent:#7b6ca8;--accent-hover:#6a5b97;--border:#e0e0e0;--code-bg:#f3f1f7;--linen-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%237b6ca8' fill-opacity='0.07' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");--warning-color:#b8860b}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);font-size:17px;line-height:1.8;color:var(--text);background-color:var(--bg);background-image:var(--linen-pattern);min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}main>.content,main>.layout-with-toc{animation:fadeIn .4s ease-out both}.skip-link{position:absolute;top:-40px;left:0;background:var(--bg-surface);color:var(--text);padding:8px 16px;z-index:100;font-family:var(--font-mono);font-size:13px;text-decoration:none}.skip-link:focus{top:0}.content{max-width:65ch;margin:0 auto;padding:3rem 1.5rem}.layout-with-toc{max-width:960px;margin:0 auto;padding:3rem 1.5rem;display:flex;gap:3rem}.layout-with-toc .content{max-width:65ch;flex:1;min-width:0;padding:0;margin:0}.toc-sidebar{width:180px;flex-shrink:0;position:sticky;top:3rem;align-self:flex-start;max-height:calc(100vh - 6rem);overflow-y:auto}.toc-sidebar .toc-label{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}.toc-sidebar nav ul{list-style:none;border-left:1px solid var(--border);padding-left:12px}.toc-sidebar nav li{margin-bottom:8px}.toc-sidebar nav a{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);text-decoration:none;transition:color .2s;line-height:1.5;display:block}.toc-sidebar nav a:hover{color:var(--accent)}.toc-sidebar nav a.active{color:var(--accent)}header{display:flex;justify-content:space-between;align-items:center;padding-bottom:2rem;margin-bottom:2rem;border-bottom:1px solid var(--border);line-height:1.5}.site-title{font-family:var(--font-mono);font-size:15px;font-weight:500;color:var(--heading);text-decoration:none}.site-title:hover{color:var(--accent)}.cursor{color:var(--accent);animation:blink 1s infinite}@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}header nav a{font-family:var(--font-mono);font-size:13px;color:var(--text-muted);text-decoration:none;margin-left:1.5rem;transition:color .2s}header nav a:hover{color:var(--accent)}.theme-toggle{background:0 0;border:none;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;padding:0;cursor:pointer;margin-left:1.5rem;transition:color .2s}.theme-toggle:hover{color:var(--accent)}h1,h2,h3,h4,h5,h6{font-family:var(--font-serif);font-weight:500;color:var(--heading);line-height:1.3}h1{font-size:28px}h2{font-size:22px;margin:2.5rem 0 1rem}h3{font-size:18px;margin:2rem 0 .75rem}h4,h5,h6{font-size:16px;margin:1.5rem 0 .5rem}strong,b{font-weight:600;color:var(--heading)}.post-title{font-family:var(--font-serif);font-size:32px;font-weight:500;color:var(--heading);line-height:1.3;margin-bottom:2.5rem}a,a:visited{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(155,142,196,.4);transition:text-decoration-color .2s,color .2s}a:hover{text-decoration-color:var(--accent);color:var(--accent-hover)}a.heading-link{text-decoration:none}.post-list{list-style:none}.post-list li{padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,4%)}[data-theme=light] .post-list li{border-bottom-color:rgba(0,0,0,6%)}.post-list li:last-child{border-bottom:none}.post-list a{color:var(--text);text-decoration:none;transition:color .2s}.post-list a:hover{color:var(--accent)}blockquote{border-left:3px solid var(--accent);padding:.75rem 1rem;margin:1.5rem 0;background:rgba(155,142,196,4%);border-radius:0 4px 4px 0}[data-theme=light] blockquote{background:rgba(123,108,168,5%)}blockquote p{color:var(--text-muted);font-style:italic;margin-bottom:0}pre{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:1.25rem;margin:1.5rem 0;overflow-x:auto;font-family:var(--font-mono);font-size:14px;line-height:1.6;color:#d4d4d4}[data-theme=light] pre{color:#3a3a3a}code{font-family:var(--font-mono);font-size:.9em;background:var(--code-bg);border:1px solid var(--border);border-radius:3px;padding:2px 6px;color:#d4d4d4}[data-theme=light] code{color:#3a3a3a}pre code{background:0 0;border:none;padding:0;font-size:inherit;border-radius:0}ul{list-style-type:square;padding-left:1.5rem}ol{padding-left:1.5rem}li{margin-bottom:.4rem}img{max-width:100%;height:auto;border-radius:4px}figure{margin:2rem 0;padding:0}figure img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid var(--border)}figcaption{font-family:var(--font-mono);font-size:13px;color:var(--text-muted);text-align:center;margin-top:.75rem;line-height:1.5}hr{border:0;margin:3rem 0;border-bottom:1px solid var(--border)}.meta{font-family:var(--font-mono);font-size:13px;color:var(--text-muted)}.time{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--text-muted)}.tags{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px}.tags a{font-family:var(--font-mono);font-size:12px;color:var(--accent);background:rgba(155,142,196,8%);border:1px solid rgba(155,142,196,.15);border-radius:3px;padding:3px 8px;text-decoration:none;transition:background .2s}[data-theme=light] .tags a{background:rgba(123,108,168,8%);border-color:rgba(123,108,168,.15)}.tags a:hover{background:rgba(155,142,196,.15)}.tags ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px}.tags li{display:inline;margin:0}.note{border:1px solid rgba(155,142,196,.2);border-left:3px solid var(--accent);border-radius:4px;padding:1rem 1.25rem;margin:1.5rem 0;background:rgba(155,142,196,4%)}[data-theme=light] .note{background:rgba(123,108,168,4%);border-color:rgba(123,108,168,.2);border-left-color:var(--accent)}.note.warning{border-color:rgba(214,160,86,.2);border-left-color:var(--warning-color);background:rgba(214,160,86,4%)}.note svg.sign{width:1.2em;height:1.2em;vertical-align:middle;margin-right:.5em;fill:var(--accent)}.note.warning svg.sign{fill:var(--warning-color)}.avatar{height:220px;width:220px;position:relative;margin:-10px 0 0 15px;float:right;border-radius:50%;border:2px solid var(--accent)}.expandable-section button{background:0 0;border:none;color:var(--heading);cursor:pointer;font-family:var(--font-sans);font-size:inherit;display:flex;align-items:center;gap:.5rem}.expandable-section svg{width:.8em;height:.8em;color:var(--text-muted);transition:transform .2s}.expandable-section button[aria-expanded=true] .up-strut{display:none}table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:15px}th,td{padding:.5rem .75rem;border:1px solid var(--border);text-align:left}th{background:var(--bg-surface);font-weight:500;color:var(--heading)}.table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.5rem 0}.table-wrapper table{margin:0}@media(max-width:768px){.toc-sidebar{display:none}.layout-with-toc{display:block;padding:2rem 1rem}.content{padding:2rem 1rem}header{flex-wrap:wrap;gap:.5rem}pre{font-size:clamp(9px,2vw,12px);padding:.75rem}} </style>
+    <style>@import "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap";:root{--bg:#111111;--bg-surface:#1a1a1a;--text:#c8c8c8;--text-muted:#888888;--heading:#f0f0f0;--accent:#9b8ec4;--accent-hover:#b5a8d8;--border:#222222;--code-bg:#1a1a1a;--font-serif:'Lora', Georgia, serif;--font-sans:'Inter', 'Helvetica Neue', Arial, sans-serif;--font-mono:'JetBrains Mono', 'SF Mono', Consolas, monospace;--linen-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239b8ec4' fill-opacity='0.15' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");--warning-color:#d6a056}[data-theme=light]{--bg:#fafafa;--bg-surface:#f0f0f0;--text:#3a3a3a;--text-muted:#888888;--heading:#1a1a1a;--accent:#7b6ca8;--accent-hover:#6a5b97;--border:#e0e0e0;--code-bg:#f3f1f7;--linen-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%237b6ca8' fill-opacity='0.07' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");--warning-color:#b8860b}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);font-size:17px;line-height:1.8;color:var(--text);background-color:var(--bg);background-image:var(--linen-pattern);min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}main>.content,main>.layout-with-toc{animation:fadeIn .4s ease-out both}.skip-link{position:absolute;top:-40px;left:0;background:var(--bg-surface);color:var(--text);padding:8px 16px;z-index:100;font-family:var(--font-mono);font-size:13px;text-decoration:none}.skip-link:focus{top:0}.content{max-width:65ch;margin:0 auto;padding:3rem 1.5rem}.layout-with-toc{max-width:960px;margin:0 auto;padding:3rem 1.5rem;display:flex;gap:3rem}.layout-with-toc .content{max-width:65ch;flex:1;min-width:0;padding:0;margin:0}.toc-sidebar{width:180px;flex-shrink:0;position:sticky;top:3rem;align-self:flex-start;max-height:calc(100vh - 6rem);overflow-y:auto}.toc-sidebar .toc-label{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}.toc-sidebar nav ul{list-style:none;border-left:1px solid var(--border);padding-left:12px}.toc-sidebar nav li{margin-bottom:8px}.toc-sidebar nav a{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);text-decoration:none;transition:color .2s;line-height:1.5;display:block}.toc-sidebar nav a:hover{color:var(--accent)}.toc-sidebar nav a.active{color:var(--accent)}header{display:flex;justify-content:space-between;align-items:center;padding-bottom:2rem;margin-bottom:2rem;border-bottom:1px solid var(--border);line-height:1.5}.site-title{font-family:var(--font-mono);font-size:15px;font-weight:500;color:var(--heading);text-decoration:none}.site-title:hover{color:var(--accent)}.cursor{color:var(--accent);animation:blink 1s infinite}@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}header nav a{font-family:var(--font-mono);font-size:13px;color:var(--text-muted);text-decoration:none;margin-left:1.5rem;transition:color .2s}header nav a:hover{color:var(--accent)}.theme-toggle{background:0 0;border:none;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;padding:0;cursor:pointer;margin-left:1.5rem;transition:color .2s}.theme-toggle:hover{color:var(--accent)}h1,h2,h3,h4,h5,h6{font-family:var(--font-serif);font-weight:500;color:var(--heading);line-height:1.3}h1{font-size:28px}h2{font-size:22px;margin:2.5rem 0 1rem}h3{font-size:18px;margin:2rem 0 .75rem}h4,h5,h6{font-size:16px;margin:1.5rem 0 .5rem}strong,b{font-weight:600;color:var(--heading)}.post-title{font-family:var(--font-serif);font-size:32px;font-weight:500;color:var(--heading);line-height:1.3;margin-bottom:2.5rem}a,a:visited{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(155,142,196,.4);transition:text-decoration-color .2s,color .2s}a:hover{text-decoration-color:var(--accent);color:var(--accent-hover)}a.heading-link{text-decoration:none}.post-list{list-style:none}.post-list li{padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,4%)}[data-theme=light] .post-list li{border-bottom-color:rgba(0,0,0,6%)}.post-list li:last-child{border-bottom:none}.post-list a{color:var(--text);text-decoration:none;transition:color .2s}.post-list a:hover{color:var(--accent)}blockquote{border-left:3px solid var(--accent);padding:.75rem 1rem;margin:1.5rem 0;background:rgba(155,142,196,4%);border-radius:0 4px 4px 0}[data-theme=light] blockquote{background:rgba(123,108,168,5%)}blockquote p{color:var(--text-muted);font-style:italic;margin-bottom:0}pre{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:1.25rem;margin:1.5rem 0;overflow-x:auto;font-family:var(--font-mono);font-size:14px;line-height:1.6;color:#d4d4d4}[data-theme=light] pre{color:#3a3a3a}code{font-family:var(--font-mono);font-size:.9em;background:var(--code-bg);border:1px solid var(--border);border-radius:3px;padding:2px 6px;color:#d4d4d4}[data-theme=light] code{color:#3a3a3a}pre code{background:0 0;border:none;padding:0;font-size:inherit;border-radius:0}ul{list-style-type:square;padding-left:1.5rem}ol{padding-left:1.5rem}li{margin-bottom:.4rem}img{max-width:100%;height:auto;border-radius:4px}figure{margin:2rem 0;padding:0}.mermaid{margin:2rem 0;padding:1rem;border-radius:6px;border:1px solid var(--border);background:var(--bg);overflow:hidden;text-align:center}.mermaid svg{max-width:100%;height:auto}.mermaid .edgeLabel,.mermaid .edgeLabel p,.mermaid .edgeLabel span,.mermaid .edgeLabel foreignobject>div{color:var(--text)!important;background:0 0!important}.mermaid .nodeLabel,.mermaid .cluster-label,.mermaid .cluster-label p,.mermaid foreignobject div{color:var(--text)!important}figure img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid var(--border)}figcaption{font-family:var(--font-mono);font-size:13px;color:var(--text-muted);text-align:center;margin-top:.75rem;line-height:1.5}hr{border:0;margin:3rem 0;border-bottom:1px solid var(--border)}.meta{font-family:var(--font-mono);font-size:13px;color:var(--text-muted)}.time{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--text-muted)}.tags{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px}.tags a{font-family:var(--font-mono);font-size:12px;color:var(--accent);background:rgba(155,142,196,8%);border:1px solid rgba(155,142,196,.15);border-radius:3px;padding:3px 8px;text-decoration:none;transition:background .2s}[data-theme=light] .tags a{background:rgba(123,108,168,8%);border-color:rgba(123,108,168,.15)}.tags a:hover{background:rgba(155,142,196,.15)}.tags ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px}.tags li{display:inline;margin:0}.note{border:1px solid rgba(155,142,196,.2);border-left:3px solid var(--accent);border-radius:4px;padding:1rem 1.25rem;margin:1.5rem 0;background:rgba(155,142,196,4%)}[data-theme=light] .note{background:rgba(123,108,168,4%);border-color:rgba(123,108,168,.2);border-left-color:var(--accent)}.note.warning{border-color:rgba(214,160,86,.2);border-left-color:var(--warning-color);background:rgba(214,160,86,4%)}.note svg.sign{width:1.2em;height:1.2em;vertical-align:middle;margin-right:.5em;fill:var(--accent)}.note.warning svg.sign{fill:var(--warning-color)}.avatar{height:220px;width:220px;position:relative;margin:-10px 0 0 15px;float:right;border-radius:50%;border:2px solid var(--accent)}.expandable-section button{background:0 0;border:none;color:var(--heading);cursor:pointer;font-family:var(--font-sans);font-size:inherit;display:flex;align-items:center;gap:.5rem}.expandable-section svg{width:.8em;height:.8em;color:var(--text-muted);transition:transform .2s}.expandable-section button[aria-expanded=true] .up-strut{display:none}table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:15px}th,td{padding:.5rem .75rem;border:1px solid var(--border);text-align:left}th{background:var(--bg-surface);font-weight:500;color:var(--heading)}.table-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.5rem 0}.table-wrapper table{margin:0}@media(max-width:768px){.toc-sidebar{display:none}.layout-with-toc{display:block;padding:2rem 1rem}.content{padding:2rem 1rem}header{flex-wrap:wrap;gap:.5rem}pre{font-size:clamp(9px,2vw,12px);padding:.75rem}} </style>
     <script>
       (function() {
         var h = document.documentElement;
@@ -82,7 +82,7 @@
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "http:\/\/localhost:1314\/lsm\/"
+          "@id": "http:\/\/localhost:1313\/lsm\/"
       },
       "author" : {
           "@type": "Person",
@@ -104,17 +104,17 @@
       "publisher":{
           "@type":"Organization",
           "name": "jidin.org",
-          "url": "http:\/\/localhost:1314\/",
+          "url": "http:\/\/localhost:1313\/",
           "logo": {
               "@type": "ImageObject",
-              "url": "http:\/\/localhost:1314\/assets\/favicon.ico",
+              "url": "http:\/\/localhost:1313\/assets\/favicon.ico",
               "width":"32",
               "height":"32"
           }
       },
-      "image": "http://localhost:1314/assets/favicon.ico",
-      "url" : "http:\/\/localhost:1314\/lsm\/",
-      "wordCount" : "6160",
+      "image": "http://localhost:1313/assets/favicon.ico",
+      "url" : "http:\/\/localhost:1313\/lsm\/",
+      "wordCount" : "6608",
       "genre" : [ ],
       "keywords" : [ ]
   }
@@ -168,14 +168,14 @@
     
     <div class="content">
       <header>
-  <a href="http://localhost:1314/" class="site-title">
+  <a href="http://localhost:1313/" class="site-title">
     jidin.org<span class="cursor">▮</span>
   </a>
   <div style="display:flex;align-items:center;">
     <nav>
       
       
-      <a href="http://localhost:1314/quotes/">Quotes</a>
+      <a href="http://localhost:1313/quotes/">Quotes</a>
       
       <a href="mailto:jd@jidin.org">Email</a>
       
@@ -380,60 +380,128 @@ Oldest
 </code></pre><p>Immutability inevitably leads to many SSTables accumulating on disk. Compaction addresses this by merging segments, retaining only the newest version of each key, discarding obsolete tombstones, and deleting old files once new compacted output has been safely written. In doing so, compaction restores space efficiency while preserving the invariants required for efficient reads.</p>
 <h2 id="read-write-paths">Read, Write Paths</h2>
 
+<div class="mermaid" align="center">
+---
+title: Read Path
+---
+flowchart TB
+    C([Client])
+
+    C --> G[Point Get]
+    C --> S[Range Scan / Iterator]
+
+    subgraph PG[Point read path]
+      direction TB
+      G --> M1{Check active memtable}
+      M1 -->|Visible value| R1([Return value])
+      M1 -->|Visible tombstone| RNF1([Key not found])
+      M1 -->|Not found| M2{Check immutable memtables<br/>newest to oldest}
+
+      M2 -->|Visible value| R2([Return value])
+      M2 -->|Visible tombstone| RNF2([Key not found])
+      M2 -->|Not found| L0F{Check L0 candidate SSTables<br/>Bloom/filter + key range}
+
+      L0F -->|May exist| L0I[Probe each matching L0 SSTable<br/>newest to oldest]
+      L0F -->|No match| LN
+
+      L0I --> IDX0[Read index / partition index]
+      IDX0 --> BLK0[Read data block<br/>cache if present else disk]
+      BLK0 --> HIT0{Key found?}
+
+      HIT0 -->|Visible value| R3([Return value])
+      HIT0 -->|Visible tombstone| RNF3([Key not found])
+      HIT0 -->|Not found| LN{Search Levels 1..N}
+
+      LN --> Li[For each level, choose at most one SSTable<br/>by key range]
+      Li --> BF[Check Bloom/filter block]
+      BF -->|Definitely not| NEXT[Next level]
+      BF -->|May exist| IDX[Binary search index]
+
+      IDX --> BLK[Read data block<br/>cache if present else disk]
+      BLK --> HIT{Key found?}
+
+      HIT -->|Visible value| R4([Return value])
+      HIT -->|Visible tombstone| RNF4([Key not found])
+      HIT -->|Not found| NEXT
+
+      NEXT --> DONE{More levels?}
+      DONE -->|Yes| Li
+      DONE -->|No| RNF5([Key not found])
+    end
+
+    subgraph RS[Range scan path]
+      direction TB
+      S --> I1[Create iterator for active memtable]
+      S --> I2[Create iterators for immutable memtables]
+      S --> I3[Create iterators for L0 SSTables]
+      S --> I4[Create iterators for Levels 1..N<br/>overlapping the range]
+
+      I1 --> MERGE[K-way merge iterator]
+      I2 --> MERGE
+      I3 --> MERGE
+      I4 --> MERGE
+
+      MERGE --> DUP{Same user key appears again?}
+      DUP -->|No| VIS{Version visible to snapshot?}
+      DUP -->|Yes| NEWEST[Keep newest sequence number]
+      NEWEST --> VIS
+
+      VIS -->|No| SKIP1[Discard version]
+      VIS -->|Yes, tombstone| SKIP2[Suppress deleted key]
+      VIS -->|Yes, value| EMIT[Emit value]
+
+      SKIP1 --> MERGE
+      SKIP2 --> MERGE
+      EMIT --> OUT([Sorted output stream])
+      OUT --> MERGE
+    end
+</div>
 
 
+<div class="mermaid" align="center">
+---
+title: Write Path
+---
+flowchart TB
+    C([Client Application]) --> W[Put / Delete request]
+    W --> B[Form write batch / mutation]
+    B --> S[Assign sequence number]
 
+    subgraph DUR[Durability path]
+      direction TB
+      S --> WAL[Append serialized record to WAL]
+      WAL --> F{fsync required by write policy?}
+      F -->|Yes| FS[fsync WAL]
+      F -->|No| A1[Ack eligible]
+      FS --> A1
+    end
 
+    subgraph MEM[Memory path]
+      direction TB
+      S --> M[Apply mutation to active memtable]
+      M --> FULL{Memtable full?}
+      FULL -->|No| A2[Ack eligible]
+      FULL -->|Yes| FR[Freeze active memtable]
+      FR --> IMM[Immutable memtable queued for flush]
+    end
 
+    A1 --> ACKG{WAL durable enough and memtable applied?}
+    A2 --> ACKG
+    ACKG -->|Yes| ACK([Client ack])
 
+    IMM --> FLUSH[Background flush: iterate sorted entries]
+    FLUSH --> SST[Write new L0 SSTable + metadata]
+    SST --> COMPACT[Background compaction to lower levels]
 
+    W -. delete .-> TOMB[Encode delete as tombstone]
+    TOMB -. part of mutation .-> B
 
+    WAL --> REC[Crash recovery: replay WAL]
+    REC --> M
 
-  
-  
-  
-<figure class="responsive-img">
-  <img
-    src="http://localhost:1314/lsm/read-path_hu_93a1b398005e3662.webp"
-    srcset="http://localhost:1314/lsm/read-path_hu_241cf4715534472e.webp 640w, http://localhost:1314/lsm/read-path_hu_93a1b398005e3662.webp 960w, http://localhost:1314/lsm/read-path_hu_1919f19add19cd72.webp 1280w"
-    sizes="(max-width: 768px) 100vw, 65ch"
-    width="8096"
-    height="10036"
-    alt="read-path.webp"
-    loading="lazy"
-    decoding="async"
-  />
-  
-</figure>
+    COMPACT --> DONE([Data persisted across levels])
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-<figure class="responsive-img">
-  <img
-    src="http://localhost:1314/lsm/write-path_hu_fa85cea494d596d8.webp"
-    srcset="http://localhost:1314/lsm/write-path_hu_c387ad6fe42fa942.webp 640w, http://localhost:1314/lsm/write-path_hu_fa85cea494d596d8.webp 960w, http://localhost:1314/lsm/write-path_hu_419d6e3abb992ab6.webp 1280w"
-    sizes="(max-width: 768px) 100vw, 65ch"
-    width="2768"
-    height="6022"
-    alt="write-path.webp"
-    loading="lazy"
-    decoding="async"
-  />
-  
-</figure>
-
+</div>
 
 <h2 id="compaction">Compaction</h2>
 <p>Amplification quantifies how much extra work a storage engine performs relative to the logical operation requested by the client. In practice, this work appears in three forms: read amplification, write amplification, and space amplification.</p>
@@ -740,6 +808,95 @@ Oldest
 
   headings.forEach(function(h) { if (h.id) observer.observe(h); });
 })();
+</script>
+
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+  document.querySelectorAll('.mermaid').forEach((n) => {
+    if (!n.dataset.mermaidSrc) n.dataset.mermaidSrc = n.textContent.trim();
+  });
+
+  function themeVariables(isLight) {
+    return isLight
+      ? {
+          background: '#ffffff',
+          primaryColor: '#f3f4f6',
+          primaryTextColor: '#0f172a',
+          primaryBorderColor: '#334155',
+          lineColor: '#1f2937',
+          secondaryColor: '#e5e7eb',
+          tertiaryColor: '#f9fafb',
+          mainBkg: '#f3f4f6',
+          nodeBorder: '#334155',
+          clusterBkg: 'rgba(148,163,184,0.08)',
+          clusterBorder: '#64748b',
+          edgeLabelBackground: '#ffffff',
+          textColor: '#0f172a',
+          titleColor: '#0f172a',
+          fontSize: '18px',
+        }
+      : {
+          background: 'transparent',
+          primaryColor: '#1f2937',
+          primaryTextColor: '#f8fafc',
+          primaryBorderColor: '#cbd5e1',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#374151',
+          tertiaryColor: '#111827',
+          mainBkg: '#1f2937',
+          nodeBorder: '#cbd5e1',
+          clusterBkg: 'rgba(148,163,184,0.08)',
+          clusterBorder: '#94a3b8',
+          edgeLabelBackground: '#0b0b0b',
+          textColor: '#f8fafc',
+          titleColor: '#f8fafc',
+          fontSize: '18px',
+        };
+  }
+
+  let renderSeq = 0;
+  let rendering = null;
+  async function renderAll() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      themeVariables: themeVariables(isLight),
+      securityLevel: 'loose',
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
+    });
+    const nodes = document.querySelectorAll('.mermaid');
+    for (const n of nodes) {
+      const src = n.dataset.mermaidSrc || n.textContent;
+      const id = 'mermaid-render-' + (++renderSeq);
+      try {
+        const { svg, bindFunctions } = await mermaid.render(id, src);
+        n.innerHTML = svg;
+        n.removeAttribute('data-processed');
+        if (bindFunctions) bindFunctions(n);
+      } catch (e) {
+        console.error('mermaid render failed', e);
+      }
+    }
+  }
+
+  function queueRender() {
+    rendering = (rendering || Promise.resolve()).then(renderAll).catch(() => {});
+  }
+
+  queueRender();
+
+  const mo = new MutationObserver((muts) => {
+    for (const m of muts) {
+      if (m.type === 'attributes' && m.attributeName === 'data-theme') {
+        queueRender();
+        break;
+      }
+    }
+  });
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 </script>
 
 </body>

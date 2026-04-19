@@ -58,5 +58,94 @@
 })();
 </script>
 {{ end }}
+{{ if .HasShortcode "mermaid" }}
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+  document.querySelectorAll('.mermaid').forEach((n) => {
+    if (!n.dataset.mermaidSrc) n.dataset.mermaidSrc = n.textContent.trim();
+  });
+
+  function themeVariables(isLight) {
+    return isLight
+      ? {
+          background: '#ffffff',
+          primaryColor: '#f3f4f6',
+          primaryTextColor: '#0f172a',
+          primaryBorderColor: '#334155',
+          lineColor: '#1f2937',
+          secondaryColor: '#e5e7eb',
+          tertiaryColor: '#f9fafb',
+          mainBkg: '#f3f4f6',
+          nodeBorder: '#334155',
+          clusterBkg: 'rgba(148,163,184,0.08)',
+          clusterBorder: '#64748b',
+          edgeLabelBackground: '#ffffff',
+          textColor: '#0f172a',
+          titleColor: '#0f172a',
+          fontSize: '18px',
+        }
+      : {
+          background: 'transparent',
+          primaryColor: '#1f2937',
+          primaryTextColor: '#f8fafc',
+          primaryBorderColor: '#cbd5e1',
+          lineColor: '#e2e8f0',
+          secondaryColor: '#374151',
+          tertiaryColor: '#111827',
+          mainBkg: '#1f2937',
+          nodeBorder: '#cbd5e1',
+          clusterBkg: 'rgba(148,163,184,0.08)',
+          clusterBorder: '#94a3b8',
+          edgeLabelBackground: '#0b0b0b',
+          textColor: '#f8fafc',
+          titleColor: '#f8fafc',
+          fontSize: '18px',
+        };
+  }
+
+  let renderSeq = 0;
+  let rendering = null;
+  async function renderAll() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      themeVariables: themeVariables(isLight),
+      securityLevel: 'loose',
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
+    });
+    const nodes = document.querySelectorAll('.mermaid');
+    for (const n of nodes) {
+      const src = n.dataset.mermaidSrc || n.textContent;
+      const id = 'mermaid-render-' + (++renderSeq);
+      try {
+        const { svg, bindFunctions } = await mermaid.render(id, src);
+        n.innerHTML = svg;
+        n.removeAttribute('data-processed');
+        if (bindFunctions) bindFunctions(n);
+      } catch (e) {
+        console.error('mermaid render failed', e);
+      }
+    }
+  }
+
+  function queueRender() {
+    rendering = (rendering || Promise.resolve()).then(renderAll).catch(() => {});
+  }
+
+  queueRender();
+
+  const mo = new MutationObserver((muts) => {
+    for (const m of muts) {
+      if (m.type === 'attributes' && m.attributeName === 'data-theme') {
+        queueRender();
+        break;
+      }
+    }
+  });
+  mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>
+{{ end }}
 </body>
 </html>

@@ -387,6 +387,33 @@ figure {
   padding: 0;
 }
 
+.mermaid {
+  margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  overflow: hidden;
+  text-align: center;
+}
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+.mermaid .edgeLabel,
+.mermaid .edgeLabel p,
+.mermaid .edgeLabel span,
+.mermaid .edgeLabel foreignObject > div {
+  color: var(--text) !important;
+  background: transparent !important;
+}
+.mermaid .nodeLabel,
+.mermaid .cluster-label,
+.mermaid .cluster-label p,
+.mermaid foreignObject div {
+  color: var(--text) !important;
+}
+
 figure img {
   display: block;
   width: 100%;

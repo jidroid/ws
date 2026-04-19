@@ -242,9 +242,131 @@ Immutability inevitably leads to many SSTables accumulating on disk. Compaction 
 
 ## Read, Write Paths
 
-{{< figure src="read-path.webp" class="responsive-img">}}
+{{< mermaid >}}
+---
+title: Read Path
+---
+flowchart TB
+    C([Client])
 
-{{< figure src="write-path.webp" class="responsive-img">}}
+    C --> G[Point Get]
+    C --> S[Range Scan / Iterator]
+
+    subgraph PG[Point read path]
+      direction TB
+      G --> M1{Check active memtable}
+      M1 -->|Visible value| R1([Return value])
+      M1 -->|Visible tombstone| RNF1([Key not found])
+      M1 -->|Not found| M2{Check immutable memtables<br/>newest to oldest}
+
+      M2 -->|Visible value| R2([Return value])
+      M2 -->|Visible tombstone| RNF2([Key not found])
+      M2 -->|Not found| L0F{Check L0 candidate SSTables<br/>Bloom/filter + key range}
+
+      L0F -->|May exist| L0I[Probe each matching L0 SSTable<br/>newest to oldest]
+      L0F -->|No match| LN
+
+      L0I --> IDX0[Read index / partition index]
+      IDX0 --> BLK0[Read data block<br/>cache if present else disk]
+      BLK0 --> HIT0{Key found?}
+
+      HIT0 -->|Visible value| R3([Return value])
+      HIT0 -->|Visible tombstone| RNF3([Key not found])
+      HIT0 -->|Not found| LN{Search Levels 1..N}
+
+      LN --> Li[For each level, choose at most one SSTable<br/>by key range]
+      Li --> BF[Check Bloom/filter block]
+      BF -->|Definitely not| NEXT[Next level]
+      BF -->|May exist| IDX[Binary search index]
+
+      IDX --> BLK[Read data block<br/>cache if present else disk]
+      BLK --> HIT{Key found?}
+
+      HIT -->|Visible value| R4([Return value])
+      HIT -->|Visible tombstone| RNF4([Key not found])
+      HIT -->|Not found| NEXT
+
+      NEXT --> DONE{More levels?}
+      DONE -->|Yes| Li
+      DONE -->|No| RNF5([Key not found])
+    end
+
+    subgraph RS[Range scan path]
+      direction TB
+      S --> I1[Create iterator for active memtable]
+      S --> I2[Create iterators for immutable memtables]
+      S --> I3[Create iterators for L0 SSTables]
+      S --> I4[Create iterators for Levels 1..N<br/>overlapping the range]
+
+      I1 --> MERGE[K-way merge iterator]
+      I2 --> MERGE
+      I3 --> MERGE
+      I4 --> MERGE
+
+      MERGE --> DUP{Same user key appears again?}
+      DUP -->|No| VIS{Version visible to snapshot?}
+      DUP -->|Yes| NEWEST[Keep newest sequence number]
+      NEWEST --> VIS
+
+      VIS -->|No| SKIP1[Discard version]
+      VIS -->|Yes, tombstone| SKIP2[Suppress deleted key]
+      VIS -->|Yes, value| EMIT[Emit value]
+
+      SKIP1 --> MERGE
+      SKIP2 --> MERGE
+      EMIT --> OUT([Sorted output stream])
+      OUT --> MERGE
+    end
+{{< /mermaid >}}
+
+
+{{<mermaid >}}
+---
+title: Write Path
+---
+flowchart TB
+    C([Client Application]) --> W[Put / Delete request]
+    W --> B[Form write batch / mutation]
+    B --> S[Assign sequence number]
+
+    subgraph DUR[Durability path]
+      direction TB
+      S --> WAL[Append serialized record to WAL]
+      WAL --> F{fsync required by write policy?}
+      F -->|Yes| FS[fsync WAL]
+      F -->|No| A1[Ack eligible]
+      FS --> A1
+    end
+
+    subgraph MEM[Memory path]
+      direction TB
+      S --> M[Apply mutation to active memtable]
+      M --> FULL{Memtable full?}
+      FULL -->|No| A2[Ack eligible]
+      FULL -->|Yes| FR[Freeze active memtable]
+      FR --> IMM[Immutable memtable queued for flush]
+    end
+
+    A1 --> ACKG{WAL durable enough and memtable applied?}
+    A2 --> ACKG
+    ACKG -->|Yes| ACK([Client ack])
+
+    IMM --> FLUSH[Background flush: iterate sorted entries]
+    FLUSH --> SST[Write new L0 SSTable + metadata]
+    SST --> COMPACT[Background compaction to lower levels]
+
+    W -. delete .-> TOMB[Encode delete as tombstone]
+    TOMB -. part of mutation .-> B
+
+    WAL --> REC[Crash recovery: replay WAL]
+    REC --> M
+
+    COMPACT --> DONE([Data persisted across levels])
+
+{{< /mermaid >}}
+
+
+
 
 ## Compaction
 
