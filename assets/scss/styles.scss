@@ -375,6 +375,12 @@ li {
   margin-bottom: 0.4rem;
 }
 
+.footnote-acknowledgment {
+  margin: 1rem 0;
+  font-size: 0.9em;
+  color: var(--text-muted, var(--text));
+}
+
 /* --- Images & Figures --- */
 img {
   max-width: 100%;

@@ -4,6 +4,7 @@ title: "Log-Structured Merge Trees"
 url: "/lsm"
 summary: "Deep Dive Into LSM"
 date: "2025-12-29"
+acknowledgment: "Thanks to Alex Gaetano Padula for his feedback on this post."
 ---
 
 ## TLDR
@@ -186,7 +187,7 @@ The core invariants of leveled organization are:
 2. Each level is larger than the previous one by a fixed factor.
 3. Except for Level 0, SSTables within a level have non-overlapping key ranges.
 
-Level 0 (L0) contains SSTables created directly from memtable flushes. These files are individually sorted but may have overlapping key ranges, allowing flushes to proceed without coordination and maximizing write throughput. To limit read amplification, the total size of L0 is bounded. Lower levels (L1 through Ln) contain compacted data with non-overlapping key ranges, ensuring that at most one SSTable per level must be consulted for any given key.
+Level 0 (L0) contains SSTables created directly from memtable flushes. Each SSTable is internally sorted, but L0 as a whole is not globally sorted because SSTables may have overlapping key ranges. This allows flushes to proceed without waiting for non-overlapping key-range placement, helping maximize write throughput. To limit read amplification, the total size of L0 is bounded. Lower levels (L1 through Ln) contain compacted data with non-overlapping key ranges, ensuring that at most one SSTable per level must be consulted for any given key.
 
 ```
 +-------------------------------------------------------------+
@@ -572,7 +573,7 @@ Leveled compaction provides much lower read amplification than tiered compaction
 └───────────────────────────────────────────────────────────────────┘
 ```
 
-RocksDB uses a hybrid compaction strategy: L0 employs tiered compaction to enable fast memtable flushes, while levels L1 and above use leveled compaction to bound read amplification.
+RocksDB uses a [tiered+leveled](https://github.com/facebook/rocksdb/wiki/Compaction) compaction strategy: L0 employs tiered compaction to enable fast memtable flushes, while levels L1 and above use leveled compaction to bound read amplification.
 
 ```
 | Dimension            | Leveled Compaction | Tiered Compaction   |
@@ -650,7 +651,6 @@ Jungle targets the tiered LSM-tree trade-off: low write amplification but high r
 [^3]: Skip lists are often overlooked in favor of B-trees due to poor cache locality. The main issue is pointer chasing. A skip list is essentially a multi-level linked list, and in a standard implementation, each new node is allocated on the general system heap (using malloc). This results in spatial fragmentation, as nodes are scattered across RAM. When the CPU follows a pointer to the next node, that memory address is rarely in the L1 or L2 cache, causing the CPU to stall while fetching data from DRAM. These cache misses accumulate into a significant performance penalty, especially given that a skip list has multiple levels.
 [^4]: As seen in scenarios 2 and 3, a memtable can be flushed before it is full. This is one reason the generated SST file can be smaller than the corresponding memtable. Another reason is the use of block-based compression, which further reduces the size of SST files relative to the flushed memtable.
 [^5]: Counterintuitively, delete operations initially consume disk space. The actual data is physically removed only during compaction, when obsolete updates and tombstones are merged away.
-
 
 ## References
 

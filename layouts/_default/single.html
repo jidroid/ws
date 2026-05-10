@@ -19,7 +19,13 @@
       {{ partial "header.html" . }}
       <h1 class="post-title">{{ .Title }}</h1>
       <article>
-        {{ .Content }}
+        {{ $content := .Content }}
+        {{ with .Params.acknowledgment }}
+          {{ $ack := printf `<p class="footnote-acknowledgment"><em>%s</em></p>` . }}
+          {{ $content = replace $content `</ol>
+</div>` (printf "</ol>\n%s\n</div>" $ack) }}
+        {{ end }}
+        {{ $content | safeHTML }}
       </article>
       {{ partial "footer.html" . }}
     </div>
