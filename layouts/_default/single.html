@@ -64,6 +64,85 @@
 })();
 </script>
 {{ end }}
+{{ if eq .Section "blog" }}
+<script>
+(function() {
+  var expandIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+  var collapseIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+
+  function expand(container, btn) {
+    var placeholder = document.createElement('div');
+    placeholder.className = 'diagram-placeholder';
+    container.parentNode.insertBefore(placeholder, container);
+    container._placeholder = placeholder;
+    document.body.appendChild(container);
+    container.classList.add('expanded');
+    btn.innerHTML = collapseIcon;
+    btn.setAttribute('aria-label', 'Collapse diagram');
+    btn.setAttribute('title', 'Collapse');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function collapse(container, btn) {
+    container.classList.remove('expanded');
+    btn.innerHTML = expandIcon;
+    btn.setAttribute('aria-label', 'Expand diagram');
+    btn.setAttribute('title', 'Expand');
+    document.body.style.overflow = '';
+    var placeholder = container._placeholder;
+    if (placeholder && placeholder.parentNode) {
+      placeholder.parentNode.insertBefore(container, placeholder);
+      placeholder.remove();
+      container._placeholder = null;
+    }
+  }
+
+  document.querySelectorAll('article pre, article .mermaid').forEach(function(el) {
+    var target = el;
+    if (el.tagName === 'PRE' && el.parentNode.classList && el.parentNode.classList.contains('highlight')) {
+      target = el.parentNode;
+    }
+    if (target.parentNode.classList && target.parentNode.classList.contains('diagram-container')) return;
+
+    var container = document.createElement('div');
+    container.className = 'diagram-container';
+    target.parentNode.insertBefore(container, target);
+    container.appendChild(target);
+
+    var btn = document.createElement('button');
+    btn.className = 'diagram-expand-btn';
+    btn.setAttribute('aria-label', 'Expand diagram');
+    btn.setAttribute('title', 'Expand');
+    btn.innerHTML = expandIcon;
+    container.appendChild(btn);
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (container.classList.contains('expanded')) {
+        collapse(container, btn);
+      } else {
+        expand(container, btn);
+      }
+    });
+
+    container.addEventListener('click', function(e) {
+      if (e.target === container && container.classList.contains('expanded')) {
+        collapse(container, btn);
+      }
+    });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var expanded = document.querySelector('.diagram-container.expanded');
+      if (expanded) {
+        collapse(expanded, expanded.querySelector('.diagram-expand-btn'));
+      }
+    }
+  });
+})();
+</script>
+{{ end }}
 {{ if .HasShortcode "mermaid" }}
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';

@@ -603,6 +603,84 @@ th {
   margin: 0;
 }
 
+/* --- Diagram Expand --- */
+.diagram-container {
+  position: relative;
+}
+
+.diagram-expand-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s, background 0.2s;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diagram-container:hover .diagram-expand-btn,
+.diagram-container:focus-within .diagram-expand-btn {
+  opacity: 1;
+}
+
+.diagram-expand-btn:hover {
+  color: var(--accent);
+  background: var(--bg);
+}
+
+.diagram-container.expanded {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--bg);
+  background-image: var(--linen-pattern);
+  overflow: auto;
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diagram-container.expanded .diagram-expand-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  opacity: 1;
+  z-index: 1001;
+}
+
+.diagram-container.expanded pre {
+  max-width: none;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  margin: 0;
+}
+
+.diagram-container.expanded .mermaid {
+  border: none;
+  background: transparent;
+  overflow: visible;
+  margin: 0;
+  width: calc(100vw - 6rem);
+  max-height: calc(100vh - 6rem);
+}
+
+.diagram-container.expanded .mermaid svg {
+  max-height: calc(100vh - 6rem);
+  width: auto;
+  height: auto;
+}
+
 /* --- Mobile --- */
 @media (max-width: 768px) {
   .toc-sidebar {
