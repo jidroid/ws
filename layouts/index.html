@@ -23,7 +23,6 @@
         <a href="{{ $p.Permalink }}">
           <div>
             <span class="post-title-text">{{ $p.Title }}</span>
-            <span class="post-date">{{ $p.Date.Format "Jan 2006" }}</span>
           </div>
         </a>
         {{ if ne (add $i 1) (len $pages) }}<hr>{{ end }}
