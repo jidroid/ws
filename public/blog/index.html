@@ -38,8 +38,10 @@
       (function() {
         var h = document.documentElement;
         var saved = localStorage.getItem('theme');
-        if (saved) {
-          h.setAttribute('data-theme', saved);
+        if (saved === 'dark') {
+          h.setAttribute('data-theme', 'dark');
+        } else if (saved === 'light') {
+          h.removeAttribute('data-theme');
         } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           h.setAttribute('data-theme', 'dark');
         }
@@ -52,7 +54,7 @@
             var isDark = h.getAttribute('data-theme') === 'dark';
             if (isDark) {
               h.removeAttribute('data-theme');
-              localStorage.setItem('theme', '');
+              localStorage.setItem('theme', 'light');
             } else {
               h.setAttribute('data-theme', 'dark');
               localStorage.setItem('theme', 'dark');
