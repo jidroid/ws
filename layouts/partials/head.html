@@ -20,31 +20,33 @@
     {{ $styles := resources.Get "scss/styles.scss" | toCSS (dict "outputStyle" "compressed") | minify }}
     {{ $styles_extra := resources.Get "scss/_extra.scss" | toCSS (dict "outputStyle" "compressed") | minify }}
     <style>{{ $styles.Content | safeCSS }} {{ $styles_extra.Content | safeCSS }}</style>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <script>
       (function() {
         var h = document.documentElement;
         var saved = localStorage.getItem('theme');
         if (saved) {
           h.setAttribute('data-theme', saved);
-        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-          h.setAttribute('data-theme', 'light');
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          h.setAttribute('data-theme', 'dark');
         }
         document.addEventListener('DOMContentLoaded', function() {
           var btn = document.getElementById('theme-toggle');
           if (!btn) return;
-          var isLight = h.getAttribute('data-theme') === 'light';
-          btn.textContent = isLight ? '● Dark' : '☀ Light';
+          var isDark = h.getAttribute('data-theme') === 'dark';
+          btn.textContent = isDark ? '☀ Light' : '● Dark';
           btn.addEventListener('click', function() {
-            var isLight = h.getAttribute('data-theme') === 'light';
-            if (isLight) {
+            var isDark = h.getAttribute('data-theme') === 'dark';
+            if (isDark) {
               h.removeAttribute('data-theme');
               localStorage.setItem('theme', '');
             } else {
-              h.setAttribute('data-theme', 'light');
-              localStorage.setItem('theme', 'light');
+              h.setAttribute('data-theme', 'dark');
+              localStorage.setItem('theme', 'dark');
             }
-            var nowLight = h.getAttribute('data-theme') === 'light';
-            btn.textContent = nowLight ? '● Dark' : '☀ Light';
+            var nowDark = h.getAttribute('data-theme') === 'dark';
+            btn.textContent = nowDark ? '☀ Light' : '● Dark';
           });
         });
       })();

@@ -4,8 +4,8 @@
 <body>
   <a class="skip-link" href="#main">Skip to main</a>
   <main id="main">
+    {{ partial "header.html" . }}
     <div class="content">
-      {{ partial "header.html" . }}
       {{ .Content }}
       {{ if gt (len ( where .Site.RegularPages "Section" "blog" )) 0 }}
       <ul class="post-list">

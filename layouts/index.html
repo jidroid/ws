@@ -4,17 +4,31 @@
 <body>
   <a class="skip-link" href="#main">Skip to main</a>
   <main id="main">
-    <div class="content">
-      {{ partial "header.html" . }}
+    <div class="nav-container">
+      <nav>
+        <a href="/" class="nav-link active-nav-link">Index</a>
+        {{ range .Site.Menus.main }}
+        <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>
+        {{ end }}
+        <button class="nav-link theme-toggle-nav" id="theme-toggle" aria-label="Toggle theme">● Dark</button>
+      </nav>
+    </div>
+    <div class="content home-content">
       {{ .Content }}
       {{ if gt (len ( where .Site.RegularPages "Section" "blog" )) 0 }}
-      <ul class="post-list">
-        {{ range (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
-        <li>
-          <a href="{{ .Permalink }}">{{ .Title }}</a>
-        </li>
+      <h2>Posts</h2>
+      <div class="post-list-dated">
+        {{ $pages := (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
+        {{ range $i, $p := $pages }}
+        <a href="{{ $p.Permalink }}">
+          <div>
+            <span class="post-title-text">{{ $p.Title }}</span>
+            <span class="post-date">{{ $p.Date.Format "Jan 2006" }}</span>
+          </div>
+        </a>
+        {{ if ne (add $i 1) (len $pages) }}<hr>{{ end }}
         {{ end }}
-      </ul>
+      </div>
       {{ end }}
     </div>
   </main>
