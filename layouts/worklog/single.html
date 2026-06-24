@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  {{ partial "head.html" . }}
+<body>
+  <a class="skip-link" href="#main">Skip to main</a>
+  <main id="main">
+    {{ partial "header.html" . }}
+    <article class="worklog-entry-page">
+      <header class="worklog-entry-header">
+        <a class="worklog-backlink" href="{{ "/worklog/" | relURL }}">Worklog</a>
+        <h1>{{ .Title }}</h1>
+        <dl>
+          <div>
+            <dt>Date</dt>
+            <dd><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time></dd>
+          </div>
+          {{ with .Params.entry_type }}
+          <div>
+            <dt>Kind</dt>
+            <dd>{{ . }}</dd>
+          </div>
+          {{ end }}
+          {{ with .Params.track }}
+          <div>
+            <dt>Track</dt>
+            <dd>{{ . }}</dd>
+          </div>
+          {{ end }}
+          {{ with .Params.status }}
+          <div>
+            <dt>Status</dt>
+            <dd>{{ . }}</dd>
+          </div>
+          {{ end }}
+        </dl>
+      </header>
+
+      {{ with .Params.sources }}
+      <section class="worklog-entry-aside" aria-labelledby="sources">
+        <h2 id="sources">Sources</h2>
+        <ul>
+          {{ range . }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </section>
+      {{ end }}
+
+      <div class="worklog-entry-content">
+        {{ .Content }}
+      </div>
+
+      {{ with .Params.next_questions }}
+      <section class="worklog-entry-aside" aria-labelledby="next-questions">
+        <h2 id="next-questions">Next Questions</h2>
+        <ul>
+          {{ range . }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </section>
+      {{ end }}
+
+      {{ partial "footer.html" . }}
+    </article>
+  </main>
+</body>
+</html>

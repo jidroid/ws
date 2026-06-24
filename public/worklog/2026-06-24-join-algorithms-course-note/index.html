@@ -5,25 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Liste - https://jidin.org/">
-    <title>Assorted Collection of Favorite Quotes | jidin.org</title>
+    <title>Sample: Join Algorithms From A Database Systems Lecture | jidin.org</title>
     <meta name="description" content="Jidin Dinesh&#39;s corner of the interweb.">
-    <meta property="og:url" content="https://jidin.org/quotes/">
+    <meta property="og:url" content="https://jidin.org/worklog/2026-06-24-join-algorithms-course-note/">
   <meta property="og:site_name" content="jidin.org">
-  <meta property="og:title" content="Assorted Collection of Favorite Quotes">
-  <meta property="og:description" content="“Doomed youth is romantic. Doomed middle age really isn’t.” — Montgomery Reece “Turns out, when you walk through life constantly wondering whether something would make for a good story, you’ll end up finding good stories.” — Thorsten Ball “What I had to say to you, moreover, would not take long, to wit: practice any art, music, singing, dancing, acting, drawing, painting, sculpting, poetry, fiction, essays, reportage, no matter how well or badly, not to get money and fame, but to experience becoming, to find out what’s inside you, to make your soul grow.” — Kurt Vonnegut">
+  <meta property="og:title" content="Sample: Join Algorithms From A Database Systems Lecture">
+  <meta property="og:description" content="Claim Join algorithms are best understood as different ways of spending memory, ordering, and I/O. The algorithm choice is not just about big-O complexity; it depends on whether the inputs are indexed, sorted, partitionable, and likely to fit in memory.
+Mechanism Nested-loop join is simple and general, but it becomes expensive unless the inner side has an index or the outer side is very small. Hash join pays a build cost to make equality probes cheap, which works well when the build side fits in memory or can be partitioned. Sort-merge join pays sorting cost, but can be attractive when inputs are already ordered or when later operators benefit from sorted output.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
-    <meta property="article:published_time" content="2022-09-18T00:00:00+00:00">
-    <meta property="article:modified_time" content="2022-09-18T00:00:00+00:00">
+    <meta property="article:section" content="worklog">
+    <meta property="article:published_time" content="2026-06-24T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-06-24T00:00:00+00:00">
+    <meta property="article:tag" content="Databases">
+    <meta property="article:tag" content="Query-Processing">
+    <meta property="article:tag" content="Course-Note">
 
     
-  <meta itemprop="name" content="Assorted Collection of Favorite Quotes">
-  <meta itemprop="description" content="“Doomed youth is romantic. Doomed middle age really isn’t.” — Montgomery Reece “Turns out, when you walk through life constantly wondering whether something would make for a good story, you’ll end up finding good stories.” — Thorsten Ball “What I had to say to you, moreover, would not take long, to wit: practice any art, music, singing, dancing, acting, drawing, painting, sculpting, poetry, fiction, essays, reportage, no matter how well or badly, not to get money and fame, but to experience becoming, to find out what’s inside you, to make your soul grow.” — Kurt Vonnegut">
-  <meta itemprop="datePublished" content="2022-09-18T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2022-09-18T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1259">
+  <meta itemprop="name" content="Sample: Join Algorithms From A Database Systems Lecture">
+  <meta itemprop="description" content="Claim Join algorithms are best understood as different ways of spending memory, ordering, and I/O. The algorithm choice is not just about big-O complexity; it depends on whether the inputs are indexed, sorted, partitionable, and likely to fit in memory.
+Mechanism Nested-loop join is simple and general, but it becomes expensive unless the inner side has an index or the outer side is very small. Hash join pays a build cost to make equality probes cheap, which works well when the build side fits in memory or can be partitioned. Sort-merge join pays sorting cost, but can be attractive when inputs are already ordered or when later operators benefit from sorted output.">
+  <meta itemprop="datePublished" content="2026-06-24T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-06-24T00:00:00+00:00">
+  <meta itemprop="wordCount" content="223">
+  <meta itemprop="keywords" content="Databases,Query-Processing,Course-Note">
     
-    <link rel="canonical" href="https://jidin.org/quotes/">
+    <link rel="canonical" href="https://jidin.org/worklog/2026-06-24-join-algorithms-course-note/">
     <link rel="icon" href="https://jidin.org//assets/favicon.ico">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,16 +83,16 @@
   {
       "@context": "http://schema.org",
       "@type": "BlogPosting",
-      "articleSection": "",
-      "name": "Assorted Collection of Favorite Quotes",
-      "headline": "Assorted Collection of Favorite Quotes",
+      "articleSection": "worklog",
+      "name": "Sample: Join Algorithms From A Database Systems Lecture",
+      "headline": "Sample: Join Algorithms From A Database Systems Lecture",
       "alternativeHeadline": "",
-      "description": "\u003cblockquote class=\u0022blockquote\u0022\u003e\n  \u003cp\u003e\n    \u0026ldquo;Doomed youth is romantic. Doomed middle age really isn\u0026rsquo;t.\u0026rdquo;\n    \n      \u003cbr\u003e\n      \u003cspan class=\u0022author\u0022\u003e\u0026mdash; Montgomery Reece\u003c\/span\u003e\n    \n  \u003c\/p\u003e\n\u003c\/blockquote\u003e\n\n\n\u003cblockquote class=\u0022blockquote\u0022\u003e\n  \u003cp\u003e\n    \u0026ldquo;Turns out, when you walk through life constantly wondering whether something would make for a good story, you’ll end up finding good stories.\u0026rdquo;\n    \n      \u003cbr\u003e\n      \u003cspan class=\u0022author\u0022\u003e\u0026mdash; Thorsten Ball\u003c\/span\u003e\n    \n  \u003c\/p\u003e\n\u003c\/blockquote\u003e\n\n\n\u003cblockquote class=\u0022blockquote\u0022\u003e\n  \u003cp\u003e\n    \u0026ldquo;What I had to say to you, moreover, would not take long, to wit: practice any art, music, singing, dancing, acting, drawing, painting, sculpting, poetry, fiction, essays, reportage, no matter how well or badly, not to get money and fame, but to experience becoming, to find out what’s inside you, to make your soul grow.\u0026rdquo;\n    \n      \u003cbr\u003e\n      \u003cspan class=\u0022author\u0022\u003e\u0026mdash; Kurt Vonnegut\u003c\/span\u003e\n    \n  \u003c\/p\u003e",
+      "description": "\u003ch2 id=\u0022claim\u0022\u003eClaim\u003c\/h2\u003e\n\u003cp\u003eJoin algorithms are best understood as different ways of spending memory, ordering, and I\/O. The algorithm choice is not just about big-O complexity; it depends on whether the inputs are indexed, sorted, partitionable, and likely to fit in memory.\u003c\/p\u003e\n\u003ch2 id=\u0022mechanism\u0022\u003eMechanism\u003c\/h2\u003e\n\u003cp\u003eNested-loop join is simple and general, but it becomes expensive unless the inner side has an index or the outer side is very small. Hash join pays a build cost to make equality probes cheap, which works well when the build side fits in memory or can be partitioned. Sort-merge join pays sorting cost, but can be attractive when inputs are already ordered or when later operators benefit from sorted output.\u003c\/p\u003e",
       "inLanguage": "en-us",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https:\/\/jidin.org\/quotes\/"
+          "@id": "https:\/\/jidin.org\/worklog\/2026-06-24-join-algorithms-course-note\/"
       },
       "author" : {
           "@type": "Person",
@@ -100,10 +107,10 @@
           "name": ""
       },
       "copyrightHolder" : "jidin.org",
-      "copyrightYear" : "2022",
-      "dateCreated": "2022-09-18T00:00:00.00Z",
-      "datePublished": "2022-09-18T00:00:00.00Z",
-      "dateModified": "2022-09-18T00:00:00.00Z",
+      "copyrightYear" : "2026",
+      "dateCreated": "2026-06-24T00:00:00.00Z",
+      "datePublished": "2026-06-24T00:00:00.00Z",
+      "dateModified": "2026-06-24T00:00:00.00Z",
       "publisher":{
           "@type":"Organization",
           "name": "jidin.org",
@@ -116,10 +123,10 @@
           }
       },
       "image": "https://jidin.org/assets/favicon.ico",
-      "url" : "https:\/\/jidin.org\/quotes\/",
-      "wordCount" : "1259",
-      "genre" : [ ],
-      "keywords" : [ ]
+      "url" : "https:\/\/jidin.org\/worklog\/2026-06-24-join-algorithms-course-note\/",
+      "wordCount" : "223",
+      "genre" : [ "databases" , "query-processing" , "course-note" ],
+      "keywords" : [ "databases" , "query-processing" , "course-note" ]
   }
   </script>
   
@@ -129,7 +136,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to main</a>
   <main id="main">
-  <div class="nav-container">
+    <div class="nav-container">
   <nav>
     <a href="https://jidin.org/" class="nav-link">Index</a>
     
@@ -138,7 +145,7 @@
     <a href="https://jidin.org/worklog/" class="nav-link">Worklog</a>
     
     
-    <a href="https://jidin.org/quotes/" class="nav-link active-nav-link">Quotes</a>
+    <a href="https://jidin.org/quotes/" class="nav-link">Quotes</a>
     
     
     <a href="mailto:jd@jidin.org" class="nav-link">Email</a>
@@ -147,581 +154,73 @@
   </nav>
 </div>
 
-  
-  
-  <div class="content">
-    <section>
-      <h2 class="post-title">Assorted Collection of Favorite Quotes</h2>
+    <article class="worklog-entry-page">
+      <header class="worklog-entry-header">
+        <a class="worklog-backlink" href="https://jidin.org/worklog/">Worklog</a>
+        <h1>Sample: Join Algorithms From A Database Systems Lecture</h1>
+        <dl>
+          <div>
+            <dt>Date</dt>
+            <dd><time datetime="2026-06-24">24 Jun 2026</time></dd>
+          </div>
+          
+          <div>
+            <dt>Kind</dt>
+            <dd>course note</dd>
+          </div>
+          
+          
+          <div>
+            <dt>Track</dt>
+            <dd>databases</dd>
+          </div>
+          
+          
+          <div>
+            <dt>Status</dt>
+            <dd>sample</dd>
+          </div>
+          
+        </dl>
+      </header>
+
+      
+      <section class="worklog-entry-aside" aria-labelledby="sources">
+        <h2 id="sources">Sources</h2>
+        <ul>
+          <li>Database systems lecture on join processing</li><li>Textbook section on hash join and sort-merge join</li>
+        </ul>
+      </section>
       
 
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Doomed youth is romantic. Doomed middle age really isn&rsquo;t.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Montgomery Reece</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Turns out, when you walk through life constantly wondering whether something would make for a good story, you’ll end up finding good stories.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Thorsten Ball</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;What I had to say to you, moreover, would not take long, to wit: practice any art, music, singing, dancing, acting, drawing, painting, sculpting, poetry, fiction, essays, reportage, no matter how well or badly, not to get money and fame, but to experience becoming, to find out what’s inside you, to make your soul grow.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Kurt Vonnegut</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Learn the rules like a pro, so you can break them like an artist.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Pablo Picasso</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;If I miss one day’s practice, I notice it. If I miss two days, the critics notice it. If I miss three days, the audience notices it.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Ignacy Jan Paderewski</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;I was taught at school never to start a sentence without knowing the end of it.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Paul Dirac</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Writing is nature&rsquo;s way of letting you know how sloppy your thinking is.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Richard Gordon Guindon</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Inside every cynical person, there is a disappointed idealist.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; George Carlin</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Either write something worth reading or do something worth writing.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Benjamin Franklin</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;This is your life and its ending one moment at a time.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Chuck Palahniuk</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;It&rsquo;s never finished only abandoned.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Leonardo da Vinci</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Travel is fatal to prejudice.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Mark Twain</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;A human life is on average eighty Earth years or around thirty thousand Earth days. Which means they are born, they make some friends, eat a few meals, they get married [or don&rsquo;t], have a child or two, or not, drink a few thousand glasses of wine, have [sex] a few times, discover a lump somewhere, feel a bit of regret, wonder where all the time went, know they should have done it differently, realize they would have done it the same, and then they die.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Matt Caig</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Talk to yourself like you would to someone you love.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Brené Brown</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;You’re not just self-important, you’re actually important.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Ernest Lawrence to Oppenheimer</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Your twenties are always an apprenticeship, but you don&rsquo;t always know what for.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Jan Houtema</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;The man who views the world at 50 the same as he did at 20 has wasted 30 years of his life.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Muhammad Ali</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “Life is no way to treat an animal.”
-    
-      <br>
-      <span class="author">&mdash; Kilgore Trout</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “There is no safe investment. To love at all is to be vulnerable. Love anything, and your heart will certainly be wrung and possibly be broken. If you want to make sure of keeping it intact, you must give your heart to no one, not even to an animal. Wrap it carefully round with hobbies and little luxuries; avoid all entanglements; lock it up safe in the casket or coffin of your selfishness. But in that casket—safe, dark, motionless, air-less—it will change. It will not be broken; it will become unbreakable, impenetrable, irredeemable. The alternative to tragedy, or at least to the risk of tragedy, is damnation. The only place outside heaven where you can be perfectly safe from all the dangers and perturbations of love is hell.”
-    
-      <br>
-      <span class="author">&mdash; C. S. Lewis, The Four Loves</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Nothing in life is certain except death, taxes and the second law of thermodynamics.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Seth Lloyd</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;The future is already here – it&rsquo;s just not evenly distributed.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; William Gibson</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;I’ve learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Maya Angelou</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “You can&rsquo;t ever reach perfection, but you can believe in an asymptote toward which you are ceaselessly striving.”
-    
-      <br>
-      <span class="author">&mdash; Paul Kalanithi</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Life is so constructed, that the event does not, cannot, will not, match the expectation.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Charlotte Bronte</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;There is no such thing as a new idea. It is impossible. We simply take a lot of old ideas and put them into a sort of mental kaleidoscope. We give them a turn and they make new and curious combinations. We keep on turning and making new combinations indefinitely; but they are the same old pieces of colored glass that have been in use through all the ages.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Mark Twain</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Life was simple before World War II. After that, we had systems.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Grace Murray Hopper</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;No amount of experimentation can ever prove me right; a single experiment can prove me wrong.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Albert Einstein</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;We cannot solve our problems with the same thinking we used when we created them.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Albert Einstein</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Intelligence is the ability to adapt to change.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Stephen Hawking</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;All of humanity&rsquo;s problems stem from man&rsquo;s inability to sit quietly in a room alone.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Blaise Pascal</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;The real problem of humanity is the following: we have Paleolithic emotions; medieval institutions; and god-like technology.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Edward O. Wilson</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Avoiding stupidity is easier than seeking brilliance.”
-    
-      <br>
-      <span class="author">&mdash; Shane Parrish</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;How we spend our time is the best test of intelligence.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Shane Parrish</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “The illiterate of the 21st century will not be those who cannot read and write, but those who cannot learn, unlearn, and relearn.”
-    
-      <br>
-      <span class="author">&mdash; Alvin Toffler</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “It’s difficult to find happiness within oneself, but it’s impossible to find it anywhere else.”
-    
-      <br>
-      <span class="author">&mdash; Seneca</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “The price of anything is the amount of life you exchange for it.”
-    
-      <br>
-      <span class="author">&mdash; Henry David Thoreau</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “The days are long but the decades are short.”
-    
-      <br>
-      <span class="author">&mdash; Sam Altman</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    ”Civilization advances by extending the number of important operations which we can perform without thinking of them.”
-    
-      <br>
-      <span class="author">&mdash; Alfred North Whitehead</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Get the important things right.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; N. P. Calderwood</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Your personal experiences make up maybe 0.00000001% of what’s happened in the world but maybe 80% of how you think the world works&hellip; we’re all biased to our own personal history.”
-    
-      <br>
-      <span class="author">&mdash; Morgan Housel</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;An expert is a man who has made all the mistakes which can be made in a very narrow field.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Niels Bohr</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Success is not to be pursued; it is to be attracted by the person you become.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Jim Rohn</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “‘The cat sat on a mat’ is not a story. ‘The cat sat on the dog’s mat’ is a story.”
-    
-      <br>
-      <span class="author">&mdash; John le Carré</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “We don’t make movies to make money, we make money to make more movies.”
-    
-      <br>
-      <span class="author">&mdash; Walt Disney</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    “Creativity is not a talent. It is a way of operating.”
-    
-      <br>
-      <span class="author">&mdash; John Cleese</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;A complex system that works is invariably found to have evolved from a simple system that worked. The inverse proposition also appears to be true: a complex system designed from scratch never works and cannot be made to work.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; John Gall</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Short words are best and the old words when short are best of all.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Winston Churchill</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Any word you have to hunt for in a thesaurus is the wrong word.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Stephen King</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;The late Richard Feynman, a superb physicist, said once as we talked about the laser that the way to tell a great idea is that, when people hear it, they say, &lsquo;Gee, I could have thought of that.&rsquo;&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Charles Townes</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Don&rsquo;t forget that Linux became only possible because 20 years of OS research was carefully studied, analyzed, discussed and thrown away.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; Ingo Molnar</span>
-    
-  </p>
-</blockquote>
-
-
-<blockquote class="blockquote">
-  <p>
-    &ldquo;Pick up a camera. Shoot something. No matter how small, no matter how cheesy, no matter whether your friends and your sister star in it. Put your name on it as director. Now you&rsquo;re a director. Everything after that you&rsquo;re just negotiating your budget and your fee.&rdquo;
-    
-      <br>
-      <span class="author">&mdash; James Cameron</span>
-    
-  </p>
-</blockquote>
-
-    </section>
-    <footer></footer>
-
-  </div>
-  
-</main>
-
-
-
+      <div class="worklog-entry-content">
+        <h2 id="claim">Claim</h2>
+<p>Join algorithms are best understood as different ways of spending memory, ordering, and I/O. The algorithm choice is not just about big-O complexity; it depends on whether the inputs are indexed, sorted, partitionable, and likely to fit in memory.</p>
+<h2 id="mechanism">Mechanism</h2>
+<p>Nested-loop join is simple and general, but it becomes expensive unless the inner side has an index or the outer side is very small. Hash join pays a build cost to make equality probes cheap, which works well when the build side fits in memory or can be partitioned. Sort-merge join pays sorting cost, but can be attractive when inputs are already ordered or when later operators benefit from sorted output.</p>
+<h2 id="evidence">Evidence</h2>
+<p>The lecture example became clearer when I rewrote each join as a resource tradeoff:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>nested loop:  low setup, high repeated access
+</span></span><span style="display:flex;"><span>hash join:    memory for fast equality lookup
+</span></span><span style="display:flex;"><span>merge join:   ordering for sequential comparison
+</span></span></code></pre></div><p>This framing connects directly to query planning. The optimizer is choosing not only an algorithm, but also a set of assumptions about cardinality, available memory, physical order, and reuse of intermediate properties.</p>
+<h2 id="open-question">Open Question</h2>
+<p>I want to connect this to vectorized execution next. A hash join in a vectorized engine is not only a logical algorithm; it also has to decide how to batch probes, represent selection vectors, and handle cache misses during random hash-table access.</p>
+
+      </div>
+
+      
+      <section class="worklog-entry-aside" aria-labelledby="next-questions">
+        <h2 id="next-questions">Next Questions</h2>
+        <ul>
+          <li>How do real optimizers estimate memory pressure for hash joins?</li><li>When does sort-merge join become preferable because sorted output is useful downstream?</li>
+        </ul>
+      </section>
+      
+
+      <footer></footer>
+
+    </article>
+  </main>
 </body>
 </html>

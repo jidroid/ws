@@ -2,10 +2,74 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on jidin.org</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://jidin.org/tags/</link>
     <description>Recent content in Tags on jidin.org</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <atom:link href="http://localhost:1313/tags/atom.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://jidin.org/tags/atom.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Course-Note</title>
+      <link>https://jidin.org/tags/course-note/</link>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/tags/course-note/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Databases</title>
+      <link>https://jidin.org/tags/databases/</link>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/tags/databases/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hardware</title>
+      <link>https://jidin.org/tags/hardware/</link>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/tags/hardware/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Query-Processing</title>
+      <link>https://jidin.org/tags/query-processing/</link>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/tags/query-processing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Compilers</title>
+      <link>https://jidin.org/tags/compilers/</link>
+      <pubDate>Tue, 23 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/tags/compilers/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Llvm</title>
+      <link>https://jidin.org/tags/llvm/</link>
+      <pubDate>Tue, 23 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/tags/llvm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Optimization</title>
+      <link>https://jidin.org/tags/optimization/</link>
+      <pubDate>Tue, 23 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/tags/optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Operating-Systems</title>
+      <link>https://jidin.org/tags/operating-systems/</link>
+      <pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/tags/operating-systems/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Storage</title>
+      <link>https://jidin.org/tags/storage/</link>
+      <pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/tags/storage/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

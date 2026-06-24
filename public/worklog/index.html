@@ -1,27 +1,27 @@
 <!doctype html>
 <html lang="en">
   <head>
-	<meta name="generator" content="Hugo 0.154.2">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Liste - https://jidin.org/">
-    <title>jidin.org</title>
-    <meta name="description" content="Jidin Dinesh&#39;s corner of the interweb.">
-    <meta property="og:url" content="https://jidin.org/">
+    <title>Systems Research Worklog | jidin.org</title>
+    <meta name="description" content="A daily research worklog on databases, compilers, operating systems, and heterogeneous hardware.">
+    <meta property="og:url" content="https://jidin.org/worklog/">
   <meta property="og:site_name" content="jidin.org">
-  <meta property="og:title" content="jidin.org">
-  <meta property="og:description" content="Jidin Dinesh&#39;s corner of the interweb.">
+  <meta property="og:title" content="Systems Research Worklog">
+  <meta property="og:description" content="A daily research worklog on databases, compilers, operating systems, and heterogeneous hardware.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="website">
 
     
-  <meta itemprop="name" content="jidin.org">
-  <meta itemprop="description" content="Jidin Dinesh&#39;s corner of the interweb.">
+  <meta itemprop="name" content="Systems Research Worklog">
+  <meta itemprop="description" content="A daily research worklog on databases, compilers, operating systems, and heterogeneous hardware.">
   <meta itemprop="datePublished" content="2026-06-24T00:00:00+00:00">
   <meta itemprop="dateModified" content="2026-06-24T00:00:00+00:00">
+  <meta itemprop="wordCount" content="83">
     
-    <link rel="canonical" href="https://jidin.org/">
+    <link rel="canonical" href="https://jidin.org/worklog/">
     <link rel="icon" href="https://jidin.org//assets/favicon.ico">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,18 +67,7 @@
       })();
     </script>
 
-    <script type="application/ld+json">
-  {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      "name": "jidin.org",
-      "url": "https:\/\/jidin.org\/",
-      "description": "Jidin Dinesh\u0027s corner of the interweb.",
-      "thumbnailUrl": "https:\/\/jidin.org\/assets\/favicon.ico",
-      "license": ""
-  }
-  </script>
-  
+    
   
   </head>
 
@@ -86,41 +75,262 @@
   <a class="skip-link" href="#main">Skip to main</a>
   <main id="main">
     <div class="nav-container">
-      <nav>
-        <a href="https://jidin.org/" class="nav-link active-nav-link">Index</a>
-        
-        <a href="https://jidin.org/worklog/" class="nav-link">Worklog</a>
-        
-        <a href="https://jidin.org/quotes/" class="nav-link">Quotes</a>
-        
-        <a href="mailto:jd@jidin.org" class="nav-link">Email</a>
-        
-        <button class="nav-link theme-toggle-nav" id="theme-toggle" aria-label="Toggle theme">● Dark</button>
-      </nav>
-    </div>
-    <div class="content home-content">
-      
-      
-      <h2>Posts</h2>
-      <div class="post-list-dated">
-        
-        
-        <a href="https://jidin.org/lsm/">
+  <nav>
+    <a href="https://jidin.org/" class="nav-link">Index</a>
+    
+    
+    
+    <a href="https://jidin.org/worklog/" class="nav-link active-nav-link">Worklog</a>
+    
+    
+    <a href="https://jidin.org/quotes/" class="nav-link">Quotes</a>
+    
+    
+    <a href="mailto:jd@jidin.org" class="nav-link">Email</a>
+    
+    <button class="nav-link theme-toggle-nav" id="theme-toggle" aria-label="Toggle theme">● Dark</button>
+  </nav>
+</div>
+
+    <div class="worklog-shell">
+      <section class="worklog-hero" aria-labelledby="worklog-title">
+        <p class="worklog-kicker">Research notebook / daily evidence trail</p>
+        <h1 id="worklog-title">Systems Research Worklog</h1>
+        <p class="worklog-lede">A public notebook tracking my preparation for graduate research in modern systems: what I read, what I implemented, what I understood, and which questions remain open.</p>
+        <dl class="worklog-proofline">
+          
           <div>
-            <span class="post-title-text">Log-Structured Merge Trees</span>
+            <dt>Focus</dt>
+            <dd>Database systems, compiler/runtime support, operating-system mechanisms, and heterogeneous hardware.</dd>
           </div>
-        </a>
-        <hr>
-        
-        <a href="https://jidin.org/momtest/">
+          
+          
           <div>
-            <span class="post-title-text">How to Not Suck at Talking to Your Customers</span>
+            <dt>Cadence</dt>
+            <dd>Daily notes, with weekly synthesis when a thread matures.</dd>
           </div>
-        </a>
+          
+          
+          <div>
+            <dt>Use</dt>
+            <dd>Prepared as evidence of research trajectory for graduate applications, including HPI, TU Darmstadt, TU Berlin, TU Munich, and TU Dresden.</dd>
+          </div>
+          
+        </dl>
+      </section>
+
+      <section class="worklog-section worklog-two-column" aria-labelledby="review-path">
+        <div>
+          <p class="worklog-section-label">Reviewer path</p>
+          <h2 id="review-path">How To Read This Page</h2>
+        </div>
+        <div class="worklog-path">
+          
+          <article>
+            <h3>Start with the trajectory</h3>
+            <p>Use the research threads to see how individual notes connect into a coherent systems agenda.</p>
+          </article>
+          
+          <article>
+            <h3>Sample the latest entries</h3>
+            <p>Daily posts are intentionally compact: source, claim, mechanism, uncertainty, and next action.</p>
+          </article>
+          
+          <article>
+            <h3>Look for synthesis</h3>
+            <p>Weekly summaries will connect papers, lectures, implementations, and experiments across subsystem boundaries.</p>
+          </article>
+          
+        </div>
+      </section>
+
+      <section class="worklog-section" aria-labelledby="research-threads">
+        <div class="worklog-section-header">
+          <div>
+            <p class="worklog-section-label">Research direction</p>
+            <h2 id="research-threads">Threads I Am Building</h2>
+          </div>
+          <p>Each daily entry is tagged back to one or more of these threads so the page shows accumulation, not isolated note-taking.</p>
+        </div>
+        <div class="worklog-thread-grid">
+          
+          <article class="worklog-thread worklog-thread--blue">
+            <h3>Storage and Query Processing</h3>
+            <p>LSM/B-tree tradeoffs, transaction processing, indexing, recovery, vectorized execution, and analytical engines.</p>
+          </article>
+          
+          <article class="worklog-thread worklog-thread--green">
+            <h3>Compilers and Runtimes</h3>
+            <p>IR design, optimization passes, JIT/AOT tradeoffs, data layout, code generation, and runtime feedback loops.</p>
+          </article>
+          
+          <article class="worklog-thread worklog-thread--amber">
+            <h3>Operating Systems</h3>
+            <p>Scheduling, virtual memory, isolation, filesystems, observability, kernel/user boundaries, and resource control.</p>
+          </article>
+          
+          <article class="worklog-thread worklog-thread--rose">
+            <h3>Heterogeneous Hardware</h3>
+            <p>GPU/accelerator execution, memory hierarchy, NUMA, SIMD, storage devices, and hardware-conscious systems design.</p>
+          </article>
+          
+        </div>
+      </section>
+
+      <section class="worklog-section worklog-two-column" aria-labelledby="entry-standard">
+        <div>
+          <p class="worklog-section-label">Quality bar</p>
+          <h2 id="entry-standard">What Each Entry Should Prove</h2>
+        </div>
+        <div class="worklog-contract">
+          
+          <div>
+            <span>Source</span>
+            <p>The paper, lecture, book chapter, benchmark, or codebase that prompted the note.</p>
+          </div>
+          
+          <div>
+            <span>Mechanism</span>
+            <p>The specific system behavior or design choice being examined.</p>
+          </div>
+          
+          <div>
+            <span>Evidence</span>
+            <p>A derivation, experiment, implementation detail, or comparison that supports the claim.</p>
+          </div>
+          
+          <div>
+            <span>Open question</span>
+            <p>What I still do not understand, and what I plan to read or build next.</p>
+          </div>
+          
+        </div>
+      </section>
+
+      <section class="worklog-section" aria-labelledby="latest-worklog">
+        <div class="worklog-section-header">
+          <div>
+            <p class="worklog-section-label">Chronology</p>
+            <h2 id="latest-worklog">Latest Entries</h2>
+          </div>
+          <p>Daily updates will appear here in reverse chronological order.</p>
+        </div>
         
         
-      </div>
-      
+        
+        <div class="worklog-day-list">
+          
+          
+          <section class="worklog-day-group" aria-labelledby="worklog-day-2026-06-24">
+            <div class="worklog-day-marker">
+              <time id="worklog-day-2026-06-24" datetime="2026-06-24">24 Jun 2026</time>
+              <span>2 notes</span>
+            </div>
+            <div class="worklog-day-entries">
+              
+              <article class="worklog-entry-card">
+                <div class="worklog-entry-card-header">
+                  <span class="worklog-entry-type">course note</span>
+                  <span>databases</span>
+                </div>
+                <h3><a href="https://jidin.org/worklog/2026-06-24-join-algorithms-course-note/">Sample: Join Algorithms From A Database Systems Lecture</a></h3>
+                <p>Claim Join algorithms are best understood as different ways of spending memory, ordering, and I/O. The algorithm choice is not just about big-O complexity; it depends on whether the inputs are indexed, sorted, partitionable, and likely to fit in memory.
+Mechanism Nested-loop join is simple and general, but it becomes expensive unless the inner side has an index or the outer side is very small. Hash join pays a build cost to make equality probes cheap, which works well when the build side fits in memory or can be partitioned. Sort-merge join pays sorting cost, but can be attractive when inputs are already ordered or when later operators benefit from sorted output.
+</p>
+                
+                <ul class="worklog-entry-tags" aria-label="Entry tags">
+                  <li>databases</li><li>query-processing</li><li>course-note</li>
+                </ul>
+                
+              </article>
+              
+              <article class="worklog-entry-card">
+                <div class="worklog-entry-card-header">
+                  <span class="worklog-entry-type">paper note</span>
+                  <span>databases</span>
+                </div>
+                <h3><a href="https://jidin.org/worklog/2026-06-24-vectorized-execution/">Sample: Vectorized Execution And Cache Behavior</a></h3>
+                <p>Claim Vectorized execution is not only about doing fewer function calls. Its stronger effect is that it reshapes query execution into cache-sized, type-specialized loops that modern CPUs can predict, prefetch, and pipeline.
+Mechanism Instead of interpreting one tuple through the full operator tree, the engine processes a batch of values at a time. Operators pass compact vectors of column values, validity masks, and selection vectors. This keeps the hot loop small and gives the CPU a more regular memory-access pattern.
+</p>
+                
+                <ul class="worklog-entry-tags" aria-label="Entry tags">
+                  <li>databases</li><li>query-processing</li><li>hardware</li>
+                </ul>
+                
+              </article>
+              
+            </div>
+          </section>
+          
+          
+          <section class="worklog-day-group" aria-labelledby="worklog-day-2026-06-23">
+            <div class="worklog-day-marker">
+              <time id="worklog-day-2026-06-23" datetime="2026-06-23">23 Jun 2026</time>
+              <span>1 note</span>
+            </div>
+            <div class="worklog-day-entries">
+              
+              <article class="worklog-entry-card">
+                <div class="worklog-entry-card-header">
+                  <span class="worklog-entry-type">course note</span>
+                  <span>compilers</span>
+                </div>
+                <h3><a href="https://jidin.org/worklog/2026-06-23-llvm-loop-pass/">Sample: What A Loop Optimization Pass Needs To Know</a></h3>
+                <p>Claim A loop optimization pass is only as good as the analyses it can trust. The actual transformation is often smaller than the dependency chain required to prove that moving code is legal.
+Mechanism Loop-invariant code motion needs at least three kinds of information:
+Whether an instruction computes the same value on every iteration. Whether moving it changes memory behavior or exception behavior. Whether the destination dominates all uses and preserves program semantics. The pass therefore depends on loop structure, dominance, alias analysis, and side-effect information. This makes compiler engineering feel close to database optimizer engineering: the hard part is not only finding a cheaper plan, but proving that the cheaper plan is equivalent.
+</p>
+                
+                <ul class="worklog-entry-tags" aria-label="Entry tags">
+                  <li>compilers</li><li>llvm</li><li>optimization</li>
+                </ul>
+                
+              </article>
+              
+            </div>
+          </section>
+          
+          
+          <section class="worklog-day-group" aria-labelledby="worklog-day-2026-06-22">
+            <div class="worklog-day-marker">
+              <time id="worklog-day-2026-06-22" datetime="2026-06-22">22 Jun 2026</time>
+              <span>1 note</span>
+            </div>
+            <div class="worklog-day-entries">
+              
+              <article class="worklog-entry-card">
+                <div class="worklog-entry-card-header">
+                  <span class="worklog-entry-type">implementation note</span>
+                  <span>operating systems</span>
+                </div>
+                <h3><a href="https://jidin.org/worklog/2026-06-22-io-uring-storage/">Sample: io_uring As A Storage Engine Interface</a></h3>
+                <p>Claim io_uring is interesting for database systems because it moves the storage interface closer to an explicit queueing model. That makes it easier to reason about concurrency, batching, and backpressure than a thread-per-blocking-call design.
+Mechanism The application submits work into a submission queue and receives completions from a completion queue. A storage engine can use this to keep multiple reads in flight without tying each read to a blocked worker thread.
+</p>
+                
+                <ul class="worklog-entry-tags" aria-label="Entry tags">
+                  <li>operating-systems</li><li>storage</li><li>databases</li>
+                </ul>
+                
+              </article>
+              
+            </div>
+          </section>
+          
+        </div>
+        
+      </section>
+
+      <section class="worklog-section worklog-content">
+        <h2 id="why-this-exists">Why This Exists</h2>
+<p>Graduate statements of purpose can compress too much into a polished narrative. This worklog is the supporting record: a chronological trail of how my research interests are forming through papers, courses, implementation notes, and small experiments.</p>
+<p>The page is designed for quick evaluation. An admissions reader should be able to tell what I am studying, how consistently I study it, whether I can extract mechanisms from sources, and how my interests connect across databases, compilers, operating systems, and modern hardware.</p>
+
+      </section>
+
+      <footer></footer>
+
     </div>
   </main>
 </body>

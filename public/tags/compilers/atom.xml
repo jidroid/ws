@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Compilers on jidin.org</title>
+    <link>https://jidin.org/tags/compilers/</link>
+    <description>Recent content in Compilers on jidin.org</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 23 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://jidin.org/tags/compilers/atom.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sample: What A Loop Optimization Pass Needs To Know</title>
+      <link>https://jidin.org/worklog/2026-06-23-llvm-loop-pass/</link>
+      <pubDate>Tue, 23 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/worklog/2026-06-23-llvm-loop-pass/</guid>
+      <description>&lt;h2 id=&#34;claim&#34;&gt;Claim&lt;/h2&gt;&#xA;&lt;p&gt;A loop optimization pass is only as good as the analyses it can trust. The actual transformation is often smaller than the dependency chain required to prove that moving code is legal.&lt;/p&gt;&#xA;&lt;h2 id=&#34;mechanism&#34;&gt;Mechanism&lt;/h2&gt;&#xA;&lt;p&gt;Loop-invariant code motion needs at least three kinds of information:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Whether an instruction computes the same value on every iteration.&lt;/li&gt;&#xA;&lt;li&gt;Whether moving it changes memory behavior or exception behavior.&lt;/li&gt;&#xA;&lt;li&gt;Whether the destination dominates all uses and preserves program semantics.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;The pass therefore depends on loop structure, dominance, alias analysis, and side-effect information. This makes compiler engineering feel close to database optimizer engineering: the hard part is not only finding a cheaper plan, but proving that the cheaper plan is equivalent.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

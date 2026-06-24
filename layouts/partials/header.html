@@ -3,7 +3,8 @@
     <a href="/" class="nav-link{{ if .IsHome }} active-nav-link{{ end }}">Index</a>
     {{ $currentPage := . }}
     {{ range .Site.Menus.main }}
-    <a href="{{ .URL }}" class="nav-link{{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active-nav-link{{ end }}">{{ .Name }}</a>
+    {{ $isActive := or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.RelPermalink .URL) }}
+    <a href="{{ .URL }}" class="nav-link{{ if $isActive }} active-nav-link{{ end }}">{{ .Name }}</a>
     {{ end }}
     <button class="nav-link theme-toggle-nav" id="theme-toggle" aria-label="Toggle theme">● Dark</button>
   </nav>

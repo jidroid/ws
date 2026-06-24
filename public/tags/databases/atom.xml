@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Databases on jidin.org</title>
+    <link>https://jidin.org/tags/databases/</link>
+    <description>Recent content in Databases on jidin.org</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://jidin.org/tags/databases/atom.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sample: Join Algorithms From A Database Systems Lecture</title>
+      <link>https://jidin.org/worklog/2026-06-24-join-algorithms-course-note/</link>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/worklog/2026-06-24-join-algorithms-course-note/</guid>
+      <description>&lt;h2 id=&#34;claim&#34;&gt;Claim&lt;/h2&gt;&#xA;&lt;p&gt;Join algorithms are best understood as different ways of spending memory, ordering, and I/O. The algorithm choice is not just about big-O complexity; it depends on whether the inputs are indexed, sorted, partitionable, and likely to fit in memory.&lt;/p&gt;&#xA;&lt;h2 id=&#34;mechanism&#34;&gt;Mechanism&lt;/h2&gt;&#xA;&lt;p&gt;Nested-loop join is simple and general, but it becomes expensive unless the inner side has an index or the outer side is very small. Hash join pays a build cost to make equality probes cheap, which works well when the build side fits in memory or can be partitioned. Sort-merge join pays sorting cost, but can be attractive when inputs are already ordered or when later operators benefit from sorted output.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sample: Vectorized Execution And Cache Behavior</title>
+      <link>https://jidin.org/worklog/2026-06-24-vectorized-execution/</link>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/worklog/2026-06-24-vectorized-execution/</guid>
+      <description>&lt;h2 id=&#34;claim&#34;&gt;Claim&lt;/h2&gt;&#xA;&lt;p&gt;Vectorized execution is not only about doing fewer function calls. Its stronger effect is that it reshapes query execution into cache-sized, type-specialized loops that modern CPUs can predict, prefetch, and pipeline.&lt;/p&gt;&#xA;&lt;h2 id=&#34;mechanism&#34;&gt;Mechanism&lt;/h2&gt;&#xA;&lt;p&gt;Instead of interpreting one tuple through the full operator tree, the engine processes a batch of values at a time. Operators pass compact vectors of column values, validity masks, and selection vectors. This keeps the hot loop small and gives the CPU a more regular memory-access pattern.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sample: io_uring As A Storage Engine Interface</title>
+      <link>https://jidin.org/worklog/2026-06-22-io-uring-storage/</link>
+      <pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>https://jidin.org/worklog/2026-06-22-io-uring-storage/</guid>
+      <description>&lt;h2 id=&#34;claim&#34;&gt;Claim&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;io_uring&lt;/code&gt; is interesting for database systems because it moves the storage interface closer to an explicit queueing model. That makes it easier to reason about concurrency, batching, and backpressure than a thread-per-blocking-call design.&lt;/p&gt;&#xA;&lt;h2 id=&#34;mechanism&#34;&gt;Mechanism&lt;/h2&gt;&#xA;&lt;p&gt;The application submits work into a submission queue and receives completions from a completion queue. A storage engine can use this to keep multiple reads in flight without tying each read to a blocked worker thread.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

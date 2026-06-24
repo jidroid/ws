@@ -19,15 +19,20 @@ author = 'jidin'
 
 [menu]
 [[menu.main]]
+identifier = "Worklog"
+name = "Worklog"
+url = "/worklog/"
+weight = 1
+[[menu.main]]
 identifier = "Quotes"
 name = "Quotes"
 url = "/quotes/"
-weight = 1
+weight = 2
 [[menu.main]]
 identifier = "Email"
 name = "Email"
 url = "mailto:jd@jidin.org"
-weight = 2
+weight = 3
 
 [markup]
 [markup.goldmark.renderer]
