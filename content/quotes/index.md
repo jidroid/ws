@@ -4,6 +4,10 @@ url = "/quotes"
 date = "2022-09-18"
 +++
 
+{{< blockquote author="Marie Curie" >}}
+"Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less." 
+{{< /blockquote >}}
+
 {{< blockquote author="Montgomery Reece" >}}
 "Doomed youth is romantic. Doomed middle age really isn't." 
 {{< /blockquote >}}
