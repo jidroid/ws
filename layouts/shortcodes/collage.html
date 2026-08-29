@@ -1,0 +1,26 @@
+{{ $srcs := split (.Get "srcs" | default "") "," }}
+{{ $caption := .Get "caption" | default "" }}
+<figure class="collage">
+  <div class="collage-grid">
+    {{ range $i, $name := $srcs }}
+      {{ $name = trim $name " " }}
+      {{ $img := $.Page.Resources.Get $name }}
+      {{ if $img }}
+        {{ $thumb := $img.Fit "900x1350 webp q82" }}
+        <a class="collage-item" href="{{ $img.RelPermalink }}">
+          <img
+            src="{{ $thumb.RelPermalink }}"
+            width="{{ $thumb.Width }}"
+            height="{{ $thumb.Height }}"
+            alt="{{ $name }}"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+      {{ end }}
+    {{ end }}
+  </div>
+  {{ with $caption }}
+  <figcaption>{{ . | markdownify }}</figcaption>
+  {{ end }}
+</figure>

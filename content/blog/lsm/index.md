@@ -5,6 +5,7 @@ url: "/lsm"
 summary: "Deep Dive Into LSM"
 date: "2025-12-29"
 acknowledgment: "Thanks to Alex Gaetano Padula for his feedback on this post."
+toc: true
 ---
 
 ## TLDR

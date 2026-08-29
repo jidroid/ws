@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Databases on jidin.org</title>
+		<link>https://jidin.org/tags/databases/</link>
+		<description>Recent content in Databases on jidin.org</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 17 Aug 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://jidin.org/tags/databases/atom.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>NOPE manifesto for advancing the SOTA in databases running on heterogeneous hardware</title>
+				<link>https://jidin.org/worklog/2026-08-17-nope/</link>
+				<pubDate>Mon, 17 Aug 2026 00:00:00 +0000</pubDate>
+				<guid>https://jidin.org/worklog/2026-08-17-nope/</guid>
+				<description>&lt;p&gt;ok&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

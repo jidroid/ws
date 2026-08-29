@@ -1,0 +1,77 @@
+/* --- Photo Collage (tetris-packed mosaic) ---
+   Desktop: 4-col x 2-row grid, aspect 8/3, fully packed, edge-to-edge.
+   Rows are split 4fr:5fr so the top row is 3:2 and bottom row is ~6:5.
+   - 15477 (pos 1) and 9220 (pos 4): full-height 2:3 portrait slots, uncropped.
+   - 12568 (pos 5): 3:2 landscape slot in the top row, uncropped.
+   - 13051 (pos 2): 3:2 top-row slot, uncropped.
+   - 14685, 9999: bottom-row 6:5 tiles (mild crop).
+   Mobile: 2-col grid, tall portrait slots side by side, tiles below.
+*/
+.collage {
+  margin: 2rem 0;
+}
+
+.collage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 4fr 5fr;
+  grid-auto-flow: row;
+  gap: 3px;
+  aspect-ratio: 8 / 3;
+}
+
+.collage-item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  margin: 0;
+}
+
+.collage-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+  border-radius: 0;
+  transition: transform 0.25s ease;
+}
+
+.collage-item:hover img {
+  transform: scale(1.03);
+}
+
+.collage-grid > :nth-child(1) { grid-area: 1 / 1 / 3 / 2; }  /* 15477 tall */
+.collage-grid > :nth-child(2) { grid-area: 1 / 4 / 2 / 5; }  /* 13051 */
+.collage-grid > :nth-child(3) { grid-area: 2 / 2 / 3 / 3; }  /* 14685 */
+.collage-grid > :nth-child(4) { grid-area: 1 / 3 / 3 / 4; }  /* 9220 tall */
+.collage-grid > :nth-child(5) { grid-area: 1 / 2 / 2 / 3; }  /* 12568 3:2 */
+.collage-grid > :nth-child(6) { grid-area: 2 / 4 / 3 / 5; }  /* 9999 */
+
+@media (max-width: 768px) {
+  /* Keep the same tetris feel but with a definitely-sized grid so the
+     absolutely-positioned images (which have no intrinsic height) have real
+     cell heights to fill — unlike the broken `auto` rows, this can't collapse
+     or overflow, and never introduces horizontal scroll.
+     Layout: 2 tall portrait slots side by side, then two full rows of
+     landscape tiles below. */
+  .collage-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    aspect-ratio: 2 / 3;
+  }
+
+  /* Two full-height portrait slots in the top two rows. */
+  .collage-grid > :nth-child(1) { grid-area: 1 / 1 / 3 / 2; }  /* 15477 tall */
+  .collage-grid > :nth-child(4) { grid-area: 1 / 2 / 3 / 3; }  /* 9220 tall */
+
+  /* Landscape tiles stacked below, two per row. */
+  .collage-grid > :nth-child(2) { grid-area: 3 / 1 / 4 / 2; }  /* 13051 */
+  .collage-grid > :nth-child(5) { grid-area: 3 / 2 / 4 / 3; }  /* 12568 */
+  .collage-grid > :nth-child(3) { grid-area: 4 / 1 / 5 / 2; }  /* 14685 */
+  .collage-grid > :nth-child(6) { grid-area: 4 / 2 / 5 / 3; }  /* 9999 */
+}

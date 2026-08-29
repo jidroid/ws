@@ -112,6 +112,7 @@ main > .layout-with-toc {
   margin: 0 auto;
   padding: 3rem 1.5rem;
   display: flex;
+  flex-direction: row-reverse;
   gap: 3rem;
 }
 
@@ -132,6 +133,12 @@ main > .layout-with-toc {
   align-self: flex-start;
   max-height: calc(100vh - 6rem);
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.toc-sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .toc-sidebar .toc-label {
@@ -302,6 +309,10 @@ h1 + p, h2 + p, h3 + p {
 strong, b {
   font-weight: 500;
   color: var(--heading);
+}
+
+.content p {
+  margin: 0 0 1rem 0;
 }
 
 /* --- Post Title --- */

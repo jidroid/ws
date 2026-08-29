@@ -5,8 +5,8 @@
   <a class="skip-link" href="#main">Skip to main</a>
   <main id="main">
   {{ partial "header.html" . }}
-  {{ if eq .Section "blog" }}
-  {{/* Blog posts get the TOC sidebar layout */}}
+  {{ if and (eq .Section "blog") .Params.toc }}
+  {{/* Blog posts get the TOC sidebar layout only when opt-in via front matter (toc: true) */}}
   <div class="layout-with-toc">
     {{ if .TableOfContents }}
     <aside class="toc-sidebar">
@@ -41,7 +41,7 @@
   </div>
   {{ end }}
 </main>
-{{ if and (eq .Section "blog") .TableOfContents }}
+{{ if and (eq .Section "blog") .Params.toc }}
 <script>
 (function() {
   var headings = document.querySelectorAll('article h2, article h3');
